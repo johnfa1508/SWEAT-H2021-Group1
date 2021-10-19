@@ -2,7 +2,6 @@
 package GroupProject.repository;
 
 import GroupProject.model.Antique;
-
 import java.util.ArrayList;
 
 public class AntiqueDataRepository implements AntiqueRepository {
