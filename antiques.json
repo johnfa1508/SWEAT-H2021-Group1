@@ -4,8 +4,8 @@
   "description" : "Very cool table from early 1720s",
   "price" : 230.0
 }, {
-  "name" : "Cool chair from 1839",
+  "name" : "Weird chair from 1839",
   "type" : "chair",
-  "description" : "This very cool chair from late 1830s is very cool",
+  "description" : "This is very weird chair from late 1830s is very weird.",
   "price" : 5982.0
 } ]
