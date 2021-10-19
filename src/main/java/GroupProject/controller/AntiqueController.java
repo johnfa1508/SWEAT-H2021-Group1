@@ -24,8 +24,8 @@ public class AntiqueController {
         System.out.println("""
                 
                 ================== LOGIN ===============
-                   1. Admin
-                   2. User
+                   1. Log in as admin
+                   2. Log in as user
                    3. Leave
                 ========================================
                 """);
@@ -50,8 +50,8 @@ public class AntiqueController {
         System.out.println("""
                 
                 ================ ADMIN =================
-                   1. See antiques
-                   2. Update antique
+                   1. See all antiques for sale
+                   2. Update an antique
                    3. Purchase history (NOT WORKING)
                    4. Log out
                 ========================================
@@ -63,15 +63,6 @@ public class AntiqueController {
             case 2 -> updatePanel();     // Go to admin update panel
             case 3 -> purchaseHistory(); // See purchase history
             case 4 -> loginPanel();      // Go back
-        }
-    }
-
-    // FUNCTION USED TO GO BACK TO CORRECT PREVIOUS PANEL
-    public void goBack() {
-        if (isUser) {
-            userPanel();
-        } else {
-            adminPanel();
         }
     }
 
@@ -168,8 +159,16 @@ public class AntiqueController {
         return null;
     }
 
-    // COMMANDS FOR ADMIN
+    // FUNCTION USED TO GO BACK TO CORRECT PREVIOUS PANEL
+    public void goBack() {
+        if (isUser) {
+            userPanel();
+        } else {
+            adminPanel();
+        }
+    }
 
+    // COMMANDS FOR ADMIN
     // ADMIN - UPDATE SCREEN
     public void updatePanel() {
         int choice;
