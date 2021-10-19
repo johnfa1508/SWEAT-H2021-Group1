@@ -32,15 +32,16 @@ public class AntiqueController {
         choice = inputScanner.nextInt();
 
         switch (choice) {
-            case 1 -> adminPanel();
-            case 2 -> userPanel();
+            case 1 -> adminPanel(); // Go to admin-screen
+            case 2 -> userPanel();  // Go to user-screen
         }
     }
 
     // ADMIN SCREEN
     public void adminPanel() {
-        // Clears previous screen
+        // Clear previous screen
         // FIXME: Clear screen?
+
         isUser = false;
         isAdmin = true;
 
@@ -74,8 +75,9 @@ public class AntiqueController {
         }
     }
 
+    // USER SCREEN
     public void userPanel() {
-        // Clears previous screen
+        // Clear previous screen
         // FIXME: Clear screen?
 
         isUser = true;
@@ -87,8 +89,8 @@ public class AntiqueController {
                 
                 ================= USER =================
                    1. See antiques
-                   2. Purchase antique (NOT WORKING)
-                   3. Sell antique
+                   2. Purchase an antique (NOT WORKING)
+                   3. Sell an antique
                    4. Log out
                 ========================================
                 """);
@@ -101,8 +103,6 @@ public class AntiqueController {
             case 4 -> loginPanel();   // Go back
         }
     }
-
-    // USER SCREEN
 
     // PRINTS OUT ALL ANTIQUES FOR SALE
     public void showAntiques() {
@@ -168,16 +168,17 @@ public class AntiqueController {
         return null;
     }
 
-    // ADMIN COMMANDS
+    // COMMANDS FOR ADMIN
 
-    private void updatePanel() {
+    // ADMIN - UPDATE SCREEN
+    public void updatePanel() {
         int choice;
         Scanner inputScanner = new Scanner(System.in);
         System.out.println("""
                 
                 ============ ADMIN - UPDATE ============
-                   1. Delete antique
-                   2. Edit antique
+                   1. Delete an antique
+                   2. Edit an antique
                    3. Go back
                 ========================================
                 """);
@@ -191,7 +192,7 @@ public class AntiqueController {
     }
 
     // FUNCTION TO DELETE ANTIQUE
-    private void deleteAntique() {
+    public void deleteAntique() {
         String antiqueName;
 
         // Get antique name(key) and store it in antiqueName variable
@@ -206,7 +207,7 @@ public class AntiqueController {
     }
 
     // FUNCTION TO EDIT ANTIQUE
-    private void editAntique() {
+    public void editAntique() {
         String antiqueName;
 
         // Get antique name(key) and store it in antiqueName variable
@@ -224,7 +225,7 @@ public class AntiqueController {
     }
 
     // FUNCTION TO VIEW PURCHASE HISTORY
-    private void purchaseHistory() {
+    public void purchaseHistory() {
         // TODO: Make purchase history?
 
     }

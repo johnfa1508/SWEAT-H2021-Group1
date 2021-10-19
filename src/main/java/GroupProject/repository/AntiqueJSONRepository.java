@@ -94,6 +94,7 @@ public class AntiqueJSONRepository implements AntiqueRepository {
         writeJSON(fileName);
     }
 
+    // FUNCTION TO PURCHASE AN ANTIQUE
     @Override
     public void purchaseAntique(String antiqueKey) {
         /* TODO: Make purchaseAntique()-function:

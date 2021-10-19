@@ -54,12 +54,11 @@ public class Antique {
     public String toString() {
         // TODO: Put buyer's name here?
         return String.format("""
-                \nName: %s
+                
+                Name: %s
                 Type: %s
                 Description: %s
                 Price: %s nok
                 """, getName(), getType(), getDescription(), getPrice());
     }
 }
-
-

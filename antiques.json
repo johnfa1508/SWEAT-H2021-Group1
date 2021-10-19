@@ -3,4 +3,9 @@
   "type" : "table",
   "description" : "Very cool table from early 1720s",
   "price" : 230.0
+}, {
+  "name" : "Cool chair from 1839",
+  "type" : "chair",
+  "description" : "This very cool chair from late 1830s is very cool",
+  "price" : 5982.0
 } ]
