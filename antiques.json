@@ -13,4 +13,9 @@
   "type" : "chair",
   "description" : "This is very weird chair from late 1830s is very weird.",
   "price" : 5982.0
+}, {
+  "name" : "AntiqueTest From laptop",
+  "type" : "table",
+  "description" : "This is a test from laptop",
+  "price" : 420.0
 } ]
