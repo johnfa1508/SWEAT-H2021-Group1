@@ -88,10 +88,10 @@ public class AntiqueController {
         choice = inputScanner.nextInt();
 
         switch (choice) {
-            case 1 -> showAntiques();    // Show all antiques
-            case 2 -> purchaseAntique(); // Buy antique
-            case 3 -> makeAntique(false);     // Add an antique
-            case 4 -> loginPanel();      // Go back
+            case 1 -> showAntiques();     // Show all antiques
+            case 2 -> purchaseAntique();  // Buy antique
+            case 3 -> makeAntique(false); // Add an antique
+            case 4 -> loginPanel();       // Go back
         }
     }
 
