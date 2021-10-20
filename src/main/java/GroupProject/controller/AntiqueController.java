@@ -79,7 +79,7 @@ public class AntiqueController {
         System.out.println("""
                 
                 ================= USER =================
-                   1. See antiques
+                   1. See all antiques for sale
                    2. Purchase an antique (NOT WORKING)
                    3. Sell an antique
                    4. Log out

@@ -4,6 +4,11 @@
   "description" : "Very cool table from early 1720s",
   "price" : 230.0
 }, {
+  "name" : "Golden spoon",
+  "type" : "spoon",
+  "description" : "Spoon used by the king of England",
+  "price" : 1600.0
+}, {
   "name" : "Weird chair from 1839",
   "type" : "chair",
   "description" : "This is very weird chair from late 1830s is very weird.",
