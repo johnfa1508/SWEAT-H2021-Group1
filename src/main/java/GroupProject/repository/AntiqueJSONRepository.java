@@ -159,6 +159,7 @@ public class AntiqueJSONRepository implements AntiqueRepository {
     // FUNCTION TO ADD ANTIQUE TO HASHMAP OF ANTIQUES
     @Override
     public void addAntique(Antique newAntique) {
+        // Add new element to hashmap with key:value pair
         antiqueMap.put(newAntique.getName(), newAntique);
 
         writeJSON(fileName);
@@ -167,6 +168,7 @@ public class AntiqueJSONRepository implements AntiqueRepository {
     // FUNCTION TO DELETE AN ANTIQUE
     @Override
     public void deleteAntique(String antiqueName) {
+        // Remove element from hashmap using key
         antiqueMap.remove(antiqueName);
 
         writeJSON(fileName);
