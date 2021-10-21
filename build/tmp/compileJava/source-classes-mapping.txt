@@ -10,7 +10,7 @@ GroupProject/model/Antique.java
  GroupProject.model.Antique
 GroupProject/repository/AntiqueJSONRepository.java
  GroupProject.repository.AntiqueJSONRepository
-GroupProject/Main.java
- GroupProject.Main
 GroupProject/controller/AntiqueController.java
  GroupProject.controller.AntiqueController
+GroupProject/Main.java
+ GroupProject.Main

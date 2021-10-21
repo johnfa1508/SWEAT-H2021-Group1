@@ -215,6 +215,9 @@ public class AntiqueController {
 
     // FUNCTION TO DELETE ANTIQUE
     public void deleteAntique() {
+        System.out.println("Antiques that can be edited: ");
+        antiqueRepository.showAntiqueNames();
+
         // Get antique name(key) and store it in antiqueName variable
         String antiqueName;
         System.out.println("\nWrite the name of the antique you would like to delete: ");
