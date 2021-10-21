@@ -63,10 +63,16 @@ public class UserJSONRepository {
 
     public void moneyTransaction(Antique antique, String buyerKey) {
         for (Map.Entry<String, User> set : userMap.entrySet()) {
+            // If user is the seller, add to balance
             if (set.getValue().getName().equalsIgnoreCase(antique.getSellerName())) {
-                getSeller().addToBalance(antique.getPrice());
-            } if (set.getValue().getName().equalsIgnoreCase(buyerKey)) {
-                getBuyer().deductFromBalance(antique.getPrice());
+//                getSeller().addToBalance(antique.getPrice());
+                System.out.println("++++ Seller got money");
+            }
+
+            // If user is the buyer, deduct from balance
+            if (set.getValue().getName().equalsIgnoreCase(buyerKey)) {
+//                getBuyer().deductFromBalance(antique.getPrice());
+                System.out.println("---- Buyer lost money");
             }
         }
 
