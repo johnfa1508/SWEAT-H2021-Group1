@@ -80,7 +80,7 @@ public class AntiqueJSONRepository implements AntiqueRepository {
 
     // FUNCTION TO SHOW ANTIQUE-TYPES CURRENTLY FOR SALE
     @Override
-    public void getAntiqueTypes() {
+    public void showAntiqueTypes() {
         // Arraylist to store types of antiques
         ArrayList<String> antiqueTypes = new ArrayList<>();
 
@@ -93,12 +93,29 @@ public class AntiqueJSONRepository implements AntiqueRepository {
         }
 
         // Print types of antiques currently for sale
-        for (String antiqueType : antiqueTypes) {
-            System.out.println(antiqueType);
+        for (String type : antiqueTypes) {
+            System.out.println(type);
         }
     }
 
-    // FUNCTION TO SHOW SPECIFIC ANTIQUE
+    // FUNCTION TO SHOW ANTIQUE NAMES
+    @Override
+    public void showAntiqueNames() {
+        // Arraylist to store names of antiques
+        ArrayList<String> antiqueNames = new ArrayList<>();
+
+        // For-loop that goes through antiqueMap and adds names/keys to arraylist
+        for (Map.Entry<String, Antique> set : antiqueMap.entrySet()) {
+            antiqueNames.add(set.getValue().getName());
+        }
+
+        // Print names/keys
+        for (String names : antiqueNames) {
+            System.out.println(names);
+        }
+    }
+
+    // FUNCTION TO GET SPECIFIC ANTIQUE
     // FIXME: Remove this, not needed?
     @Override
     public Antique getAntique(String antiqueKey) {

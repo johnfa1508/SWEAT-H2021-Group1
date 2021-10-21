@@ -123,7 +123,7 @@ public class AntiqueController {
     public void showSpecificAntique() {
         // Show types of antiques for sale
         System.out.println("The types of antiques for sale are: ");
-        antiqueRepository.getAntiqueTypes();
+        antiqueRepository.showAntiqueTypes();
 
         // Get input from user which type to show
         String userInput;
@@ -222,9 +222,8 @@ public class AntiqueController {
 
     // FUNCTION TO DELETE ANTIQUE
     public void deleteAntique() {
-        String antiqueName;
-
         // Get antique name(key) and store it in antiqueName variable
+        String antiqueName;
         System.out.println("\nWrite the name of the antique you would like to delete: ");
         Scanner inputScanner = new Scanner(System.in);
         antiqueName = inputScanner.nextLine();
@@ -237,9 +236,11 @@ public class AntiqueController {
 
     // FUNCTION TO EDIT ANTIQUE
     public void editAntique() {
-        String antiqueName;
+        System.out.println("Antiques that can be edited: ");
+        antiqueRepository.showAntiqueNames();
 
         // Get antique name(key) and store it in antiqueName variable
+        String antiqueName;
         System.out.println("\nWrite the name of the antique you would like to edit: ");
         Scanner inputScanner = new Scanner(System.in);
         antiqueName = inputScanner.nextLine();

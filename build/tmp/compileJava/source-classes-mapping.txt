@@ -1,16 +1,16 @@
-GroupProject/model/Store.java
- GroupProject.model.Store
-GroupProject/model/User.java
- GroupProject.model.User
-GroupProject/repository/AntiqueRepository.java
- GroupProject.repository.AntiqueRepository
 GroupProject/repository/AntiqueJSONRepository.java
  GroupProject.repository.AntiqueJSONRepository
+GroupProject/model/User.java
+ GroupProject.model.User
 GroupProject/model/Antique.java
  GroupProject.model.Antique
 GroupProject/repository/AntiqueDataRepository.java
  GroupProject.repository.AntiqueDataRepository
 GroupProject/Main.java
  GroupProject.Main
+GroupProject/repository/AntiqueRepository.java
+ GroupProject.repository.AntiqueRepository
 GroupProject/controller/AntiqueController.java
  GroupProject.controller.AntiqueController
+GroupProject/model/Store.java
+ GroupProject.model.Store

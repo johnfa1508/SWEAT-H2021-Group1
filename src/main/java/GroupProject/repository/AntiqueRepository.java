@@ -11,6 +11,7 @@ public interface AntiqueRepository {
     void addAntique(Antique antique);
     void editAntique(String antiqueKey, Antique antique);
     void purchaseAntique(String antiqueKey);
-    void getAntiqueTypes();
+    void showAntiqueTypes();
     void showSpecificAntique(String antiqueType);
+    void showAntiqueNames();
 }
