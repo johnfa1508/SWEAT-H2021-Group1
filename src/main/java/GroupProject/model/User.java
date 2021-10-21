@@ -41,11 +41,13 @@ public class User {
         this.type = type;
     }
 
-    public void addToBalance(double money) {
+    // FUNCTION TO DEPOSIT TO BANK BALANCE
+    public void depositMoney(double money) {
         this.bankBalance += money;
     }
 
-    public void deductFromBalance(double money) {
+    // FUNCTION TO WITHDRAW FROM BANK BALANCE
+    public void withdrawMoney(double money) {
         this.bankBalance -= money;
     }
 }
