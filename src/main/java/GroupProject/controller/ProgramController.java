@@ -195,8 +195,8 @@ public class ProgramController {
                                             userJSONRepository.getBuyer().getName());
 
         // FIXME: Crashes???
-//        userJSONRepository.moneyTransaction(antiqueRepository.getAntique(boughtItem),
-//                                            userJSONRepository.getBuyer().getName());
+        userJSONRepository.moneyTransaction(antiqueRepository.getAntique(boughtItem),
+                                            userJSONRepository.getBuyer().getName());
         userBuyerPanel();
     }
 
