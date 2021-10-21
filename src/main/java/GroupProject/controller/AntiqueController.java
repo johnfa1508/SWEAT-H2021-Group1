@@ -49,7 +49,7 @@ public class AntiqueController {
                 ================ ADMIN =================
                    1. See antiques
                    2. Update an antique
-                   3. Purchase history (WIP)
+                   3. Purchase history
                    4. Log out
                 ========================================
                 """);
@@ -249,7 +249,8 @@ public class AntiqueController {
 
     // FUNCTION TO VIEW PURCHASE HISTORY
     public void purchaseHistory() {
-        // TODO: Make purchase history?
+        antiqueRepository.showPurchaseHistory();
 
+        goBack();
     }
 }

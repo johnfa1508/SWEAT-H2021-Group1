@@ -57,7 +57,10 @@ public class AntiqueJSONRepository implements AntiqueRepository {
         System.out.println("============ ITEMS FOR SALE ============");
 
         for (Map.Entry<String, Antique> set : antiqueMap.entrySet()) {
-            System.out.println(set.getKey() + " = " + set.getValue());
+            // If antique is not sold
+            if (!set.getValue().getSold()) {
+                System.out.println(set.getKey() + " = " + set.getValue());
+            }
         }
 
         System.out.println("========================================");
@@ -70,8 +73,11 @@ public class AntiqueJSONRepository implements AntiqueRepository {
 
         // For-loop that prints out all antiques in antiqueMap
         for (Map.Entry<String, Antique> set : antiqueMap.entrySet()) {
-            if (set.getValue().getType().equalsIgnoreCase(antiqueType)) {
-                System.out.println(set.getKey() + " = " + set.getValue());
+            // If antique is not sold
+            if (!set.getValue().getSold()) {
+                if (set.getValue().getType().equalsIgnoreCase(antiqueType)) {
+                    System.out.println(set.getKey() + " = " + set.getValue());
+                }
             }
         }
 
@@ -86,9 +92,12 @@ public class AntiqueJSONRepository implements AntiqueRepository {
 
         // For-loop that goes through antiqueMap and only adds type to arraylist if it's not added yet
         for (Map.Entry<String, Antique> set : antiqueMap.entrySet()) {
-            // Check if that type is already in list
-            if (!antiqueTypes.contains(set.getValue().getType())) {
-                antiqueTypes.add(set.getValue().getType());
+            // If antique is not sold
+            if (!set.getValue().getSold()) {
+                // Check if that type is already in list
+                if (!antiqueTypes.contains(set.getValue().getType())) {
+                    antiqueTypes.add(set.getValue().getType());
+                }
             }
         }
 
@@ -106,7 +115,10 @@ public class AntiqueJSONRepository implements AntiqueRepository {
 
         // For-loop that goes through antiqueMap and adds names/keys to arraylist
         for (Map.Entry<String, Antique> set : antiqueMap.entrySet()) {
-            antiqueNames.add(set.getValue().getName());
+            // If antique is not sold
+            if (!set.getValue().getSold()) {
+                antiqueNames.add(set.getValue().getName());
+            }
         }
 
         // Print names/keys
@@ -115,12 +127,29 @@ public class AntiqueJSONRepository implements AntiqueRepository {
         }
     }
 
+    @Override
+    public void showPurchaseHistory() {
+        System.out.println("\n================ HISTORY ================");
+
+        for (Map.Entry<String, Antique> set : antiqueMap.entrySet()) {
+            // If antique is sold
+            if (set.getValue().getSold()) {
+                System.out.println(set.getKey() + " = " + set.getValue());
+            }
+        }
+
+        System.out.println("=========================================");
+    }
+
     // FUNCTION TO GET SPECIFIC ANTIQUE
     @Override
     public Antique getAntique(String antiqueKey) {
         for (Map.Entry<String, Antique> set : antiqueMap.entrySet()) {
-            if (set.getValue().getName().equalsIgnoreCase(antiqueKey)) {
-                return set.getValue();
+            // If antique is not sold
+            if (!set.getValue().getSold()) {
+                if (set.getValue().getName().equalsIgnoreCase(antiqueKey)) {
+                    return set.getValue();
+                }
             }
         }
 

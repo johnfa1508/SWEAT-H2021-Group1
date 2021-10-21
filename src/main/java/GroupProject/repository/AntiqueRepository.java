@@ -13,4 +13,5 @@ public interface AntiqueRepository {
     void showAntiqueTypes();
     void showSpecificAntique(String antiqueType);
     void showAntiqueNames();
+    void showPurchaseHistory();
 }

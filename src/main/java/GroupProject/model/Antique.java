@@ -5,6 +5,8 @@ public class Antique {
     private String type;
     private String description;
     private double price;
+    private String status;
+    private boolean sold;
 
     public Antique() {
 
@@ -50,8 +52,30 @@ public class Antique {
         this.price = price;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public boolean getSold() {
+        return sold;
+    }
+
+    public void setSold(boolean sold) {
+        this.sold = sold;
+    }
+
     @Override
     public String toString() {
+        if (getSold()) {
+            setStatus("Sold");
+        } else {
+            setStatus("Not sold");
+        }
+
         // TODO: Put buyer's name here?
         return String.format("""
                 
@@ -59,6 +83,7 @@ public class Antique {
                 Type: %s
                 Description: %s
                 Price: %s nok
-                """, getName(), getType(), getDescription(), getPrice());
+                Status: %s
+                """, getName(), getType(), getDescription(), getPrice(), getStatus());
     }
 }
