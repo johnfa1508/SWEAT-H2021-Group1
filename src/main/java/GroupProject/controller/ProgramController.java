@@ -110,7 +110,8 @@ public class ProgramController {
         switch (choice) {
             case 1 -> showAntiques();     // Show antique screen
             case 2 -> purchaseAntique();  // Buy an antique
-            case 3 -> loginUserPanel();   // Go back
+            case 3 -> showBalance();      // Show balance
+            case 4 -> loginUserPanel();   // Go back
         }
     }
 
@@ -127,7 +128,8 @@ public class ProgramController {
                 ============ USER - SELLER =============
                    1. See antiques
                    2. Sell an antique
-                   3. Log out
+                   3. See bank balance
+                   4. Log out
                 ========================================
                 """);
         choice = inputScanner.nextInt();
@@ -135,7 +137,8 @@ public class ProgramController {
         switch (choice) {
             case 1 -> showAntiques();                 // Show all antiques
             case 2 -> makeAntique(false); // Make an antique
-            case 3 -> loginUserPanel();               // Go back
+            case 3 -> showBalance();                  // Show balance
+            case 4 -> loginUserPanel();               // Go back
         }
     }
 
@@ -190,17 +193,23 @@ public class ProgramController {
         System.out.println("\nWhich item would you like to buy?: ");
         boughtItem = inputScanner.nextLine();
 
-        // If item is already sold, the function will run again
-        if (antiqueRepository.getAntique(boughtItem).getSold()) {
-            System.out.println("That item is already sold! Please try again.\n");
+        // If the buyer does not have enough money, program will send the buyer back
+        if (userJSONRepository.getBuyer().getBankBalance() <
+                antiqueRepository.getAntique(boughtItem).getPrice()) {
+            System.out.println("Your bank balance is insufficient. Please try again.\n");
         } else {
-            // Updates the antique(boolean sold) and sends the buyer's name
-            antiqueRepository.purchaseAntique(antiqueRepository.getAntique(boughtItem),
-                    userJSONRepository.getBuyer().getName());
+            // If item is already sold, the function will run again
+            if (antiqueRepository.getAntique(boughtItem).getSold()) {
+                System.out.println("That item is already sold! Please try again.\n");
+            } else {
+                // Updates the antique(boolean sold) and sends the buyer's name
+                antiqueRepository.purchaseAntique(antiqueRepository.getAntique(boughtItem),
+                        userJSONRepository.getBuyer().getName());
 
-            // Gives money to the seller and deducts money from buyer's account
-            userJSONRepository.moneyTransaction(antiqueRepository.getAntique(boughtItem),
-                    userJSONRepository.getBuyer().getName());
+                // Gives money to the seller and deducts money from buyer's account
+                userJSONRepository.moneyTransaction(antiqueRepository.getAntique(boughtItem),
+                        userJSONRepository.getBuyer().getName());
+            }
         }
 
         userBuyerPanel();
@@ -245,6 +254,16 @@ public class ProgramController {
 
         goBack();
         return null;
+    }
+
+    public void showBalance() {
+        if (isUserSeller) {
+            System.out.println("\nYour bank balance is: " + userJSONRepository.getSeller().getBankBalance());
+        } else {
+            System.out.println("\nYour bank balance is: " + userJSONRepository.getBuyer().getBankBalance());
+        }
+
+        goBack();
     }
 
     // FUNCTION USED TO GO BACK TO CORRECT PREVIOUS PANEL

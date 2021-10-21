@@ -66,13 +66,11 @@ public class UserJSONRepository {
             // If user is the seller, add to balance
             if (set.getValue().getName().equalsIgnoreCase(antique.getSellerName())) {
                 getSeller().addToBalance(antique.getPrice());
-                System.out.println("++++ Seller got money");
             }
 
             // If user is the buyer, deduct from balance
             if (set.getValue().getName().equalsIgnoreCase(buyerKey)) {
                 getBuyer().deductFromBalance(antique.getPrice());
-                System.out.println("---- Buyer lost money");
             }
         }
 

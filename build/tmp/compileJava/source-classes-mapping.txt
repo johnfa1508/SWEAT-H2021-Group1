@@ -6,11 +6,11 @@ GroupProject/model/Antique.java
  GroupProject.model.Antique
 GroupProject/repository/UserJSONRepository.java
  GroupProject.repository.UserJSONRepository
-GroupProject/controller/ProgramController.java
- GroupProject.controller.ProgramController
+GroupProject/Main.java
+ GroupProject.Main
 GroupProject/repository/AntiqueRepository.java
  GroupProject.repository.AntiqueRepository
 GroupProject/model/Store.java
  GroupProject.model.Store
-GroupProject/Main.java
- GroupProject.Main
+GroupProject/controller/ProgramController.java
+ GroupProject.controller.ProgramController
