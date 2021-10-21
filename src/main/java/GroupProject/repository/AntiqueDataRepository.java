@@ -12,7 +12,7 @@ public class AntiqueDataRepository implements AntiqueRepository {
     }
 
     @Override
-    public void getAllAntiques() {
+    public void showAllAntiques() {
         for (Antique anAntique : antiques) {
             System.out.println(anAntique);
         }
@@ -44,6 +44,16 @@ public class AntiqueDataRepository implements AntiqueRepository {
 
     @Override
     public void purchaseAntique(String antiqueKey) {
+
+    }
+
+    @Override
+    public void getAntiqueTypes() {
+
+    }
+
+    @Override
+    public void showSpecificAntique(String antiqueType) {
 
     }
 }

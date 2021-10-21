@@ -50,9 +50,9 @@ public class AntiqueController {
         System.out.println("""
                 
                 ================ ADMIN =================
-                   1. See all antiques for sale
+                   1. See antiques
                    2. Update an antique
-                   3. Purchase history (NOT WORKING)
+                   3. Purchase history (WIP)
                    4. Log out
                 ========================================
                 """);
@@ -79,8 +79,8 @@ public class AntiqueController {
         System.out.println("""
                 
                 ================= USER =================
-                   1. See all antiques for sale
-                   2. Purchase an antique (NOT WORKING)
+                   1. See antiques
+                   2. Purchase an antique (WIP)
                    3. Sell an antique
                    4. Log out
                 ========================================
@@ -95,17 +95,47 @@ public class AntiqueController {
         }
     }
 
-    // PRINTS OUT ALL ANTIQUES FOR SALE
+    // SHOW-ANTIQUE SCREEN
     public void showAntiques() {
-         /* TODO: Make it so it shows specific antique-types??? Screen to choose table/chair/mirror etc
-             and choose which one to show:
-             - Put different types of antiques in an array
-             - Display different types in console?
-          */
+        int choice;
+        Scanner inputScanner = new Scanner(System.in);
+        System.out.println("""
+                
+                =============== ANTIQUES ===============
+                   1. See all antiques for sale
+                   2. See specific types (WIP)
+                   3. Go back
+                ========================================
+                """);
+        choice = inputScanner.nextInt();
 
-        antiqueRepository.getAllAntiques();
+        switch (choice) {
+            case 1 -> {
+                antiqueRepository.showAllAntiques();
+                goBack();
+            }                                // Show all antiques
+            case 2 -> showSpecificAntique(); // Show specific antique type
+            case 3 -> goBack();              // Go back
+        }
+    }
 
-        goBack();
+    // CHOOSE ANTIQUE-TYPE SCREEN
+    public void showSpecificAntique() {
+        // Show types of antiques for sale
+        System.out.println("The types of antiques for sale are: ");
+        antiqueRepository.getAntiqueTypes();
+
+        // Get input from user which type to show
+        String userInput;
+        Scanner inputScanner = new Scanner(System.in);
+        System.out.println("\nWhich one would you like to see?: ");
+        userInput = inputScanner.nextLine();
+
+        // Show antiques of that type
+        antiqueRepository.showSpecificAntique(userInput);
+
+        // Go back to antiques-screen
+        showAntiques();
     }
 
     // PURCHASE AN ANTIQUE FOR SALE

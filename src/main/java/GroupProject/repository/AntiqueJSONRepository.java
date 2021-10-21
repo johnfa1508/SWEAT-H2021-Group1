@@ -53,7 +53,7 @@ public class AntiqueJSONRepository implements AntiqueRepository {
 
     // FUNCTION TO PRINT OUT ALL ANTIQUES
     @Override
-    public void getAllAntiques() {
+    public void showAllAntiques() {
         System.out.println("============ ITEMS FOR SALE ============");
 
         for (Map.Entry<String, Antique> set : antiqueMap.entrySet()) {
@@ -63,7 +63,42 @@ public class AntiqueJSONRepository implements AntiqueRepository {
         System.out.println("========================================");
     }
 
-    // FUNCTION TO PRINT SPECIFIC ANTIQUE
+    // FUNCTION TO SHOW SPECIFIC ANTIQUE TYPE
+    @Override
+    public void showSpecificAntique(String antiqueType) {
+        System.out.println("\n============ ITEMS FOR SALE ============");
+
+        // For-loop that prints out all antiques in antiqueMap
+        for (Map.Entry<String, Antique> set : antiqueMap.entrySet()) {
+            if (set.getValue().getType().equalsIgnoreCase(antiqueType)) {
+                System.out.println(set.getKey() + " = " + set.getValue());
+            }
+        }
+
+        System.out.println("========================================");
+    }
+
+    // FUNCTION TO SHOW ANTIQUE-TYPES CURRENTLY FOR SALE
+    @Override
+    public void getAntiqueTypes() {
+        // Arraylist to store types of antiques
+        ArrayList<String> antiqueTypes = new ArrayList<>();
+
+        // For-loop that goes through antiqueMap and only adds type to arraylist if it's not added yet
+        for (Map.Entry<String, Antique> set : antiqueMap.entrySet()) {
+            // Check if that type is already in list
+            if (!antiqueTypes.contains(set.getValue().getType())) {
+                antiqueTypes.add(set.getValue().getType());
+            }
+        }
+
+        for (String antiqueType : antiqueTypes) {
+            System.out.println(antiqueType);
+        }
+    }
+
+    // FUNCTION TO SHOW SPECIFIC ANTIQUE
+    // FIXME: Remove this, not needed?
     @Override
     public void getAntique(String antiqueName) {
         System.out.println(antiqueMap.get(antiqueName));

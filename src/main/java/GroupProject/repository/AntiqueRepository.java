@@ -6,9 +6,11 @@ public interface AntiqueRepository {
     // FIXME: Delete getAntique()?
     void getAntique(String antiqueName);
 
-    void getAllAntiques();
+    void showAllAntiques();
     void deleteAntique(String antiqueKey);
     void addAntique(Antique antique);
     void editAntique(String antiqueKey, Antique antique);
     void purchaseAntique(String antiqueKey);
+    void getAntiqueTypes();
+    void showSpecificAntique(String antiqueType);
 }
