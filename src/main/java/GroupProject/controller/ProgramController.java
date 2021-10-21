@@ -135,10 +135,10 @@ public class ProgramController {
         choice = inputScanner.nextInt();
 
         switch (choice) {
-            case 1 -> showAntiques();                 // Show all antiques
+            case 1 -> showAntiques();     // Show all antiques
             case 2 -> makeAntique(false); // Make an antique
-            case 3 -> showBalance();                  // Show balance
-            case 4 -> loginUserPanel();               // Go back
+            case 3 -> showBalance();      // Show balance
+            case 4 -> loginUserPanel();   // Go back
         }
     }
 
