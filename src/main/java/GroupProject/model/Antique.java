@@ -77,6 +77,18 @@ public class Antique {
         }
 
         // TODO: Put buyer's name here?
+        if (getSold()) {
+            return String.format("""
+                
+                Name: %s
+                Type: %s
+                Description: %s
+                Price: %s nok
+                Status: %s
+                Buyer: userBuyer
+                """, getName(), getType(), getDescription(), getPrice(), getStatus());
+            }
+
         return String.format("""
                 
                 Name: %s
