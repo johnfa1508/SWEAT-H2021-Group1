@@ -1,15 +1,1 @@
-[ {
-  "name" : "Very cool table from Norway",
-  "type" : "table",
-  "description" : "Tabledescription1",
-  "price" : 230.0,
-  "status" : "Not sold",
-  "sold" : false
-}, {
-  "name" : "Golden spoon",
-  "type" : "spoon",
-  "description" : "Spoondescription2",
-  "price" : 400.0,
-  "status" : null,
-  "sold" : true
-} ]
+[ ]
