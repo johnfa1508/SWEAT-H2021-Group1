@@ -48,7 +48,7 @@ public class ProgramController {
 
         System.out.println("""
                 
-                ================== LOGIN ===============
+                ============== USER - LOGIN ============
                    1. Log in as buyer
                    2. Log in as seller
                    3. Go back
@@ -195,8 +195,8 @@ public class ProgramController {
                                             userJSONRepository.getBuyer().getName());
 
         // FIXME: Crashes???
-        userJSONRepository.moneyTransaction(antiqueRepository.getAntique(boughtItem),
-                                            userJSONRepository.getBuyer().getName());
+//        userJSONRepository.moneyTransaction(antiqueRepository.getAntique(boughtItem),
+//                                            userJSONRepository.getBuyer().getName());
         userBuyerPanel();
     }
 
