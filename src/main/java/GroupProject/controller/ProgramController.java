@@ -83,7 +83,7 @@ public class ProgramController {
         choice = inputScanner.nextInt();
 
         switch (choice) {
-            case 1 -> showAntiques();    // Show all antiques
+            case 1 -> showAntiques();    // Show antique screen
             case 2 -> updatePanel();     // Go to admin update panel
             case 3 -> purchaseHistory(); // See purchase history
             case 4 -> loginPanel();      // Go back
@@ -109,8 +109,8 @@ public class ProgramController {
         choice = inputScanner.nextInt();
 
         switch (choice) {
-            case 1 -> showAntiques();     // Show all antiques
-            case 2 -> purchaseAntique();  // Buy antique
+            case 1 -> showAntiques();     // Show antique screen
+            case 2 -> purchaseAntique();  // Buy an antique
             case 3 -> loginUserPanel();   // Go back
         }
     }
@@ -135,7 +135,7 @@ public class ProgramController {
 
         switch (choice) {
             case 1 -> showAntiques();                   // Show all antiques
-            case 2 -> makeAntique(false); // Buy antique
+            case 2 -> makeAntique(false); // Make an antique
             case 3 -> loginUserPanel();                 // Go back
         }
     }
@@ -194,7 +194,7 @@ public class ProgramController {
         antiqueRepository.purchaseAntique(antiqueRepository.getAntique(boughtItem),
                                             userJSONRepository.getBuyer().getName());
 
-        // FIXME: Crashes
+        // FIXME: Crashes???
         userJSONRepository.moneyTransaction(antiqueRepository.getAntique(boughtItem),
                                             userJSONRepository.getBuyer().getName());
         userBuyerPanel();
