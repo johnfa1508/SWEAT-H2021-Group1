@@ -256,7 +256,7 @@ public class ProgramController {
         return null;
     }
 
-    // Function to show user-balance
+    // FUNCTION TO SHOW USER-BALANCE
     public void showBalance() {
         if (isUserSeller) {
             System.out.println("\nYour bank balance is: " + userJSONRepository.getSeller().getBankBalance());
