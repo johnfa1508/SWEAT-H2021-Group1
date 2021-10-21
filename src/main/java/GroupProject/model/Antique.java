@@ -85,7 +85,8 @@ public class Antique {
                 Description: %s
                 Price: %s nok
                 Status: %s
-                Buyer: userBuyer
+                Seller: userSeller-test
+                Buyer: userBuyer-Test
                 """, getName(), getType(), getDescription(), getPrice(), getStatus());
             }
 
@@ -96,6 +97,7 @@ public class Antique {
                 Description: %s
                 Price: %s nok
                 Status: %s
+                Seller: userSeller-Test
                 """, getName(), getType(), getDescription(), getPrice(), getStatus());
     }
 }
