@@ -19,12 +19,8 @@ public class AntiqueDataRepository implements AntiqueRepository {
     }
 
     @Override
-    public void getAntique(String antiqueName) {
-        for (Antique antique : antiques) {
-            if (antique.getName().equals(antiqueName)) {
-                System.out.println(antique);
-            }
-        }
+    public Antique getAntique(String antiqueName) {
+        return null;
     }
 
     @Override

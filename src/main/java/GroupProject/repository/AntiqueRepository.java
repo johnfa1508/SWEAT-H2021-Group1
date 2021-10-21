@@ -4,7 +4,7 @@ import GroupProject.model.Antique;
 
 public interface AntiqueRepository {
     // FIXME: Delete getAntique()?
-    void getAntique(String antiqueName);
+    Antique getAntique(String antiqueKey);
 
     void showAllAntiques();
     void deleteAntique(String antiqueKey);

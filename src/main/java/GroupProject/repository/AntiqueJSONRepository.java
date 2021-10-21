@@ -92,6 +92,7 @@ public class AntiqueJSONRepository implements AntiqueRepository {
             }
         }
 
+        // Print types of antiques currently for sale
         for (String antiqueType : antiqueTypes) {
             System.out.println(antiqueType);
         }
@@ -100,8 +101,14 @@ public class AntiqueJSONRepository implements AntiqueRepository {
     // FUNCTION TO SHOW SPECIFIC ANTIQUE
     // FIXME: Remove this, not needed?
     @Override
-    public void getAntique(String antiqueName) {
-        System.out.println(antiqueMap.get(antiqueName));
+    public Antique getAntique(String antiqueKey) {
+        for (Map.Entry<String, Antique> set : antiqueMap.entrySet()) {
+            if (set.getValue().getName().equalsIgnoreCase(antiqueKey)) {
+                return set.getValue();
+            }
+        }
+
+        return null;
     }
 
     // FUNCTION TO ADD ANTIQUE TO HASHMAP OF ANTIQUES
