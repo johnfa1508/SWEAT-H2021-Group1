@@ -170,7 +170,7 @@ public class AntiqueController {
         price = inputScanner.nextDouble();
 
         // Create antique and add to list of antiques for sale
-        Antique newAntique = new Antique(name, type, description, price);
+        Antique newAntique = new Antique(name, type, description, price, "userSeller-Test");
 
         if (antiqueReplace) {
             return newAntique;

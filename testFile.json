@@ -3,69 +3,79 @@
   "type" : "spoon",
   "description" : "Spoondescription2. NOT SOLD",
   "price" : 402.0,
-  "status" : null,
-  "sold" : false
+  "status" : "Not sold",
+  "sold" : false,
+  "sellerName" : "userSeller-Test"
 }, {
   "name" : "Chair 1/4 sold",
   "type" : "chair",
   "description" : "Chairdescription1 SOLD",
   "price" : 561.0,
-  "status" : null,
-  "sold" : true
+  "status" : "Sold",
+  "sold" : true,
+  "sellerName" : "userSeller-Test"
 }, {
   "name" : "Chair 2/4 sold",
   "type" : "chair",
   "description" : "Chairdescription2 SOLD",
   "price" : 562.0,
-  "status" : null,
-  "sold" : true
+  "status" : "Sold",
+  "sold" : true,
+  "sellerName" : "userSeller-Test"
 }, {
   "name" : "Spoon 3/3 not sold",
   "type" : "spoon",
   "description" : "Spoondescription2. NOT SOLD",
   "price" : 402.0,
-  "status" : null,
-  "sold" : false
+  "status" : "Not sold",
+  "sold" : false,
+  "sellerName" : "userSeller-Test"
 }, {
   "name" : "Chair 3/4 not sold",
   "type" : "chair",
   "description" : "Chairdescription3 NOT SOLD",
   "price" : 563.0,
-  "status" : null,
-  "sold" : false
+  "status" : "Not sold",
+  "sold" : false,
+  "sellerName" : "userSeller-Test"
 }, {
   "name" : "Table 3/3 not sold",
   "type" : "table",
   "description" : "Tabledescription3. NOT SOLD",
   "price" : 233.0,
-  "status" : null,
-  "sold" : false
+  "status" : "Not sold",
+  "sold" : false,
+  "sellerName" : "userSeller-Test"
 }, {
   "name" : "Spoon 1/3 sold",
   "type" : "spoon",
   "description" : "Spoondescription1. SOLD",
   "price" : 401.0,
-  "status" : null,
-  "sold" : true
+  "status" : "Sold",
+  "sold" : true,
+  "sellerName" : "userSeller-Test"
 }, {
   "name" : "Chair 4/4 sold",
   "type" : "chair",
   "description" : "Chairdescription4 SOLD",
   "price" : 564.0,
-  "status" : null,
-  "sold" : true
+  "status" : "Sold",
+  "sold" : true,
+  "sellerName" : "userSeller-Test"
 }, {
   "name" : "Table 1/3 not sold",
   "type" : "table",
   "description" : "Tabledescription1. NOT SOLD",
   "price" : 231.0,
   "status" : "Not sold",
-  "sold" : false
+  "sold" : false,
+  "sellerName" : "userSeller-Test"
 }, {
   "name" : "Table 2/3 sold",
   "type" : "table",
   "description" : "Tabledescription2. SOLD",
   "price" : 232.0,
-  "status" : null,
-  "sold" : true
+  "status" : "Sold",
+  "sold" : true,
+  "sellerName" : "userSeller-Test"
 } ]

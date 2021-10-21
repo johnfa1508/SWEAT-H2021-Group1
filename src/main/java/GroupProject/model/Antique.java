@@ -7,17 +7,19 @@ public class Antique {
     private double price;
     private String status;
     private boolean sold;
+    private String sellerName;
 
     public Antique() {
 
     }
 
     // CONSTRUCTOR
-    public Antique(String name, String type, String description, double price) {
+    public Antique(String name, String type, String description, double price, String sellerName) {
         this.name = name;
         this.type = type;
         this.description = description;
         this.price = price;
+        this.sellerName = sellerName;
     }
 
     public String getName() {
@@ -50,6 +52,14 @@ public class Antique {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public String getSellerName() {
+        return sellerName;
+    }
+
+    public void setSellerName(String sellerName) {
+        this.sellerName = sellerName;
     }
 
     public String getStatus() {
@@ -85,7 +95,7 @@ public class Antique {
                 Description: %s
                 Price: %s nok
                 Status: %s
-                Seller: userSeller-test
+                Seller: userSeller-Test
                 Buyer: userBuyer-Test
                 """, getName(), getType(), getDescription(), getPrice(), getStatus());
             }
