@@ -116,7 +116,6 @@ public class AntiqueJSONRepository implements AntiqueRepository {
     }
 
     // FUNCTION TO GET SPECIFIC ANTIQUE
-    // FIXME: Remove this, not needed?
     @Override
     public Antique getAntique(String antiqueKey) {
         for (Map.Entry<String, Antique> set : antiqueMap.entrySet()) {

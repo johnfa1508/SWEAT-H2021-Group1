@@ -3,7 +3,6 @@ package GroupProject.repository;
 import GroupProject.model.Antique;
 
 public interface AntiqueRepository {
-    // FIXME: Delete getAntique()?
     Antique getAntique(String antiqueKey);
 
     void showAllAntiques();

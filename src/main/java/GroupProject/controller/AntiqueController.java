@@ -103,7 +103,7 @@ public class AntiqueController {
                 
                 =============== ANTIQUES ===============
                    1. See all antiques for sale
-                   2. See specific types (WIP)
+                   2. See specific types
                    3. Go back
                 ========================================
                 """);
@@ -163,7 +163,6 @@ public class AntiqueController {
         name = inputScanner.nextLine();
 
         // Get type of antique, make type-string lowercase for easier sorting/grouping later
-        // FIXME: Need lowercase to sort?
         System.out.println("\nWhat kind of item is it (table, chair, mirror etc.)? ");
         type = inputScanner.nextLine();
         type = type.toLowerCase();
