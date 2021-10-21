@@ -1,7 +1,6 @@
 package GroupProject.controller;
 
 import GroupProject.model.Antique;
-import GroupProject.model.User;
 import GroupProject.repository.AntiqueRepository;
 import GroupProject.repository.UserJSONRepository;
 import java.util.Scanner;
@@ -102,7 +101,7 @@ public class ProgramController {
                 
                 ============== USER - BUYER ============
                    1. See antiques
-                   2. Purchase an antique (WIP)
+                   2. Purchase an antique
                    3. Log out
                 ========================================
                 """);
@@ -134,9 +133,9 @@ public class ProgramController {
         choice = inputScanner.nextInt();
 
         switch (choice) {
-            case 1 -> showAntiques();                   // Show all antiques
+            case 1 -> showAntiques();                 // Show all antiques
             case 2 -> makeAntique(false); // Make an antique
-            case 3 -> loginUserPanel();                 // Go back
+            case 3 -> loginUserPanel();               // Go back
         }
     }
 
@@ -191,12 +190,19 @@ public class ProgramController {
         System.out.println("\nWhich item would you like to buy?: ");
         boughtItem = inputScanner.nextLine();
 
-        antiqueRepository.purchaseAntique(antiqueRepository.getAntique(boughtItem),
-                                            userJSONRepository.getBuyer().getName());
+        // If item is already sold, the function will run again
+        if (antiqueRepository.getAntique(boughtItem).getSold()) {
+            System.out.println("That item is already sold! Please try again.\n");
+        } else {
+            // Updates the antique(boolean sold) and sends the buyer's name
+            antiqueRepository.purchaseAntique(antiqueRepository.getAntique(boughtItem),
+                    userJSONRepository.getBuyer().getName());
 
-        // FIXME: Crashes???
-        userJSONRepository.moneyTransaction(antiqueRepository.getAntique(boughtItem),
-                                            userJSONRepository.getBuyer().getName());
+            // Gives money to the seller and deducts money from buyer's account
+            userJSONRepository.moneyTransaction(antiqueRepository.getAntique(boughtItem),
+                    userJSONRepository.getBuyer().getName());
+        }
+
         userBuyerPanel();
     }
 

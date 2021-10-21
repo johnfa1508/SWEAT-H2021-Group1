@@ -1,1 +1,9 @@
-[ ]
+[ {
+  "name" : "selltester",
+  "type" : "table",
+  "description" : "selltest",
+  "price" : 250.0,
+  "sold" : true,
+  "sellerName" : "userSeller",
+  "buyerName" : "userBuyer"
+} ]

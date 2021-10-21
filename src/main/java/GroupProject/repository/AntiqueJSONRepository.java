@@ -145,11 +145,8 @@ public class AntiqueJSONRepository implements AntiqueRepository {
     @Override
     public Antique getAntique(String antiqueKey) {
         for (Map.Entry<String, Antique> set : antiqueMap.entrySet()) {
-            // If antique is not sold
-            if (!set.getValue().getSold()) {
-                if (set.getValue().getName().equalsIgnoreCase(antiqueKey)) {
-                    return set.getValue();
-                }
+            if (set.getValue().getName().equalsIgnoreCase(antiqueKey)) {
+                return set.getValue();
             }
         }
 

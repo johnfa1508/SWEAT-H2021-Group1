@@ -43,7 +43,7 @@
   "type" : "chair",
   "description" : "Chairdescription3 NOT SOLD",
   "price" : 563.0,
-  "sold" : false,
+  "sold" : true,
   "sellerName" : "userSeller",
   "buyerName" : "userBuyer"
 }, {

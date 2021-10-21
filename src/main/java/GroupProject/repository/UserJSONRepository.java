@@ -3,7 +3,6 @@ package GroupProject.repository;
 import GroupProject.model.Antique;
 import GroupProject.model.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -61,24 +60,23 @@ public class UserJSONRepository {
         writeJSON(fileName);
     }
 
+    // FUNCTION TO HANDLE TRANSACTION BETWEEN SELLER AND BUYER
     public void moneyTransaction(Antique antique, String buyerKey) {
-        System.out.println("Seller got money");
-        System.out.println("Buyer lost money");
-//        for (Map.Entry<String, User> set : userMap.entrySet()) {
-//            // If user is the seller, add to balance
-//            if (set.getValue().getName().equalsIgnoreCase(antique.getSellerName())) {
-////                getSeller().addToBalance(antique.getPrice());
-//                System.out.println("++++ Seller got money");
-//            }
-//
-//            // If user is the buyer, deduct from balance
-//            if (set.getValue().getName().equalsIgnoreCase(buyerKey)) {
-////                getBuyer().deductFromBalance(antique.getPrice());
-//                System.out.println("---- Buyer lost money");
-//            }
-//        }
+        for (Map.Entry<String, User> set : userMap.entrySet()) {
+            // If user is the seller, add to balance
+            if (set.getValue().getName().equalsIgnoreCase(antique.getSellerName())) {
+                getSeller().addToBalance(antique.getPrice());
+                System.out.println("++++ Seller got money");
+            }
 
-//        writeJSON(fileName);
+            // If user is the buyer, deduct from balance
+            if (set.getValue().getName().equalsIgnoreCase(buyerKey)) {
+                getBuyer().deductFromBalance(antique.getPrice());
+                System.out.println("---- Buyer lost money");
+            }
+        }
+
+        writeJSON(fileName);
     }
 
     public User getSeller() {
