@@ -102,16 +102,17 @@ public class ProgramController {
                 ============== USER - BUYER ============
                    1. See antiques
                    2. Purchase an antique
-                   3. Log out
+                   3. See bank balance
+                   4. Log out
                 ========================================
                 """);
         choice = inputScanner.nextInt();
 
         switch (choice) {
-            case 1 -> showAntiques();     // Show antique screen
-            case 2 -> purchaseAntique();  // Buy an antique
-            case 3 -> showBalance();      // Show balance
-            case 4 -> loginUserPanel();   // Go back
+            case 1 -> showAntiques();    // Show antique screen
+            case 2 -> purchaseAntique(); // Buy an antique
+            case 3 -> showBalance();     // Show balance
+            case 4 -> loginUserPanel();  // Go back
         }
     }
 
