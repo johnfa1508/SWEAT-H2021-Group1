@@ -39,9 +39,6 @@ public class AntiqueController {
 
     // ADMIN SCREEN
     public void adminPanel() {
-        // Clear previous screen
-        // FIXME: Clear screen?
-
         isUser = false;
         isAdmin = true;
 
@@ -68,9 +65,6 @@ public class AntiqueController {
 
     // USER SCREEN
     public void userPanel() {
-        // Clear previous screen
-        // FIXME: Clear screen?
-
         isUser = true;
         isAdmin = false;
 
