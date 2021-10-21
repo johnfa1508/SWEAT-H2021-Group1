@@ -9,7 +9,7 @@ public interface AntiqueRepository {
     void deleteAntique(String antiqueKey);
     void addAntique(Antique antique);
     void editAntique(String antiqueKey, Antique antique);
-    void purchaseAntique(String antiqueKey);
+    void purchaseAntique(Antique antique, String buyerName);
     void showAntiqueTypes();
     void showSpecificAntique(String antiqueType);
     void showAntiqueNames();

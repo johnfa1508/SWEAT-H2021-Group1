@@ -5,10 +5,11 @@ public class Antique {
     private String type;
     private String description;
     private double price;
-    private String status;
     private boolean sold;
     private String sellerName;
+    private String buyerName;
 
+    // OVERLOAD
     public Antique() {
 
     }
@@ -62,12 +63,12 @@ public class Antique {
         this.sellerName = sellerName;
     }
 
-    public String getStatus() {
-        return status;
+    public String getBuyerName() {
+        return buyerName;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setBuyerName(String buyerName) {
+        this.buyerName = buyerName;
     }
 
     public boolean getSold() {
@@ -81,23 +82,15 @@ public class Antique {
     @Override
     public String toString() {
         if (getSold()) {
-            setStatus("Sold");
-        } else {
-            setStatus("Not sold");
-        }
-
-        // TODO: Put buyer's name here?
-        if (getSold()) {
             return String.format("""
                 
                 Name: %s
                 Type: %s
                 Description: %s
                 Price: %s nok
-                Status: %s
-                Seller: userSeller-Test
-                Buyer: userBuyer-Test
-                """, getName(), getType(), getDescription(), getPrice(), getStatus());
+                Seller: %s
+                Buyer: %s
+                """, getName(), getType(), getDescription(), getPrice(), getSellerName(), getBuyerName());
             }
 
         return String.format("""
@@ -106,8 +99,7 @@ public class Antique {
                 Type: %s
                 Description: %s
                 Price: %s nok
-                Status: %s
-                Seller: userSeller-Test
-                """, getName(), getType(), getDescription(), getPrice(), getStatus());
+                Seller: %s
+                """, getName(), getType(), getDescription(), getPrice(), getSellerName());
     }
 }

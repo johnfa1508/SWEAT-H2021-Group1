@@ -185,11 +185,10 @@ public class AntiqueJSONRepository implements AntiqueRepository {
 
     // FUNCTION TO PURCHASE AN ANTIQUE
     @Override
-    public void purchaseAntique(String antiqueKey) {
-        /* TODO: Make purchaseAntique()-function:
-            - Receive key from perimeter. When bought remove from list of antiques for sale and give money to store/user
-            - When bought put in purchase history? (JSON)?
-         */
-        System.out.println("purchase");
+    public void purchaseAntique(Antique antique, String buyerName) {
+        antique.setSold(true);
+        antique.setBuyerName(buyerName);
+
+        writeJSON(fileName);
     }
 }

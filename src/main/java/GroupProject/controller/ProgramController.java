@@ -1,22 +1,27 @@
 package GroupProject.controller;
 
 import GroupProject.model.Antique;
+import GroupProject.model.User;
 import GroupProject.repository.AntiqueRepository;
+import GroupProject.repository.UserJSONRepository;
 import java.util.Scanner;
 
-public class AntiqueController {
+public class ProgramController {
     private AntiqueRepository antiqueRepository;
+    private UserJSONRepository userJSONRepository;
 
     // BOOLEANS USED TO GO BACK TO CORRECT PREVIOUS PANEL
-    boolean isUser;
+    boolean isUserSeller;
+    boolean isUserBuyer;
     boolean isAdmin;
 
     // CONSTRUCTOR
-    public AntiqueController(AntiqueRepository antiqueRepository) {
+    public ProgramController(AntiqueRepository antiqueRepository, UserJSONRepository userJSONRepository) {
         this.antiqueRepository = antiqueRepository;
+        this.userJSONRepository = userJSONRepository;
     }
 
-    // LOGIN SCREEN
+    // LOGIN SCREENS
     public void loginPanel() {
         int choice;
         Scanner inputScanner = new Scanner(System.in);
@@ -32,14 +37,36 @@ public class AntiqueController {
         choice = inputScanner.nextInt();
 
         switch (choice) {
-            case 1 -> adminPanel(); // Go to admin-screen
-            case 2 -> userPanel();  // Go to user-screen
+            case 1 -> adminPanel();     // Go to admin-screen
+            case 2 -> loginUserPanel(); // Go to user-login screen
+        }
+    }
+
+    public void loginUserPanel() {
+        int choice;
+        Scanner inputScanner = new Scanner(System.in);
+
+        System.out.println("""
+                
+                ================== LOGIN ===============
+                   1. Log in as buyer
+                   2. Log in as seller
+                   3. Go back
+                ========================================
+                """);
+        choice = inputScanner.nextInt();
+
+        switch (choice) {
+            case 1 -> userBuyerPanel();  // Go to buyer-screen
+            case 2 -> userSellerPanel(); // Go to seller-screen
+            case 3 -> loginPanel();      // Go to login-screen
         }
     }
 
     // ADMIN SCREEN
     public void adminPanel() {
-        isUser = false;
+        isUserSeller = false;
+        isUserBuyer = false;
         isAdmin = true;
 
         int choice;
@@ -63,20 +90,20 @@ public class AntiqueController {
         }
     }
 
-    // USER SCREEN
-    public void userPanel() {
-        isUser = true;
+    // USER - BUYER SCREEN
+    public void userBuyerPanel() {
+        isUserSeller = false;
+        isUserBuyer = true;
         isAdmin = false;
 
         int choice;
         Scanner inputScanner = new Scanner(System.in);
         System.out.println("""
                 
-                ================= USER =================
+                ============== USER - BUYER ============
                    1. See antiques
                    2. Purchase an antique (WIP)
-                   3. Sell an antique
-                   4. Log out
+                   3. Log out
                 ========================================
                 """);
         choice = inputScanner.nextInt();
@@ -84,8 +111,32 @@ public class AntiqueController {
         switch (choice) {
             case 1 -> showAntiques();     // Show all antiques
             case 2 -> purchaseAntique();  // Buy antique
-            case 3 -> makeAntique(false); // Add an antique
-            case 4 -> loginPanel();       // Go back
+            case 3 -> loginUserPanel();   // Go back
+        }
+    }
+
+    // USER - SELLER SCREEN
+    public void userSellerPanel() {
+        isUserSeller = true;
+        isUserBuyer = false;
+        isAdmin = false;
+
+        int choice;
+        Scanner inputScanner = new Scanner(System.in);
+        System.out.println("""
+                
+                ============ USER - SELLER =============
+                   1. See antiques
+                   2. Sell an antique
+                   3. Log out
+                ========================================
+                """);
+        choice = inputScanner.nextInt();
+
+        switch (choice) {
+            case 1 -> showAntiques();                   // Show all antiques
+            case 2 -> makeAntique(false); // Buy antique
+            case 3 -> loginUserPanel();                 // Go back
         }
     }
 
@@ -134,11 +185,19 @@ public class AntiqueController {
 
     // PURCHASE AN ANTIQUE FOR SALE
     public void purchaseAntique(){
-        /* TODO: Make purchaseAntique()-function in controller:
-            - Get name of antique(key) and send it to purchaseAntique()-function in repository
-         */
+        String boughtItem;
 
-        antiqueRepository.purchaseAntique("purchase");
+        Scanner inputScanner = new Scanner(System.in);
+        System.out.println("\nWhich item would you like to buy?: ");
+        boughtItem = inputScanner.nextLine();
+
+        antiqueRepository.purchaseAntique(antiqueRepository.getAntique(boughtItem),
+                                            userJSONRepository.getBuyer().getName());
+
+        // FIXME: Crashes
+        userJSONRepository.moneyTransaction(antiqueRepository.getAntique(boughtItem),
+                                            userJSONRepository.getBuyer().getName());
+        userBuyerPanel();
     }
 
     // FUNCTION TO MAKE ANTIQUE-OBJECT. RECEIVES BOOLEAN TO KNOW IF IT'S FOR REPLACEMENT OR IF IT'S NEW
@@ -170,7 +229,7 @@ public class AntiqueController {
         price = inputScanner.nextDouble();
 
         // Create antique and add to list of antiques for sale
-        Antique newAntique = new Antique(name, type, description, price, "userSeller-Test");
+        Antique newAntique = new Antique(name, type, description, price, userJSONRepository.getSeller().getName());
 
         if (antiqueReplace) {
             return newAntique;
@@ -184,8 +243,10 @@ public class AntiqueController {
 
     // FUNCTION USED TO GO BACK TO CORRECT PREVIOUS PANEL
     public void goBack() {
-        if (isUser) {
-            userPanel();
+        if (isUserSeller) {
+            userSellerPanel();
+        } if (isUserBuyer){
+            userBuyerPanel();
         } else {
             adminPanel();
         }
