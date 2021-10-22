@@ -112,11 +112,11 @@ public class ProgramController {
         choice = inputScanner.nextInt();
 
         switch (choice) {
-            case 1 -> showAntiques();               // Show antique screen
-            case 2 -> purchaseAntique(currentUser); // Buy an antique
-            case 3 -> makeAntique(false);           // Make an antique
-            case 4 -> showBalance(currentUser);     // Show balance
-            case 5 -> loginPanel();                 // Log out
+            case 1 -> showAntiques();           // Show antique screen
+            case 2 -> purchaseAntique();        // Buy an antique
+            case 3 -> makeAntique(false);       // Make an antique
+            case 4 -> showBalance(currentUser); // Show balance
+            case 5 -> loginPanel();             // Log out
         }
     }
 
@@ -189,7 +189,13 @@ public class ProgramController {
     }
 
     // PURCHASE AN ANTIQUE FOR SALE
-    public void purchaseAntique(User user){
+    public void purchaseAntique(){
+        // Checks if there are items for sale
+        if (antiqueRepository.isEmpty()) {
+            System.out.println("There are currently no items for sale.");
+            userPanel(currentUser);
+        }
+
         // Show antiques for sale
         System.out.println("Antiques that are for sale are: ");
         antiqueRepository.showAntiqueNames(false);
@@ -199,31 +205,31 @@ public class ProgramController {
         System.out.println("\nWhich item would you like to buy?: ");
         boughtItem = inputScanner.nextLine();
 
-        // Checks if user is trying to buy an item user is selling
+        // Checks if user is trying to buy an item they're selling
         if (!currentUser.getName().equalsIgnoreCase(antiqueRepository.getAntique(boughtItem).getSellerName())) {
             // If the buyer does not have enough money, program will send the buyer back
             if (currentUser.getBankBalance() < antiqueRepository.getAntique(boughtItem).getPrice()) {
                 System.out.println("Your bank balance is insufficient. Please try again.\n");
             } else {
-                // If item is already sold, the function will run again
+                // If item is already sold, user will be sent back
                 if (antiqueRepository.getAntique(boughtItem).getSold()) {
                     System.out.println("That item is already sold! Please try again.\n");
                 } else {
                     System.out.println("Antique was bought successfully.");
                     // Updates the antique(boolean sold) and sends the buyer's name
                     antiqueRepository.purchaseAntique(antiqueRepository.getAntique(boughtItem),
-                                                        currentUser.getName());
+                            currentUser.getName());
 
                     // Gives money to the seller and deducts money from buyer's account
                     userJSONRepository.moneyTransaction(antiqueRepository.getAntique(boughtItem),
-                                                        currentUser.getName());
+                            currentUser.getName());
                 }
             }
         } else {
             System.out.println("You can not buy an item you are selling. Please try again.\n");
         }
 
-        userPanel(user);
+        userPanel(currentUser);
     }
 
     // FUNCTION TO MAKE ANTIQUE-OBJECT. RECEIVES BOOLEAN TO KNOW IF IT'S FOR REPLACEMENT OR IF IT'S NEW
