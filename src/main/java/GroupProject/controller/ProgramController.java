@@ -363,7 +363,7 @@ public class ProgramController {
 
         // Get antique name(key) and store it in antiqueName variable
         String antiqueName;
-        System.out.println("\nWrite the name of the antique you would like to edit: ");
+        System.out.println("\nWrite the name of the antique you would like to edit (CANCEL to cancel): ");
         Scanner inputScanner = new Scanner(System.in);
         antiqueName = inputScanner.nextLine();
 

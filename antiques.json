@@ -15,6 +15,14 @@
   "sellerName" : "userTest1",
   "buyerName" : "userTest2"
 }, {
+  "name" : "Antique john buyer",
+  "type" : "fork",
+  "description" : "Test",
+  "price" : 800.0,
+  "sold" : false,
+  "sellerName" : "john",
+  "buyerName" : null
+}, {
   "name" : "selltester2",
   "type" : "table",
   "description" : "selltester2",
