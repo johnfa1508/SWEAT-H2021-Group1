@@ -7,8 +7,11 @@ import GroupProject.repository.UserRepository;
 import java.util.Scanner;
 
 public class ProgramController {
+    // REPOSITORIES
     private AntiqueRepository antiqueRepository;
     private UserRepository userRepository;
+
+    // USED TO TRACK WHICH USER IS CURRENTLY LOGGED IN
     private User currentUser;
 
     // BOOLEANS USED TO GO BACK TO CORRECT PREVIOUS PANEL
@@ -112,11 +115,11 @@ public class ProgramController {
         choice = inputScanner.nextInt();
 
         switch (choice) {
-            case 1 -> showAntiques();           // Show antique screen
-            case 2 -> purchaseAntique();        // Buy an antique
-            case 3 -> makeAntique(false);       // Make an antique
-            case 4 -> showBalance(currentUser); // Show balance
-            case 5 -> loginPanel();             // Log out
+            case 1 -> showAntiques();     // Show antique screen
+            case 2 -> purchaseAntique();  // Buy an antique
+            case 3 -> makeAntique(false); // Make an antique
+            case 4 -> showBalance();      // Show balance
+            case 5 -> loginPanel();       // Log out
         }
     }
 
@@ -174,8 +177,8 @@ public class ProgramController {
     }
 
     // FUNCTION TO SHOW USER-BALANCE
-    public void showBalance(User user) {
-        System.out.println("\nYour bank balance is: " + user.getBankBalance() + " nok");
+    public void showBalance() {
+        System.out.println("\nYour bank balance is: " + currentUser.getBankBalance() + " nok");
 
         goBack();
     }
