@@ -122,6 +122,11 @@ public class ProgramController {
 
     // SHOW-ANTIQUE SCREEN
     public void showAntiques() {
+        if (antiqueRepository.isEmpty()) {
+            System.out.println("*** There are currently no antiques to show. ***");
+            goBack();
+        }
+
         int choice;
         Scanner inputScanner = new Scanner(System.in);
         System.out.println("""
@@ -136,13 +141,8 @@ public class ProgramController {
 
         switch (choice) {
             case 1 -> {
-                if (!antiqueRepository.isEmpty()) {
                     antiqueRepository.showAntiquesForSale();
                     showAntiques();
-                } else {
-                    System.out.println("*** There are currently no antiques for sale. ***");
-                    showAntiques();
-                }
             }                                // Show all antiques if there's antiques for sale
             case 2 -> showSpecificAntique(); // Show specific antique type
             case 3 -> goBack();              // Go back
@@ -151,12 +151,6 @@ public class ProgramController {
 
     // CHOOSE ANTIQUE-TYPE SCREEN
     public void showSpecificAntique() {
-        // Checks if there are items for sale
-        if (antiqueRepository.isEmpty()) {
-            System.out.println("*** There are currently no antiques for sale. ***");
-            showAntiques();
-        }
-
         // Show types of antiques for sale
         System.out.println("The types of antiques for sale are: ");
         antiqueRepository.showAntiqueTypes();

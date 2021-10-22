@@ -1,10 +1,10 @@
 [ {
   "name" : "john",
-  "bankBalance" : 500000.0
+  "bankBalance" : 499950.0
 }, {
   "name" : "userTest2",
   "bankBalance" : 9500.0
 }, {
   "name" : "userTest1",
-  "bankBalance" : 10500.0
+  "bankBalance" : 10550.0
 } ]

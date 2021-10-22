@@ -1,4 +1,12 @@
 [ {
+  "name" : "sellToJohn test",
+  "type" : "mirror",
+  "description" : "Test to sell to john-user",
+  "price" : 50.0,
+  "sold" : true,
+  "sellerName" : "userTest1",
+  "buyerName" : "john"
+}, {
   "name" : "selltester3",
   "type" : "spoon",
   "description" : "selltester3",
