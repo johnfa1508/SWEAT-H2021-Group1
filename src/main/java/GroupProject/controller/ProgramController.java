@@ -1,6 +1,7 @@
 package GroupProject.controller;
 
 import GroupProject.model.Antique;
+import GroupProject.model.User;
 import GroupProject.repository.AntiqueRepository;
 import GroupProject.repository.UserJSONRepository;
 import java.util.Scanner;
@@ -8,10 +9,10 @@ import java.util.Scanner;
 public class ProgramController {
     private AntiqueRepository antiqueRepository;
     private UserJSONRepository userJSONRepository;
+    private User currentUser;
 
     // BOOLEANS USED TO GO BACK TO CORRECT PREVIOUS PANEL
-    boolean isUserSeller;
-    boolean isUserBuyer;
+    boolean isUser;
     boolean isAdmin;
 
     // CONSTRUCTOR
@@ -22,6 +23,9 @@ public class ProgramController {
 
     // LOGIN SCREENS
     public void loginPanel() {
+        // Boolean to check if user still wants to log in
+        boolean whileOn = true;
+
         int choice;
         Scanner inputScanner = new Scanner(System.in);
 
@@ -31,41 +35,36 @@ public class ProgramController {
                    1. Log in as admin
                    2. Log in as user
                    3. Leave
+                   4. Make user (TEST PURPOSES)
                 ========================================
                 """);
-        choice = inputScanner.nextInt();
 
-        switch (choice) {
-            case 1 -> adminPanel();     // Go to admin-screen
-            case 2 -> loginUserPanel(); // Go to user-login screen
+        while (whileOn) {
+            choice = inputScanner.nextInt();
+
+            switch (choice) {
+                case 1 -> adminPanel();     // Go to admin-screen
+                case 2 -> loginUserPanel(); // Go to user-login screen
+                case 3 -> whileOn = false;  // Leave
+                case 4 -> makeUser();       // Make new user (TEST PURPOSES)
+            }
         }
     }
 
     public void loginUserPanel() {
-        int choice;
+        System.out.println("Which user would you like to log in to?:");
+        userJSONRepository.showUserNames();
+
+        String userInput;
         Scanner inputScanner = new Scanner(System.in);
+        userInput = inputScanner.nextLine();
 
-        System.out.println("""
-                
-                ============== USER - LOGIN ============
-                   1. Log in as buyer
-                   2. Log in as seller
-                   3. Go back
-                ========================================
-                """);
-        choice = inputScanner.nextInt();
-
-        switch (choice) {
-            case 1 -> userBuyerPanel();  // Go to buyer-screen
-            case 2 -> userSellerPanel(); // Go to seller-screen
-            case 3 -> loginPanel();      // Go to login-screen
-        }
+        userPanel(userJSONRepository.getUser(userInput));
     }
 
     // ADMIN SCREEN
     public void adminPanel() {
-        isUserSeller = false;
-        isUserBuyer = false;
+        isUser = false;
         isAdmin = true;
 
         int choice;
@@ -76,7 +75,8 @@ public class ProgramController {
                    1. See antiques
                    2. Update an antique
                    3. Purchase history
-                   4. Log out
+                   4. See all users
+                   5. Log out
                 ========================================
                 """);
         choice = inputScanner.nextInt();
@@ -85,61 +85,38 @@ public class ProgramController {
             case 1 -> showAntiques();    // Show antique screen
             case 2 -> updatePanel();     // Go to admin update panel
             case 3 -> purchaseHistory(); // See purchase history
-            case 4 -> loginPanel();      // Go back
+            case 4 -> showUsers();       // Show all users
+            case 5 -> loginPanel();      // Go back
         }
     }
 
-    // USER - BUYER SCREEN
-    public void userBuyerPanel() {
-        isUserSeller = false;
-        isUserBuyer = true;
+    // USER SCREEN
+    public void userPanel(User user) {
+        currentUser = user;
+
+        isUser = true;
         isAdmin = false;
 
         int choice;
         Scanner inputScanner = new Scanner(System.in);
         System.out.println("""
                 
-                ============== USER - BUYER ============
+                ================= USER =================
                    1. See antiques
                    2. Purchase an antique
-                   3. See bank balance
-                   4. Log out
+                   3. Sell an antique
+                   4. See bank balance
+                   5. Log out
                 ========================================
                 """);
         choice = inputScanner.nextInt();
 
         switch (choice) {
-            case 1 -> showAntiques();    // Show antique screen
-            case 2 -> purchaseAntique(); // Buy an antique
-            case 3 -> showBalance();     // Show balance
-            case 4 -> loginUserPanel();  // Go back
-        }
-    }
-
-    // USER - SELLER SCREEN
-    public void userSellerPanel() {
-        isUserSeller = true;
-        isUserBuyer = false;
-        isAdmin = false;
-
-        int choice;
-        Scanner inputScanner = new Scanner(System.in);
-        System.out.println("""
-                
-                ============ USER - SELLER =============
-                   1. See antiques
-                   2. Sell an antique
-                   3. See bank balance
-                   4. Log out
-                ========================================
-                """);
-        choice = inputScanner.nextInt();
-
-        switch (choice) {
-            case 1 -> showAntiques();     // Show all antiques
-            case 2 -> makeAntique(false); // Make an antique
-            case 3 -> showBalance();      // Show balance
-            case 4 -> loginUserPanel();   // Go back
+            case 1 -> showAntiques();     // Show antique screen
+            case 2 -> purchaseAntique(currentUser);  // Buy an antique
+            case 3 -> makeAntique(false); // Make an antique
+            case 4 -> showBalance(currentUser);      // Show balance
+            case 5 -> loginPanel();   // Log out
         }
     }
 
@@ -159,8 +136,8 @@ public class ProgramController {
 
         switch (choice) {
             case 1 -> {
-                antiqueRepository.showAllAntiques();
-                goBack();
+                antiqueRepository.showAntiquesForSale();
+                showAntiques();
             }                                // Show all antiques
             case 2 -> showSpecificAntique(); // Show specific antique type
             case 3 -> goBack();              // Go back
@@ -186,34 +163,67 @@ public class ProgramController {
         showAntiques();
     }
 
-    // PURCHASE AN ANTIQUE FOR SALE
-    public void purchaseAntique(){
-        String boughtItem;
+    // FUNCTION TO SHOW USER-BALANCE
+    public void showBalance(User user) {
+        System.out.println("\nYour bank balance is: " + user.getBankBalance());
 
+        goBack();
+    }
+
+    // FUNCTION TO MAKE NEW USER
+    public void makeUser() {
+        String name;
+        double bankBalance;
+
+        Scanner inputScanner = new Scanner(System.in);
+        System.out.println("\nWrite the name of the new user: ");
+        name = inputScanner.nextLine();
+
+        System.out.println("\nWrite how much there's in the bank balance: ");
+        bankBalance = inputScanner.nextDouble();
+
+        User newUser = new User(name, bankBalance);
+        userJSONRepository.addUser(newUser);
+
+        loginPanel();
+    }
+
+    // PURCHASE AN ANTIQUE FOR SALE
+    public void purchaseAntique(User user){
+        // Show antiques for sale
+        System.out.println("Antiques that are for sale are: ");
+        antiqueRepository.showAntiqueNames(false);
+
+        String boughtItem;
         Scanner inputScanner = new Scanner(System.in);
         System.out.println("\nWhich item would you like to buy?: ");
         boughtItem = inputScanner.nextLine();
 
-        // If the buyer does not have enough money, program will send the buyer back
-        if (userJSONRepository.getBuyer().getBankBalance() <
-                antiqueRepository.getAntique(boughtItem).getPrice()) {
-            System.out.println("Your bank balance is insufficient. Please try again.\n");
-        } else {
-            // If item is already sold, the function will run again
-            if (antiqueRepository.getAntique(boughtItem).getSold()) {
-                System.out.println("That item is already sold! Please try again.\n");
+        // Checks if user is trying to buy an item user is selling
+        if (!currentUser.getName().equalsIgnoreCase(antiqueRepository.getAntique(boughtItem).getSellerName())) {
+            // If the buyer does not have enough money, program will send the buyer back
+            if (currentUser.getBankBalance() < antiqueRepository.getAntique(boughtItem).getPrice()) {
+                System.out.println("Your bank balance is insufficient. Please try again.\n");
             } else {
-                // Updates the antique(boolean sold) and sends the buyer's name
-                antiqueRepository.purchaseAntique(antiqueRepository.getAntique(boughtItem),
-                        userJSONRepository.getBuyer().getName());
+                // If item is already sold, the function will run again
+                if (antiqueRepository.getAntique(boughtItem).getSold()) {
+                    System.out.println("That item is already sold! Please try again.\n");
+                } else {
+                    System.out.println("Antique was bought successfully.");
+                    // Updates the antique(boolean sold) and sends the buyer's name
+                    antiqueRepository.purchaseAntique(antiqueRepository.getAntique(boughtItem),
+                                                        currentUser.getName());
 
-                // Gives money to the seller and deducts money from buyer's account
-                userJSONRepository.moneyTransaction(antiqueRepository.getAntique(boughtItem),
-                        userJSONRepository.getBuyer().getName());
+                    // Gives money to the seller and deducts money from buyer's account
+                    userJSONRepository.moneyTransaction(antiqueRepository.getAntique(boughtItem),
+                                                        currentUser.getName());
+                }
             }
+        } else {
+            System.out.println("You can not buy an item you are selling. Please try again.\n");
         }
 
-        userBuyerPanel();
+        userPanel(user);
     }
 
     // FUNCTION TO MAKE ANTIQUE-OBJECT. RECEIVES BOOLEAN TO KNOW IF IT'S FOR REPLACEMENT OR IF IT'S NEW
@@ -245,7 +255,7 @@ public class ProgramController {
         price = inputScanner.nextDouble();
 
         // Create antique and add to list of antiques for sale
-        Antique newAntique = new Antique(name, type, description, price, userJSONRepository.getSeller().getName());
+        Antique newAntique = new Antique(name, type, description, price, currentUser.getName());
 
         if (antiqueReplace) {
             return newAntique;
@@ -257,29 +267,22 @@ public class ProgramController {
         return null;
     }
 
-    // FUNCTION TO SHOW USER-BALANCE
-    public void showBalance() {
-        if (isUserSeller) {
-            System.out.println("\nYour bank balance is: " + userJSONRepository.getSeller().getBankBalance());
-        } else {
-            System.out.println("\nYour bank balance is: " + userJSONRepository.getBuyer().getBankBalance());
-        }
-
-        goBack();
-    }
-
     // FUNCTION USED TO GO BACK TO CORRECT PREVIOUS PANEL
     public void goBack() {
-        if (isUserSeller) {
-            userSellerPanel();
-        } if (isUserBuyer){
-            userBuyerPanel();
+        if (isUser) {
+            userPanel(currentUser);
         } else {
             adminPanel();
         }
     }
 
     // COMMANDS FOR ADMIN
+    // FUNCTION TO SHOW ALL USERS
+    public void showUsers() {
+        userJSONRepository.showUsers();
+        goBack();
+    }
+
     // ADMIN - UPDATE SCREEN
     public void updatePanel() {
         int choice;
@@ -303,8 +306,9 @@ public class ProgramController {
 
     // FUNCTION TO DELETE ANTIQUE
     public void deleteAntique() {
+        // Checks if there are
         System.out.println("Antiques that can be deleted: ");
-        antiqueRepository.showAntiqueNames();
+        antiqueRepository.showAntiqueNames(true);
 
         // Get antique name(key) and store it in antiqueName variable
         String antiqueName;
@@ -320,20 +324,29 @@ public class ProgramController {
 
     // FUNCTION TO EDIT ANTIQUE
     public void editAntique() {
-        System.out.println("Antiques that can be edited: ");
-        antiqueRepository.showAntiqueNames();
+        if (antiqueRepository.isEmpty()) {
+            System.out.println("There are no items that can be edited.\n");
+        } else {
+            System.out.println("Antiques that can be edited: ");
+            antiqueRepository.showAntiqueNames(false);
 
-        // Get antique name(key) and store it in antiqueName variable
-        String antiqueName;
-        System.out.println("\nWrite the name of the antique you would like to edit: ");
-        Scanner inputScanner = new Scanner(System.in);
-        antiqueName = inputScanner.nextLine();
+            // Get antique name(key) and store it in antiqueName variable
+            String antiqueName;
+            System.out.println("\nWrite the name of the antique you would like to edit: ");
+            Scanner inputScanner = new Scanner(System.in);
+            antiqueName = inputScanner.nextLine();
 
-        // Make new antique using makeAntique()-function
-        Antique newAntique = makeAntique(true);
+            if (antiqueRepository.getAntique(antiqueName).getSold()) {
+                System.out.println("That item is already sold!\n");
+                updatePanel();
+            }
 
-        // Replace antique with new antique
-        antiqueRepository.editAntique(antiqueName, newAntique);
+            // Make new antique using makeAntique()-function
+            Antique newAntique = makeAntique(true);
+
+            // Replace antique with new antique
+            antiqueRepository.editAntique(antiqueName, newAntique);
+        }
 
         goBack();
     }

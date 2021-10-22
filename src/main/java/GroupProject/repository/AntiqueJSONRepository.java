@@ -53,7 +53,7 @@ public class AntiqueJSONRepository implements AntiqueRepository {
 
     // FUNCTION TO PRINT OUT ALL ANTIQUES
     @Override
-    public void showAllAntiques() {
+    public void showAntiquesForSale() {
         System.out.println("============ ITEMS FOR SALE ============");
 
         for (Map.Entry<String, Antique> set : antiqueMap.entrySet()) {
@@ -107,17 +107,21 @@ public class AntiqueJSONRepository implements AntiqueRepository {
         }
     }
 
-    // FUNCTION TO SHOW ANTIQUE NAMES
+    // FUNCTION TO SHOW ANTIQUE NAMES. RECEIVES BOOLEAN TO CHOOSE SHOW ALL OR NOT
     @Override
-    public void showAntiqueNames() {
+    public void showAntiqueNames(boolean showAll) {
         // Arraylist to store names of antiques
         ArrayList<String> antiqueNames = new ArrayList<>();
 
         // For-loop that goes through antiqueMap and adds names/keys to arraylist
         for (Map.Entry<String, Antique> set : antiqueMap.entrySet()) {
             // If antique is not sold
-            if (!set.getValue().getSold()) {
+            if (showAll) {
                 antiqueNames.add(set.getValue().getName());
+            } else {
+                if (!set.getValue().getSold()) {
+                    antiqueNames.add(set.getValue().getName());
+                }
             }
         }
 
@@ -127,6 +131,7 @@ public class AntiqueJSONRepository implements AntiqueRepository {
         }
     }
 
+    // FUNCTION TO SHOW PURCHASE HISTORY
     @Override
     public void showPurchaseHistory() {
         System.out.println("\n================ HISTORY ================");
@@ -139,6 +144,21 @@ public class AntiqueJSONRepository implements AntiqueRepository {
         }
 
         System.out.println("=========================================");
+    }
+
+    // FUNCTION TO CHECK IF LIST OF ITEMS FOR SALE IS EMPTY
+    @Override
+    public boolean isEmpty() {
+        ArrayList<String> antiqueNames = new ArrayList<>();
+
+        for (Map.Entry<String, Antique> set : antiqueMap.entrySet()) {
+            // If antique is not sold
+            if (!set.getValue().getSold()) {
+                antiqueNames.add(set.getValue().getName());
+            }
+        }
+
+        return antiqueNames.isEmpty();
     }
 
     // FUNCTION TO GET SPECIFIC ANTIQUE
@@ -183,6 +203,7 @@ public class AntiqueJSONRepository implements AntiqueRepository {
     // FUNCTION TO PURCHASE AN ANTIQUE
     @Override
     public void purchaseAntique(Antique antique, String buyerName) {
+        // Sets item-state to sold and adds buyer's name
         antique.setSold(true);
         antique.setBuyerName(buyerName);
 

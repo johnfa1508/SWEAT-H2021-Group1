@@ -1,9 +1,10 @@
 [ {
-  "name" : "userSeller",
-  "bankBalance" : 10000.0,
-  "type" : "seller"
+  "name" : "john",
+  "bankBalance" : 500000.0
 }, {
-  "name" : "userBuyer",
-  "bankBalance" : 10000.0,
-  "type" : "buyer"
+  "name" : "userTest2",
+  "bankBalance" : 9500.0
+}, {
+  "name" : "userTest1",
+  "bankBalance" : 10500.0
 } ]

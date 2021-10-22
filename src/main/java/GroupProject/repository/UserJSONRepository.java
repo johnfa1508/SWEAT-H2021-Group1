@@ -60,40 +60,59 @@ public class UserJSONRepository {
         writeJSON(fileName);
     }
 
+    // FUNCTION TO GET SPECIFIC USER
+    public User getUser(String userKey) {
+        // For-loop that iterates through userMap and finds user value using userKey
+        for (Map.Entry<String, User> set : userMap.entrySet()) {
+            if (set.getValue().getName().equalsIgnoreCase(userKey)) {
+                return set.getValue();
+            }
+        }
+
+        return null;
+    }
+
+    // FUNCTION TO SHOW USERNAMES
+    public void showUserNames(){
+        // Arraylist to store names of users
+        ArrayList<String> userNames = new ArrayList<>();
+
+        // For-loop that iterates through userMap and adds names/keys to arraylist
+        for (Map.Entry<String, User> set : userMap.entrySet()) {
+            userNames.add(set.getValue().getName());
+        }
+
+        // Print names/keys
+        for (String names : userNames) {
+            System.out.println(names);
+        }
+    }
+
+    // FUNCTION TO SHOW ALL USERS
+    public void showUsers() {
+        System.out.println("============== ALL USERS ===============");
+
+        for (Map.Entry<String, User> set : userMap.entrySet()) {
+            System.out.println(set.getKey() + " = " + set.getValue());
+        }
+
+        System.out.println("========================================");
+    }
+
     // FUNCTION TO HANDLE TRANSACTION BETWEEN SELLER AND BUYER
     public void moneyTransaction(Antique antique, String buyerKey) {
         for (Map.Entry<String, User> set : userMap.entrySet()) {
             // If user is the seller, add to balance
             if (set.getValue().getName().equalsIgnoreCase(antique.getSellerName())) {
-                getSeller().depositMoney(antique.getPrice());
+                getUser(antique.getSellerName()).depositMoney(antique.getPrice());
             }
 
             // If user is the buyer, deduct from balance
             if (set.getValue().getName().equalsIgnoreCase(buyerKey)) {
-                getBuyer().withdrawMoney(antique.getPrice());
+                getUser(buyerKey).withdrawMoney(antique.getPrice());
             }
         }
 
         writeJSON(fileName);
-    }
-
-    public User getSeller() {
-        for (Map.Entry<String, User> set : userMap.entrySet()) {
-            if (set.getValue().getType().equalsIgnoreCase("seller")) {
-                return set.getValue();
-            }
-        }
-
-        return null;
-    }
-
-    public User getBuyer() {
-        for (Map.Entry<String, User> set : userMap.entrySet()) {
-            if (set.getValue().getType().equalsIgnoreCase("buyer")) {
-                return set.getValue();
-            }
-        }
-
-        return null;
     }
 }

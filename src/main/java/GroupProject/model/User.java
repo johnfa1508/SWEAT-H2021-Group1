@@ -3,7 +3,6 @@ package GroupProject.model;
 public class User {
     private String name;
     private double bankBalance;
-    private String type;
 
     // OVERLOAD
     public User() {
@@ -11,10 +10,9 @@ public class User {
     }
 
     // CONSTRUCTOR
-    public User(String userName, double bankBalance, String type) {
+    public User(String userName, double bankBalance) {
         this.name = userName;
         this.bankBalance = bankBalance;
-        this.type = type;
     }
 
     public String getName() {
@@ -31,14 +29,6 @@ public class User {
 
     public void setBankBalance(double bankBalance) {
         this.bankBalance = bankBalance;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     // FUNCTION TO DEPOSIT TO BANK BALANCE

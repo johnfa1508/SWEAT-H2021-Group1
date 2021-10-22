@@ -1,9 +1,17 @@
 [ {
-  "name" : "selltester",
+  "name" : "selltester3",
+  "type" : "spoon",
+  "description" : "selltester3",
+  "price" : 500.0,
+  "sold" : true,
+  "sellerName" : "userTest1",
+  "buyerName" : "userTest2"
+}, {
+  "name" : "selltester2",
   "type" : "table",
-  "description" : "selltest",
+  "description" : "selltester2",
   "price" : 250.0,
-  "sold" : false,
-  "sellerName" : "userSeller",
-  "buyerName" : "userBuyer"
+  "sold" : true,
+  "sellerName" : "userTest1",
+  "buyerName" : "userTest2"
 } ]
