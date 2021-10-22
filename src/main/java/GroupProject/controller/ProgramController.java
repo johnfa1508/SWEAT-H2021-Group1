@@ -93,7 +93,7 @@ public class ProgramController {
         }
     }
 
-    // USER SCREEN
+    // USER SCREEN. RECEIVES User-OBJECT TO TRACK WHICH USER IS CURRENTLY LOGGED IN
     public void userPanel(User user) {
         currentUser = user;
 
@@ -117,7 +117,7 @@ public class ProgramController {
         switch (choice) {
             case 1 -> showAntiques();     // Show antique screen
             case 2 -> purchaseAntique();  // Buy an antique
-            case 3 -> makeAntique(false); // Make an antique
+            case 3 -> makeAntique(false); // Make new antique
             case 4 -> showBalance();      // Show balance
             case 5 -> loginPanel();       // Log out
         }
@@ -125,6 +125,7 @@ public class ProgramController {
 
     // SHOW-ANTIQUE SCREEN
     public void showAntiques() {
+        // Checks if there are items for sale
         if (antiqueRepository.isEmpty()) {
             System.out.println("*** There are currently no antiques to show. ***");
             goBack();
@@ -304,13 +305,6 @@ public class ProgramController {
     }
 
     // COMMANDS FOR ADMIN
-    // FUNCTION TO SHOW ALL USERS
-    public void showUsers() {
-        userRepository.showUsers();
-
-        goBack();
-    }
-
     // ADMIN - UPDATE SCREEN
     public void updatePanel() {
         int choice;
@@ -393,6 +387,13 @@ public class ProgramController {
     // FUNCTION TO VIEW PURCHASE HISTORY
     public void purchaseHistory() {
         antiqueRepository.showPurchaseHistory();
+
+        goBack();
+    }
+
+    // FUNCTION TO SHOW ALL USERS
+    public void showUsers() {
+        userRepository.showUsers();
 
         goBack();
     }
