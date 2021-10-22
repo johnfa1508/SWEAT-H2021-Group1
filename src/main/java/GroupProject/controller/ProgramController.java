@@ -112,11 +112,11 @@ public class ProgramController {
         choice = inputScanner.nextInt();
 
         switch (choice) {
-            case 1 -> showAntiques();     // Show antique screen
-            case 2 -> purchaseAntique(currentUser);  // Buy an antique
+            case 1 -> showAntiques();                   // Show antique screen
+            case 2 -> purchaseAntique(currentUser);     // Buy an antique
             case 3 -> makeAntique(false); // Make an antique
-            case 4 -> showBalance(currentUser);      // Show balance
-            case 5 -> loginPanel();   // Log out
+            case 4 -> showBalance(currentUser);         // Show balance
+            case 5 -> loginPanel();                     // Log out
         }
     }
 
@@ -298,9 +298,9 @@ public class ProgramController {
         choice = inputScanner.nextInt();
 
         switch (choice) {
-            case 1 -> deleteAntique();  // Delete an antique
-            case 2 -> editAntique();    // Edit an antique
-            case 3 -> goBack();         // Go back to previous panel
+            case 1 -> deleteAntique(); // Delete an antique
+            case 2 -> editAntique();   // Edit an antique
+            case 3 -> goBack();        // Go back to previous panel
         }
     }
 
