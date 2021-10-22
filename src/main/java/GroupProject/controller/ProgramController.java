@@ -353,6 +353,7 @@ public class ProgramController {
 
     // FUNCTION TO EDIT ANTIQUE
     public void editAntique() {
+        // Checks if there are items for sale
         if (antiqueRepository.isEmpty()) {
             System.out.println("*** There are no items that can be edited. ***\n");
             updatePanel();
