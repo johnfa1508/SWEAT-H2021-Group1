@@ -259,8 +259,11 @@ public class ProgramController {
         Scanner inputScanner = new Scanner(System.in);
 
         // Get name of antique
-        System.out.println("\nEnter the name of the item: ");
+        System.out.println("\nEnter the name of the item (CANCEL to cancel): ");
         name = inputScanner.nextLine();
+        if (name.equalsIgnoreCase("CANCEL")) {
+            userPanel(currentUser);
+        }
 
         // Get type of antique, make type-string lowercase for easier sorting/grouping later
         System.out.println("\nWhat kind of item is it (table, chair, mirror etc.)? ");
