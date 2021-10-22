@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class UserJSONRepository {
+public class UserJSONRepository implements UserRepository {
     private String fileName;
     HashMap<String, User> userMap = new HashMap<>();
     ObjectMapper objectMapper = new ObjectMapper();
@@ -53,6 +53,7 @@ public class UserJSONRepository {
     }
 
     // FUNCTION TO ADD USER TO HASHMAP OF USERS
+    @Override
     public void addUser(User newUser) {
         // Add new element to hashmap with key:value pair
         userMap.put(newUser.getName(), newUser);
@@ -61,6 +62,7 @@ public class UserJSONRepository {
     }
 
     // FUNCTION TO GET SPECIFIC USER
+    @Override
     public User getUser(String userKey) {
         // For-loop that iterates through userMap and finds user value using userKey
         for (Map.Entry<String, User> set : userMap.entrySet()) {
@@ -73,6 +75,7 @@ public class UserJSONRepository {
     }
 
     // FUNCTION TO SHOW ALL USERS
+    @Override
     public void showUsers() {
         System.out.println("============== ALL USERS ===============");
 
@@ -84,6 +87,7 @@ public class UserJSONRepository {
     }
 
     // FUNCTION TO SHOW USERNAMES
+    @Override
     public void showUserNames(){
         // Arraylist to store names of users
         ArrayList<String> userNames = new ArrayList<>();
@@ -100,6 +104,7 @@ public class UserJSONRepository {
     }
 
     // FUNCTION TO HANDLE TRANSACTION BETWEEN SELLER AND BUYER
+    @Override
     public void moneyTransaction(Antique antique, String buyerKey) {
         for (Map.Entry<String, User> set : userMap.entrySet()) {
             // If user is the seller, add to balance

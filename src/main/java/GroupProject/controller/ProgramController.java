@@ -3,12 +3,13 @@ package GroupProject.controller;
 import GroupProject.model.Antique;
 import GroupProject.model.User;
 import GroupProject.repository.AntiqueRepository;
-import GroupProject.repository.UserJSONRepository;
+import GroupProject.repository.UserRepository;
+
 import java.util.Scanner;
 
 public class ProgramController {
     private AntiqueRepository antiqueRepository;
-    private UserJSONRepository userJSONRepository;
+    private UserRepository userRepository;
     private User currentUser;
 
     // BOOLEANS USED TO GO BACK TO CORRECT PREVIOUS PANEL
@@ -16,9 +17,9 @@ public class ProgramController {
     boolean isAdmin;
 
     // CONSTRUCTOR
-    public ProgramController(AntiqueRepository antiqueRepository, UserJSONRepository userJSONRepository) {
+    public ProgramController(AntiqueRepository antiqueRepository, UserRepository userRepository) {
         this.antiqueRepository = antiqueRepository;
-        this.userJSONRepository = userJSONRepository;
+        this.userRepository = userRepository;
     }
 
     // LOGIN SCREENS
@@ -53,13 +54,13 @@ public class ProgramController {
 
     public void loginUserPanel() {
         System.out.println("Which user would you like to log in to?:");
-        userJSONRepository.showUserNames();
+        userRepository.showUserNames();
 
         String userInput;
         Scanner inputScanner = new Scanner(System.in);
         userInput = inputScanner.nextLine();
 
-        userPanel(userJSONRepository.getUser(userInput));
+        userPanel(userRepository.getUser(userInput));
     }
 
     // ADMIN SCREEN
@@ -193,7 +194,7 @@ public class ProgramController {
         bankBalance = inputScanner.nextDouble();
 
         User newUser = new User(name, bankBalance);
-        userJSONRepository.addUser(newUser);
+        userRepository.addUser(newUser);
 
         loginPanel();
     }
@@ -238,7 +239,7 @@ public class ProgramController {
                             currentUser.getName());
 
                     // Gives money to the seller and deducts money from buyer's account
-                    userJSONRepository.moneyTransaction(antiqueRepository.getAntique(boughtItem),
+                    userRepository.moneyTransaction(antiqueRepository.getAntique(boughtItem),
                             currentUser.getName());
                 }
             }
@@ -303,7 +304,7 @@ public class ProgramController {
     // COMMANDS FOR ADMIN
     // FUNCTION TO SHOW ALL USERS
     public void showUsers() {
-        userJSONRepository.showUsers();
+        userRepository.showUsers();
 
         goBack();
     }
