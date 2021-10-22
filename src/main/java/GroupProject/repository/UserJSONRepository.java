@@ -72,6 +72,17 @@ public class UserJSONRepository {
         return null;
     }
 
+    // FUNCTION TO SHOW ALL USERS
+    public void showUsers() {
+        System.out.println("============== ALL USERS ===============");
+
+        for (Map.Entry<String, User> set : userMap.entrySet()) {
+            System.out.println(set.getKey() + " = " + set.getValue());
+        }
+
+        System.out.println("========================================");
+    }
+
     // FUNCTION TO SHOW USERNAMES
     public void showUserNames(){
         // Arraylist to store names of users
@@ -86,17 +97,6 @@ public class UserJSONRepository {
         for (String names : userNames) {
             System.out.println(names);
         }
-    }
-
-    // FUNCTION TO SHOW ALL USERS
-    public void showUsers() {
-        System.out.println("============== ALL USERS ===============");
-
-        for (Map.Entry<String, User> set : userMap.entrySet()) {
-            System.out.println(set.getKey() + " = " + set.getValue());
-        }
-
-        System.out.println("========================================");
     }
 
     // FUNCTION TO HANDLE TRANSACTION BETWEEN SELLER AND BUYER

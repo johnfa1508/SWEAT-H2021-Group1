@@ -40,4 +40,13 @@ public class User {
     public void withdrawMoney(double money) {
         this.bankBalance -= money;
     }
+
+    @Override
+    public String toString() {
+        return String.format("""
+                
+                Name: %s
+                Bank balance: %s nok
+                """, getName(), getBankBalance());
+    }
 }
