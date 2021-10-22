@@ -4,7 +4,6 @@ import GroupProject.model.Antique;
 import GroupProject.model.User;
 import GroupProject.repository.AntiqueRepository;
 import GroupProject.repository.UserRepository;
-
 import java.util.Scanner;
 
 public class ProgramController {
