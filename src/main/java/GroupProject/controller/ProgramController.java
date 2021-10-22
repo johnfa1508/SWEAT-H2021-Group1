@@ -165,7 +165,7 @@ public class ProgramController {
 
     // FUNCTION TO SHOW USER-BALANCE
     public void showBalance(User user) {
-        System.out.println("\nYour bank balance is: " + user.getBankBalance());
+        System.out.println("\nYour bank balance is: " + user.getBankBalance() + " nok");
 
         goBack();
     }
