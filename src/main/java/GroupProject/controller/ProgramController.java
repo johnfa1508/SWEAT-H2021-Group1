@@ -221,7 +221,9 @@ public class ProgramController {
         }
 
         // Checks if user is trying to buy an item they're selling
-        if (!currentUser.getName().equalsIgnoreCase(antiqueRepository.getAntique(boughtItem).getSellerName())) {
+        if (currentUser.getName().equalsIgnoreCase(antiqueRepository.getAntique(boughtItem).getSellerName())) {
+            System.out.println("You can not buy an item you are selling. Please try again.\n");
+        } else {
             // If the buyer does not have enough money, program will send the buyer back
             if (currentUser.getBankBalance() < antiqueRepository.getAntique(boughtItem).getPrice()) {
                 System.out.println("Your bank balance is insufficient. Please try again.\n");
@@ -240,8 +242,6 @@ public class ProgramController {
                             currentUser.getName());
                 }
             }
-        } else {
-            System.out.println("You can not buy an item you are selling. Please try again.\n");
         }
 
         userPanel(currentUser);
