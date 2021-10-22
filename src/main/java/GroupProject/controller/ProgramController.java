@@ -136,9 +136,14 @@ public class ProgramController {
 
         switch (choice) {
             case 1 -> {
-                antiqueRepository.showAntiquesForSale();
-                showAntiques();
-            }                                // Show all antiques
+                if (!antiqueRepository.isEmpty()) {
+                    antiqueRepository.showAntiquesForSale();
+                    showAntiques();
+                } else {
+                    System.out.println("*** There are currently no antiques for sale. ***");
+                    showAntiques();
+                }
+            }                                // Show all antiques if there's antiques for sale
             case 2 -> showSpecificAntique(); // Show specific antique type
             case 3 -> goBack();              // Go back
         }
@@ -146,6 +151,12 @@ public class ProgramController {
 
     // CHOOSE ANTIQUE-TYPE SCREEN
     public void showSpecificAntique() {
+        // Checks if there are items for sale
+        if (antiqueRepository.isEmpty()) {
+            System.out.println("*** There are currently no antiques for sale. ***");
+            showAntiques();
+        }
+
         // Show types of antiques for sale
         System.out.println("The types of antiques for sale are: ");
         antiqueRepository.showAntiqueTypes();
@@ -192,7 +203,7 @@ public class ProgramController {
     public void purchaseAntique(){
         // Checks if there are items for sale
         if (antiqueRepository.isEmpty()) {
-            System.out.println("There are currently no items for sale.");
+            System.out.println("*** There are currently no items for sale. ***");
             userPanel(currentUser);
         }
 
@@ -286,6 +297,7 @@ public class ProgramController {
     // FUNCTION TO SHOW ALL USERS
     public void showUsers() {
         userJSONRepository.showUsers();
+
         goBack();
     }
 
@@ -312,7 +324,6 @@ public class ProgramController {
 
     // FUNCTION TO DELETE ANTIQUE
     public void deleteAntique() {
-        // Checks if there are
         System.out.println("Antiques that can be deleted: ");
         antiqueRepository.showAntiqueNames(true);
 
@@ -331,28 +342,29 @@ public class ProgramController {
     // FUNCTION TO EDIT ANTIQUE
     public void editAntique() {
         if (antiqueRepository.isEmpty()) {
-            System.out.println("There are no items that can be edited.\n");
-        } else {
-            System.out.println("Antiques that can be edited: ");
-            antiqueRepository.showAntiqueNames(false);
-
-            // Get antique name(key) and store it in antiqueName variable
-            String antiqueName;
-            System.out.println("\nWrite the name of the antique you would like to edit: ");
-            Scanner inputScanner = new Scanner(System.in);
-            antiqueName = inputScanner.nextLine();
-
-            if (antiqueRepository.getAntique(antiqueName).getSold()) {
-                System.out.println("That item is already sold!\n");
-                updatePanel();
-            }
-
-            // Make new antique using makeAntique()-function
-            Antique newAntique = makeAntique(true);
-
-            // Replace antique with new antique
-            antiqueRepository.editAntique(antiqueName, newAntique);
+            System.out.println("*** There are no items that can be edited. ***\n");
+            updatePanel();
         }
+
+        System.out.println("Antiques that can be edited: ");
+        antiqueRepository.showAntiqueNames(false);
+
+        // Get antique name(key) and store it in antiqueName variable
+        String antiqueName;
+        System.out.println("\nWrite the name of the antique you would like to edit: ");
+        Scanner inputScanner = new Scanner(System.in);
+        antiqueName = inputScanner.nextLine();
+
+        if (antiqueRepository.getAntique(antiqueName).getSold()) {
+            System.out.println("That item is already sold!\n");
+            updatePanel();
+        }
+
+        // Make new antique using makeAntique()-function
+        Antique newAntique = makeAntique(true);
+
+        // Replace antique with new antique
+        antiqueRepository.editAntique(antiqueName, newAntique);
 
         goBack();
     }
