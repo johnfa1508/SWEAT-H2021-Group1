@@ -167,6 +167,11 @@ public class ProgramController {
         System.out.println("\nWhich one would you like to see?: ");
         userInput = inputScanner.nextLine();
 
+        // If user wants to cancel, go back to update panel
+        if (userInput.equalsIgnoreCase("CANCEL")) {
+            showAntiques();
+        }
+
         // Show antiques of that type
         antiqueRepository.showSpecificAntique(userInput);
 
@@ -213,8 +218,13 @@ public class ProgramController {
 
         String boughtItem;
         Scanner inputScanner = new Scanner(System.in);
-        System.out.println("\nWhich item would you like to buy?: ");
+        System.out.println("\nWhich item would you like to buy? (CANCEL to cancel): ");
         boughtItem = inputScanner.nextLine();
+
+        // If user wants to cancel, go back to update panel
+        if (boughtItem.equalsIgnoreCase("CANCEL")) {
+            userPanel(currentUser);
+        }
 
         // Checks if user is trying to buy an item they're selling
         if (!currentUser.getName().equalsIgnoreCase(antiqueRepository.getAntique(boughtItem).getSellerName())) {
@@ -329,9 +339,14 @@ public class ProgramController {
 
         // Get antique name(key) and store it in antiqueName variable
         String antiqueName;
-        System.out.println("\nWrite the name of the antique you would like to delete: ");
+        System.out.println("\nWrite the name of the antique you would like to delete (CANCEL to go back): ");
         Scanner inputScanner = new Scanner(System.in);
         antiqueName = inputScanner.nextLine();
+
+        // If user wants to cancel, go back to update panel
+        if (antiqueName.equalsIgnoreCase("CANCEL")) {
+            updatePanel();
+        }
 
         // Send antiqueName to deleteAntique()-method in repository
         antiqueRepository.deleteAntique(antiqueName);
@@ -354,6 +369,11 @@ public class ProgramController {
         System.out.println("\nWrite the name of the antique you would like to edit: ");
         Scanner inputScanner = new Scanner(System.in);
         antiqueName = inputScanner.nextLine();
+
+        // If user wants to cancel, go back to update panel
+        if (antiqueName.equalsIgnoreCase("CANCEL")) {
+            updatePanel();
+        }
 
         if (antiqueRepository.getAntique(antiqueName).getSold()) {
             System.out.println("That item is already sold!\n");
