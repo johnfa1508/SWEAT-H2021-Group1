@@ -30,4 +30,12 @@
   "sold" : true,
   "sellerName" : "userTest1",
   "buyerName" : "userTest2"
+}, {
+  "name" : "golden table",
+  "type" : "table",
+  "description" : "table made out of gold",
+  "price" : 500.0,
+  "sold" : false,
+  "sellerName" : "john",
+  "buyerName" : null
 } ]

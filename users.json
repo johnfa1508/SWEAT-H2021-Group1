@@ -1,4 +1,7 @@
 [ {
+  "name" : "user with no money",
+  "bankBalance" : 0.0
+}, {
   "name" : "john",
   "bankBalance" : 500750.0
 }, {

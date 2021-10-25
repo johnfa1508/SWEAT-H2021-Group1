@@ -6,12 +6,12 @@ GroupProject/model/Antique.java
  GroupProject.model.Antique
 GroupProject/repository/AntiqueJSONRepository.java
  GroupProject.repository.AntiqueJSONRepository
+GroupProject/repository/AntiqueRepository.java
+ GroupProject.repository.AntiqueRepository
 GroupProject/repository/UserJSONRepository.java
  GroupProject.repository.UserJSONRepository
 GroupProject/Main.java
  GroupProject.Main
-GroupProject/repository/AntiqueRepository.java
- GroupProject.repository.AntiqueRepository
 GroupProject/repository/UserRepository.java
  GroupProject.repository.UserRepository
 GroupProject/controller/ProgramController.java
