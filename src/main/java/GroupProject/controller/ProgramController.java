@@ -242,8 +242,7 @@ public class ProgramController {
                             currentUser.getName());
 
                     // Gives money to the seller and deducts money from buyer's account
-                    userRepository.moneyTransaction(antiqueRepository.getAntique(boughtItem),
-                            currentUser.getName());
+                    userRepository.moneyTransaction(antiqueRepository.getAntique(boughtItem));
                 }
             }
         }

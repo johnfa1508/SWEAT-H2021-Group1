@@ -9,5 +9,5 @@ public interface UserRepository {
     void showUsers();
     void showUserNames();
     void addUser(User newUser);
-    void moneyTransaction(Antique antique, String buyerKey);
+    void moneyTransaction(Antique antique);
 }

@@ -105,16 +105,16 @@ public class UserJSONRepository implements UserRepository {
 
     // FUNCTION TO HANDLE TRANSACTION BETWEEN SELLER AND BUYER
     @Override
-    public void moneyTransaction(Antique antique, String buyerKey) {
+    public void moneyTransaction(Antique antique) {
         for (Map.Entry<String, User> set : userMap.entrySet()) {
-            // If user is the seller, add to balance
+            // If user is the seller, deposit to balance
             if (set.getValue().getName().equalsIgnoreCase(antique.getSellerName())) {
                 getUser(antique.getSellerName()).depositMoney(antique.getPrice());
             }
 
-            // If user is the buyer, deduct from balance
-            if (set.getValue().getName().equalsIgnoreCase(buyerKey)) {
-                getUser(buyerKey).withdrawMoney(antique.getPrice());
+            // If user is the buyer, withdraw from balance
+            if (set.getValue().getName().equalsIgnoreCase(antique.getBuyerName())) {
+                getUser(antique.getBuyerName()).withdrawMoney(antique.getPrice());
             }
         }
 
