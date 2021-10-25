@@ -19,9 +19,9 @@
   "type" : "fork",
   "description" : "Test",
   "price" : 800.0,
-  "sold" : false,
+  "sold" : true,
   "sellerName" : "john",
-  "buyerName" : null
+  "buyerName" : "userTest2"
 }, {
   "name" : "selltester2",
   "type" : "table",

@@ -1,9 +1,9 @@
 [ {
   "name" : "john",
-  "bankBalance" : 499950.0
+  "bankBalance" : 500750.0
 }, {
   "name" : "userTest2",
-  "bankBalance" : 9500.0
+  "bankBalance" : 8700.0
 }, {
   "name" : "userTest1",
   "bankBalance" : 10550.0
