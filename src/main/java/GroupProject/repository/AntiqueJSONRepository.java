@@ -33,8 +33,8 @@ public class AntiqueJSONRepository implements AntiqueRepository {
             ioException.printStackTrace();
         }
 
-        for (Antique value : antiquesArray) {
-            returnMap.put(value.getName(), value);
+        for (Antique antique : antiquesArray) {
+            returnMap.put(antique.getName(), antique);
         }
 
         antiqueMap = returnMap;

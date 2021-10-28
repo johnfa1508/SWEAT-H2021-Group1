@@ -34,8 +34,8 @@ public class UserJSONRepository implements UserRepository {
             ioException.printStackTrace();
         }
 
-        for (User value : userArray) {
-            returnMap.put(value.getName(), value);
+        for (User user : userArray) {
+            returnMap.put(user.getName(), user);
         }
 
         userMap = returnMap;
