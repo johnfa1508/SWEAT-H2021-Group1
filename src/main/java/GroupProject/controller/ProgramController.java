@@ -165,7 +165,7 @@ public class ProgramController {
         System.out.println("\nWhich one would you like to see?: ");
         userInput = inputScanner.nextLine();
 
-        // If user wants to cancel, go back to update panel
+        // If user wants to cancel, go back to show antiques screen
         if (userInput.equalsIgnoreCase("CANCEL")) {
             showAntiques();
         }
@@ -219,7 +219,7 @@ public class ProgramController {
         System.out.println("\nWhich item would you like to buy? (CANCEL to cancel): ");
         boughtItem = inputScanner.nextLine();
 
-        // If user wants to cancel, go back to update panel
+        // If user wants to cancel, go back to user panel
         if (boughtItem.equalsIgnoreCase("CANCEL")) {
             userPanel(currentUser);
         }
@@ -264,6 +264,8 @@ public class ProgramController {
         // Get name of antique
         System.out.println("\nEnter the name of the item (CANCEL to cancel): ");
         name = inputScanner.nextLine();
+
+        // If user wants to cancel, go back to user panel
         if (name.equalsIgnoreCase("CANCEL")) {
             userPanel(currentUser);
         }
