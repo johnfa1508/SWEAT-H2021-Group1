@@ -65,9 +65,9 @@ public class UserJSONRepository implements UserRepository {
     @Override
     public User getUser(String userKey) {
         // For-loop that iterates through userMap and finds user value using userKey
-        for (Map.Entry<String, User> set : userMap.entrySet()) {
-            if (set.getValue().getName().equalsIgnoreCase(userKey)) {
-                return set.getValue();
+        for (Map.Entry<String, User> userSet : userMap.entrySet()) {
+            if (userSet.getValue().getName().equalsIgnoreCase(userKey)) {
+                return userSet.getValue();
             }
         }
 
@@ -79,8 +79,8 @@ public class UserJSONRepository implements UserRepository {
     public void showUsers() {
         System.out.println("============== ALL USERS ===============");
 
-        for (Map.Entry<String, User> set : userMap.entrySet()) {
-            System.out.println(set.getKey() + " = " + set.getValue());
+        for (Map.Entry<String, User> userSet : userMap.entrySet()) {
+            System.out.println(userSet.getKey() + " = " + userSet.getValue());
         }
 
         System.out.println("========================================");
@@ -90,30 +90,30 @@ public class UserJSONRepository implements UserRepository {
     @Override
     public void showUserNames(){
         // Arraylist to store names of users
-        ArrayList<String> userNames = new ArrayList<>();
+        ArrayList<String> userNamesArray = new ArrayList<>();
 
         // For-loop that iterates through userMap and adds names/keys to arraylist
-        for (Map.Entry<String, User> set : userMap.entrySet()) {
-            userNames.add(set.getValue().getName());
+        for (Map.Entry<String, User> userSet : userMap.entrySet()) {
+            userNamesArray.add(userSet.getValue().getName());
         }
 
         // Print names/keys
-        for (String names : userNames) {
-            System.out.println(names);
+        for (String userNames : userNamesArray) {
+            System.out.println(userNames);
         }
     }
 
     // FUNCTION TO HANDLE TRANSACTION BETWEEN SELLER AND BUYER
     @Override
     public void moneyTransaction(Antique antique) {
-        for (Map.Entry<String, User> set : userMap.entrySet()) {
+        for (Map.Entry<String, User> userSet : userMap.entrySet()) {
             // If user is the seller, deposit to balance
-            if (set.getValue().getName().equalsIgnoreCase(antique.getSellerName())) {
+            if (userSet.getValue().getName().equalsIgnoreCase(antique.getSellerName())) {
                 getUser(antique.getSellerName()).depositMoney(antique.getPrice());
             }
 
             // If user is the buyer, withdraw from balance
-            if (set.getValue().getName().equalsIgnoreCase(antique.getBuyerName())) {
+            if (userSet.getValue().getName().equalsIgnoreCase(antique.getBuyerName())) {
                 getUser(antique.getBuyerName()).withdrawMoney(antique.getPrice());
             }
         }

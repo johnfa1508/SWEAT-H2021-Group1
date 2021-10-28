@@ -56,10 +56,10 @@ public class AntiqueJSONRepository implements AntiqueRepository {
     public void showAntiquesForSale() {
         System.out.println("============ ITEMS FOR SALE ============");
 
-        for (Map.Entry<String, Antique> set : antiqueMap.entrySet()) {
+        for (Map.Entry<String, Antique> antiqueSet : antiqueMap.entrySet()) {
             // If antique is not sold
-            if (!set.getValue().getSold()) {
-                System.out.println(set.getKey() + " = " + set.getValue());
+            if (!antiqueSet.getValue().getSold()) {
+                System.out.println(antiqueSet.getKey() + " = " + antiqueSet.getValue());
             }
         }
 
@@ -72,11 +72,11 @@ public class AntiqueJSONRepository implements AntiqueRepository {
         System.out.println("\n============ ITEMS FOR SALE ============");
 
         // For-loop that prints out all antiques in antiqueMap
-        for (Map.Entry<String, Antique> set : antiqueMap.entrySet()) {
+        for (Map.Entry<String, Antique> antiqueSet : antiqueMap.entrySet()) {
             // If antique is not sold
-            if (!set.getValue().getSold()) {
-                if (set.getValue().getType().equalsIgnoreCase(antiqueType)) {
-                    System.out.println(set.getKey() + " = " + set.getValue());
+            if (!antiqueSet.getValue().getSold()) {
+                if (antiqueSet.getValue().getType().equalsIgnoreCase(antiqueType)) {
+                    System.out.println(antiqueSet.getKey() + " = " + antiqueSet.getValue());
                 }
             }
         }
@@ -88,22 +88,22 @@ public class AntiqueJSONRepository implements AntiqueRepository {
     @Override
     public void showAntiqueTypes() {
         // Arraylist to store types of antiques
-        ArrayList<String> antiqueTypes = new ArrayList<>();
+        ArrayList<String> antiqueTypesArray = new ArrayList<>();
 
         // For-loop that goes through antiqueMap and only adds type to arraylist if it's not added yet
-        for (Map.Entry<String, Antique> set : antiqueMap.entrySet()) {
+        for (Map.Entry<String, Antique> antiqueSet : antiqueMap.entrySet()) {
             // If antique is not sold
-            if (!set.getValue().getSold()) {
+            if (!antiqueSet.getValue().getSold()) {
                 // Check if that type is already in list
-                if (!antiqueTypes.contains(set.getValue().getType())) {
-                    antiqueTypes.add(set.getValue().getType());
+                if (!antiqueTypesArray.contains(antiqueSet.getValue().getType())) {
+                    antiqueTypesArray.add(antiqueSet.getValue().getType());
                 }
             }
         }
 
         // Print types of antiques currently for sale
-        for (String type : antiqueTypes) {
-            System.out.println(type);
+        for (String antiqueType : antiqueTypesArray) {
+            System.out.println(antiqueType);
         }
     }
 
@@ -111,22 +111,22 @@ public class AntiqueJSONRepository implements AntiqueRepository {
     @Override
     public void showAntiqueNames(boolean showAll) {
         // Arraylist to store names of antiques
-        ArrayList<String> antiqueNames = new ArrayList<>();
+        ArrayList<String> antiqueNamesArray = new ArrayList<>();
 
         // For-loop that goes through antiqueMap and adds names/keys to arraylist
-        for (Map.Entry<String, Antique> set : antiqueMap.entrySet()) {
+        for (Map.Entry<String, Antique> antiqueSet : antiqueMap.entrySet()) {
             // If antique is not sold
             if (showAll) {
-                antiqueNames.add(set.getValue().getName());
+                antiqueNamesArray.add(antiqueSet.getValue().getName());
             } else {
-                if (!set.getValue().getSold()) {
-                    antiqueNames.add(set.getValue().getName());
+                if (!antiqueSet.getValue().getSold()) {
+                    antiqueNamesArray.add(antiqueSet.getValue().getName());
                 }
             }
         }
 
         // Print names/keys
-        for (String names : antiqueNames) {
+        for (String names : antiqueNamesArray) {
             System.out.println(names);
         }
     }
@@ -136,10 +136,10 @@ public class AntiqueJSONRepository implements AntiqueRepository {
     public void showPurchaseHistory() {
         System.out.println("\n================ HISTORY ================");
 
-        for (Map.Entry<String, Antique> set : antiqueMap.entrySet()) {
+        for (Map.Entry<String, Antique> antiqueSet : antiqueMap.entrySet()) {
             // If antique is sold
-            if (set.getValue().getSold()) {
-                System.out.println(set.getKey() + " = " + set.getValue());
+            if (antiqueSet.getValue().getSold()) {
+                System.out.println(antiqueSet.getKey() + " = " + antiqueSet.getValue());
             }
         }
 
@@ -149,24 +149,24 @@ public class AntiqueJSONRepository implements AntiqueRepository {
     // FUNCTION TO CHECK IF LIST OF ITEMS FOR SALE IS EMPTY
     @Override
     public boolean isEmpty() {
-        ArrayList<String> antiqueNames = new ArrayList<>();
+        ArrayList<String> antiqueNamesArray = new ArrayList<>();
 
-        for (Map.Entry<String, Antique> set : antiqueMap.entrySet()) {
+        for (Map.Entry<String, Antique> antiqueSet : antiqueMap.entrySet()) {
             // If antique is not sold
-            if (!set.getValue().getSold()) {
-                antiqueNames.add(set.getValue().getName());
+            if (!antiqueSet.getValue().getSold()) {
+                antiqueNamesArray.add(antiqueSet.getValue().getName());
             }
         }
 
-        return antiqueNames.isEmpty();
+        return antiqueNamesArray.isEmpty();
     }
 
     // FUNCTION TO GET SPECIFIC ANTIQUE
     @Override
     public Antique getAntique(String antiqueKey) {
-        for (Map.Entry<String, Antique> set : antiqueMap.entrySet()) {
-            if (set.getValue().getName().equalsIgnoreCase(antiqueKey)) {
-                return set.getValue();
+        for (Map.Entry<String, Antique> antiqueSet : antiqueMap.entrySet()) {
+            if (antiqueSet.getValue().getName().equalsIgnoreCase(antiqueKey)) {
+                return antiqueSet.getValue();
             }
         }
 
