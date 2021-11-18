@@ -6,16 +6,16 @@ GroupProject/repository/StoreJSONRepository.java
  GroupProject.repository.StoreJSONRepository
 GroupProject/model/Store.java
  GroupProject.model.Store
-GroupProject/repository/UserRepository.java
- GroupProject.repository.UserRepository
-GroupProject/repository/UserJSONRepository.java
- GroupProject.repository.UserJSONRepository
-GroupProject/model/Antique.java
- GroupProject.model.Antique
-GroupProject/repository/AntiqueJSONRepository.java
- GroupProject.repository.AntiqueJSONRepository
 GroupProject/repository/AntiqueRepository.java
  GroupProject.repository.AntiqueRepository
+GroupProject/repository/AntiqueJSONRepository.java
+ GroupProject.repository.AntiqueJSONRepository
+GroupProject/model/Antique.java
+ GroupProject.model.Antique
+GroupProject/repository/UserJSONRepository.java
+ GroupProject.repository.UserJSONRepository
+GroupProject/repository/UserRepository.java
+ GroupProject.repository.UserRepository
 GroupProject/Main.java
  GroupProject.Main
 GroupProject/controller/ProgramController.java

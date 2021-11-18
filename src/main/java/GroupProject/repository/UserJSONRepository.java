@@ -111,4 +111,12 @@ public class UserJSONRepository implements UserRepository {
 
         writeJSON(fileName);
     }
+
+    // FUNCTION TO DEPOSIT MONEY TO BANK BALANCE
+    @Override
+    public void depositMoney(User user, double money) {
+        getUser(user.getName()).depositMoney(money);
+
+        writeJSON(fileName);
+    }
 }

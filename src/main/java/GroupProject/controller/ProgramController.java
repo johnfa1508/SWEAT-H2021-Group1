@@ -293,7 +293,7 @@ public class ProgramController {
         System.out.println("\nHow much money would you like to deposit?: ");
         money = inputScanner.nextDouble();
 
-        userRepository.getUser(currentUser.getName()).depositMoney(money);
+        userRepository.depositMoney(currentUser, money);
 
         goBack();
     }
