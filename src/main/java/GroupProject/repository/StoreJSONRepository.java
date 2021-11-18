@@ -1,6 +1,7 @@
 package GroupProject.repository;
 
 import GroupProject.model.Store;
+import GroupProject.model.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
@@ -52,6 +53,7 @@ public class StoreJSONRepository implements StoreRepository {
     }
 
     // FUNCTION TO ADD STORE TO HASHMAP OF STORES
+    @Override
     public void addStore(Store newStore) {
         // Add new element to hashmap with key:value pair
         storeMap.put(newStore.getName(), newStore);
@@ -60,14 +62,35 @@ public class StoreJSONRepository implements StoreRepository {
     }
 
     // FUNCTION TO GET SPECIFIC STORE
-    public Store getStore(String userKey) {
-        // For-loop that iterates through userMap and finds user value using userKey
+    @Override
+    public Store getStore(String storeKey) {
+        // For-loop that iterates through userMap and finds store value using storeKey
         for (Map.Entry<String, Store> storeSet : storeMap.entrySet()) {
-            if (storeSet.getValue().getName().equalsIgnoreCase(userKey)) {
+            if (storeSet.getValue().getName().equalsIgnoreCase(storeKey)) {
                 return storeSet.getValue();
             }
         }
 
         return null;
+    }
+
+    // FUNCTION TO SHOW ALL STORES
+    @Override
+    public HashMap<String, Store> showStores() {
+        return new HashMap<>(storeMap);
+    }
+
+    // FUNCTION TO SHOW STORE NAMES
+    @Override
+    public ArrayList<String> showStoreNames(){
+        // Arraylist to store names of stores
+        ArrayList<String> storeNamesArray = new ArrayList<>();
+
+        // For-loop that iterates through storeMap and adds names/keys to arraylist
+        for (Map.Entry<String, Store> storeSet : storeMap.entrySet()) {
+            storeNamesArray.add(storeSet.getValue().getName());
+        }
+
+        return storeNamesArray;
     }
 }

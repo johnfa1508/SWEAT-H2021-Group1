@@ -76,19 +76,13 @@ public class UserJSONRepository implements UserRepository {
 
     // FUNCTION TO SHOW ALL USERS
     @Override
-    public void showUsers() {
-        System.out.println("============== ALL USERS ===============");
-
-        for (Map.Entry<String, User> userSet : userMap.entrySet()) {
-            System.out.println(userSet.getKey() + " = " + userSet.getValue());
-        }
-
-        System.out.println("========================================");
+    public HashMap<String, User> showUsers() {
+        return new HashMap<>(userMap);
     }
 
     // FUNCTION TO SHOW USERNAMES
     @Override
-    public void showUserNames(){
+    public ArrayList<String> showUserNames(){
         // Arraylist to store names of users
         ArrayList<String> userNamesArray = new ArrayList<>();
 
@@ -97,10 +91,7 @@ public class UserJSONRepository implements UserRepository {
             userNamesArray.add(userSet.getValue().getName());
         }
 
-        // Print names/keys
-        for (String userNames : userNamesArray) {
-            System.out.println(userNames);
-        }
+        return userNamesArray;
     }
 
     // FUNCTION TO HANDLE TRANSACTION BETWEEN SELLER AND BUYER
