@@ -117,14 +117,14 @@ public class ProgramController {
         choice = inputScanner.nextInt();
 
         switch (choice) {
-            case 1 -> showAntiques();     // Show antique screen
-            case 2 -> purchaseAntique();        // Buy an antique
-            case 3 -> addFavorite(); // Add antique to favorites
-            case 4 -> removeFavorite(); // Remove antique from favorite list
-            case 5 -> showFavorites(); // Show favorited antiques
+            case 1 -> showAntiques();      // Show antique screen
+            case 2 -> purchaseAntique();   // Buy an antique
+            case 3 -> addFavorite();       // Add antique to favorites
+            case 4 -> removeFavorite();    // Remove antique from favorite list
+            case 5 -> showFavorites();     // Show favorited antiques
             case 6 -> showBalance("USER"); // Show balance
-            case 7 -> depositMoney(); // Deposit money
-            case 8 -> loginPanel();             // Log out
+            case 7 -> depositMoney();      // Deposit money
+            case 8 -> loginPanel();        // Log out
         }
     }
 
