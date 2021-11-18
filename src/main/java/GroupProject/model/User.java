@@ -10,8 +10,8 @@ public class User {
     }
 
     // CONSTRUCTOR
-    public User(String userName, double bankBalance) {
-        this.name = userName;
+    public User(String name, double bankBalance) {
+        this.name = name;
         this.bankBalance = bankBalance;
     }
 
@@ -36,7 +36,7 @@ public class User {
         this.bankBalance += money;
     }
 
-    // FUNCTION TO WITHDRAW FROM BANK BALANCE
+    // FUNCTION TO WITHDRAW BANK BALANCE
     public void withdrawMoney(double money) {
         this.bankBalance -= money;
     }

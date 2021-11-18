@@ -3,13 +3,19 @@ package GroupProject.controller;
 import GroupProject.model.Antique;
 import GroupProject.model.User;
 import GroupProject.repository.AntiqueRepository;
+import GroupProject.repository.StoreRepository;
 import GroupProject.repository.UserRepository;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class ProgramController {
     // REPOSITORIES
     private AntiqueRepository antiqueRepository;
     private UserRepository userRepository;
+    private StoreRepository storeRepository;
 
     // USED TO TRACK WHICH USER IS CURRENTLY LOGGED IN
     private User currentUser;
@@ -19,16 +25,15 @@ public class ProgramController {
     boolean isAdmin;
 
     // CONSTRUCTOR
-    public ProgramController(AntiqueRepository antiqueRepository, UserRepository userRepository) {
+    public ProgramController(AntiqueRepository antiqueRepository, UserRepository userRepository,
+                             StoreRepository storeRepository) {
         this.antiqueRepository = antiqueRepository;
         this.userRepository = userRepository;
+        this.storeRepository = storeRepository;
     }
 
     // LOGIN SCREENS
     public void loginPanel() {
-        // Boolean to check if user still wants to log in
-        boolean whileOn = true;
-
         int choice;
         Scanner inputScanner = new Scanner(System.in);
 
@@ -42,15 +47,13 @@ public class ProgramController {
                 ========================================
                 """);
 
-        while (whileOn) {
-            choice = inputScanner.nextInt();
+        choice = inputScanner.nextInt();
 
-            switch (choice) {
-                case 1 -> adminPanel();     // Go to admin-screen
-                case 2 -> loginUserPanel(); // Go to user-login screen
-                case 3 -> whileOn = false;  // Leave
-                case 4 -> makeUser();       // Make new user (TEST PURPOSES)
-            }
+        switch (choice) {
+            case 1 -> adminPanel();     // Go to admin-screen
+            case 2 -> loginUserPanel(); // Go to user-login screen
+            case 3 -> {}                // Leave
+            case 4 -> makeUser();       // Make new user (TEST PURPOSES)
         }
     }
 
@@ -144,20 +147,40 @@ public class ProgramController {
         choice = inputScanner.nextInt();
 
         switch (choice) {
-            case 1 -> {
-                    antiqueRepository.showAntiquesForSale();
-                    showAntiques();
-            }                                // Show all antiques if there's antiques for sale
+            case 1 -> showAntiquesForSale(); // Show all antiques if there's antiques for sale
             case 2 -> showSpecificAntique(); // Show specific antique type
             case 3 -> goBack();              // Go back
         }
+    }
+
+    // SHOW ANTIQUES FOR SALE
+    public void showAntiquesForSale() {
+        System.out.println("============ ITEMS FOR SALE ============");
+
+        // HashMap to store hashmap received from repository
+        HashMap<String, Antique> antiques;
+        antiques = antiqueRepository.showAntiquesForSale();
+
+        // Go through hashmap and print out
+        for (Map.Entry<String, Antique> antiqueSet : antiques.entrySet()) {
+            System.out.println(antiqueSet.getKey() + " = " + antiqueSet.getValue());
+        }
+
+        System.out.println("========================================");
+
+        // Go back to show antiques screen
+        showAntiques();
     }
 
     // CHOOSE ANTIQUE-TYPE SCREEN
     public void showSpecificAntique() {
         // Show types of antiques for sale
         System.out.println("The types of antiques for sale are: ");
-        antiqueRepository.showAntiqueTypes();
+        ArrayList<String> antiqueTypes = antiqueRepository.showAntiqueTypes();
+
+        for (String antiqueType : antiqueTypes) {
+            System.out.println(antiqueType);
+        }
 
         // Get input from user which type to show
         String userInput;
@@ -170,8 +193,15 @@ public class ProgramController {
             showAntiques();
         }
 
+        System.out.println("\n============ ITEMS FOR SALE ============");
+
         // Show antiques of that type
-        antiqueRepository.showSpecificAntique(userInput);
+        HashMap<String, Antique> specificAntiqueTypes = antiqueRepository.showSpecificAntique(userInput);
+        for (Map.Entry<String, Antique> antiqueSet : specificAntiqueTypes.entrySet()) {
+            System.out.println(antiqueSet.getKey() + " = " + antiqueSet.getValue());
+        }
+
+        System.out.println("========================================");
 
         // Go back to antiques-screen
         showAntiques();
@@ -329,8 +359,13 @@ public class ProgramController {
 
     // FUNCTION TO DELETE ANTIQUE
     public void deleteAntique() {
+        // Show antique names
         System.out.println("Antiques that can be deleted: ");
-        antiqueRepository.showAntiqueNames(true);
+        ArrayList<String> antiqueNamesArray = antiqueRepository.showAntiqueNames(true);
+
+        for (String antiqueNames : antiqueNamesArray) {
+            System.out.println(antiqueNames);
+        }
 
         // Get antique name(key) and store it in antiqueName variable
         String antiqueName;
@@ -387,7 +422,14 @@ public class ProgramController {
 
     // FUNCTION TO VIEW PURCHASE HISTORY
     public void purchaseHistory() {
-        antiqueRepository.showPurchaseHistory();
+        System.out.println("\n================ HISTORY ================");
+        HashMap<String, Antique> purchaseHistory = antiqueRepository.showPurchaseHistory();
+
+        for (Map.Entry<String, Antique> antiqueSet : purchaseHistory.entrySet()) {
+            System.out.println(antiqueSet.getKey() + " = " + antiqueSet.getValue());
+        }
+
+        System.out.println("=========================================");
 
         goBack();
     }

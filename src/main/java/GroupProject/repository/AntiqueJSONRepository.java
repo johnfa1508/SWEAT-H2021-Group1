@@ -53,40 +53,40 @@ public class AntiqueJSONRepository implements AntiqueRepository {
 
     // FUNCTION TO PRINT OUT ALL ANTIQUES
     @Override
-    public void showAntiquesForSale() {
-        System.out.println("============ ITEMS FOR SALE ============");
+    public HashMap<String, Antique> showAntiquesForSale() {
+        HashMap<String, Antique> antiques = new HashMap<>();
 
         for (Map.Entry<String, Antique> antiqueSet : antiqueMap.entrySet()) {
             // If antique is not sold
             if (!antiqueSet.getValue().getSold()) {
-                System.out.println(antiqueSet.getKey() + " = " + antiqueSet.getValue());
+                antiques.put(antiqueSet.getKey(), antiqueSet.getValue());
             }
         }
 
-        System.out.println("========================================");
+        return antiques;
     }
 
     // FUNCTION TO SHOW SPECIFIC ANTIQUE TYPE
     @Override
-    public void showSpecificAntique(String antiqueType) {
-        System.out.println("\n============ ITEMS FOR SALE ============");
+    public HashMap<String, Antique> showSpecificAntique(String antiqueType) {
+        HashMap<String, Antique> specificAntiqueTypes = new HashMap<>();
 
         // For-loop that prints out all antiques in antiqueMap
         for (Map.Entry<String, Antique> antiqueSet : antiqueMap.entrySet()) {
             // If antique is not sold
             if (!antiqueSet.getValue().getSold()) {
                 if (antiqueSet.getValue().getType().equalsIgnoreCase(antiqueType)) {
-                    System.out.println(antiqueSet.getKey() + " = " + antiqueSet.getValue());
+                    specificAntiqueTypes.put(antiqueSet.getKey(), antiqueSet.getValue());
                 }
             }
         }
 
-        System.out.println("========================================");
+        return specificAntiqueTypes;
     }
 
     // FUNCTION TO SHOW ANTIQUE-TYPES CURRENTLY FOR SALE
     @Override
-    public void showAntiqueTypes() {
+    public ArrayList<String> showAntiqueTypes() {
         // Arraylist to store types of antiques
         ArrayList<String> antiqueTypesArray = new ArrayList<>();
 
@@ -101,15 +101,12 @@ public class AntiqueJSONRepository implements AntiqueRepository {
             }
         }
 
-        // Print types of antiques currently for sale
-        for (String antiqueType : antiqueTypesArray) {
-            System.out.println(antiqueType);
-        }
+        return antiqueTypesArray;
     }
 
     // FUNCTION TO SHOW ANTIQUE NAMES. RECEIVES BOOLEAN TO CHOOSE SHOW ALL OR NOT
     @Override
-    public void showAntiqueNames(boolean showAll) {
+    public ArrayList<String> showAntiqueNames(boolean showAll) {
         // Arraylist to store names of antiques
         ArrayList<String> antiqueNamesArray = new ArrayList<>();
 
@@ -125,25 +122,22 @@ public class AntiqueJSONRepository implements AntiqueRepository {
             }
         }
 
-        // Print names/keys
-        for (String names : antiqueNamesArray) {
-            System.out.println(names);
-        }
+        return antiqueNamesArray;
     }
 
     // FUNCTION TO SHOW PURCHASE HISTORY
     @Override
-    public void showPurchaseHistory() {
-        System.out.println("\n================ HISTORY ================");
+    public HashMap<String, Antique> showPurchaseHistory() {
+        HashMap<String, Antique> purchaseHistory = new HashMap<>();
 
         for (Map.Entry<String, Antique> antiqueSet : antiqueMap.entrySet()) {
             // If antique is sold
             if (antiqueSet.getValue().getSold()) {
-                System.out.println(antiqueSet.getKey() + " = " + antiqueSet.getValue());
+                purchaseHistory.put(antiqueSet.getKey(), antiqueSet.getValue());
             }
         }
 
-        System.out.println("=========================================");
+        return purchaseHistory;
     }
 
     // FUNCTION TO CHECK IF LIST OF ITEMS FOR SALE IS EMPTY
