@@ -361,26 +361,27 @@ public class ProgramController {
             goBack();
         }
 
-        // Checks if user is trying to buy an item they're selling
-        if (currentUser.getName().equalsIgnoreCase(antiqueRepository.getAntique(itemInCart).getSellerName())) {
-            System.out.println("You can not buy an item you are selling. Please try again.\n");
+        // If the buyer does not have enough money, program will send the buyer back
+        if (currentUser.getBankBalance() < antiqueRepository.getAntique(itemInCart).getPrice()) {
+            System.out.println("Your bank balance is insufficient. Please try again.\n");
         } else {
-            // If the buyer does not have enough money, program will send the buyer back
-            if (currentUser.getBankBalance() < antiqueRepository.getAntique(itemInCart).getPrice()) {
-                System.out.println("Your bank balance is insufficient. Please try again.\n");
+            // If item is already sold, user will be sent back
+            if (antiqueRepository.getAntique(itemInCart).getSold()) {
+                System.out.println("That item is already sold! Please try again.\n");
             } else {
-                // If item is already sold, user will be sent back
-                if (antiqueRepository.getAntique(itemInCart).getSold()) {
-                    System.out.println("That item is already sold! Please try again.\n");
-                } else {
-                    System.out.println("Antique was bought successfully.");
-                    // Updates the antique(boolean sold) and sends the buyer's name
-                    antiqueRepository.purchaseAntique(antiqueRepository.getAntique(itemInCart),
-                            currentUser.getName());
+                System.out.println("\nAntique was bought successfully.");
 
-                    // Gives money to the seller and deducts money from buyer's account
-                    userRepository.moneyTransaction(antiqueRepository.getAntique(itemInCart));
-                }
+                // Put antique-object in variable for easier handling
+                Antique antique = antiqueRepository.getAntique(itemInCart);
+
+                // Updates the antique(boolean sold) and sends the buyer's name
+                antiqueRepository.purchaseAntique(antique, currentUser);
+
+                // Remove money from buyer's balance
+                userRepository.withdrawMoney(userRepository.getUser(antique.getBuyerName()), antique.getPrice());
+
+                // Add money to seller's balance
+                storeRepository.depositMoney(storeRepository.getStore(antique.getSellerName()), antique.getPrice());
             }
         }
 

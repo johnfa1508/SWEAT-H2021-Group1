@@ -10,6 +10,6 @@ public interface UserRepository {
     HashMap<String, User> showUsers();
     ArrayList<String> showUserNames();
     void addUser(User newUser);
-    void moneyTransaction(Antique antique);
     void depositMoney(User user, double money);
+    void withdrawMoney(User user, double money);
 }

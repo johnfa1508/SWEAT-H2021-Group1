@@ -17,7 +17,7 @@ public interface AntiqueRepository {
     ArrayList<String> showAntiqueNames(boolean showAll);
     HashMap<String, Antique> showSpecificAntique(String antiqueType);
     void editAntique(String antiqueKey, Antique antique);
-    void purchaseAntique(Antique antique, String buyerName);
+    void purchaseAntique(Antique antique, User user);
     void addFavorite(Antique antique, User user);
     void removeFavorite(Antique antique, User user);
     HashMap<String, Antique> favoritedByUser(User user);

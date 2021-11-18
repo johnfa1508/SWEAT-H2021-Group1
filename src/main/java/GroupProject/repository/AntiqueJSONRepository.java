@@ -211,10 +211,10 @@ public class AntiqueJSONRepository implements AntiqueRepository {
 
     // FUNCTION TO PURCHASE AN ANTIQUE
     @Override
-    public void purchaseAntique(Antique antique, String buyerName) {
+    public void purchaseAntique(Antique antique, User user) {
         // Sets item-state to sold and adds buyer's name
         antique.setSold(true);
-        antique.setBuyerName(buyerName);
+        antique.setBuyerName(user.getName());
 
         writeJSON(fileName);
     }

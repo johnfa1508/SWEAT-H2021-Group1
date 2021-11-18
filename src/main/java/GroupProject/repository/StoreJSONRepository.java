@@ -1,6 +1,7 @@
 package GroupProject.repository;
 
 import GroupProject.model.Store;
+import GroupProject.model.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
@@ -91,5 +92,21 @@ public class StoreJSONRepository implements StoreRepository {
         }
 
         return storeNamesArray;
+    }
+
+    // FUNCTION TO DEPOSIT MONEY TO BANK BALANCE
+    @Override
+    public void depositMoney(Store store, double money) {
+        getStore(store.getName()).depositMoney(money);
+
+        writeJSON(fileName);
+    }
+
+    // FUNCTION TO WITHDRAW MONEY FROM BANK BALANCE
+    @Override
+    public void withdrawMoney(Store store, double money) {
+        getStore(store.getName()).depositMoney(money);
+
+        writeJSON(fileName);
     }
 }

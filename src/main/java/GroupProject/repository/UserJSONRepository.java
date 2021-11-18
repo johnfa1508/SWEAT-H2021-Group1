@@ -1,5 +1,6 @@
 package GroupProject.repository;
 
+import GroupProject.model.Store;
 import GroupProject.model.User;
 import GroupProject.model.Antique;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -94,28 +95,18 @@ public class UserJSONRepository implements UserRepository {
         return userNamesArray;
     }
 
-    // FUNCTION TO HANDLE TRANSACTION BETWEEN SELLER AND BUYER
-    @Override
-    public void moneyTransaction(Antique antique) {
-        for (Map.Entry<String, User> userSet : userMap.entrySet()) {
-            // If user is the seller, deposit to balance
-            if (userSet.getValue().getName().equalsIgnoreCase(antique.getSellerName())) {
-                getUser(antique.getSellerName()).depositMoney(antique.getPrice());
-            }
-
-            // If user is the buyer, withdraw from balance
-            if (userSet.getValue().getName().equalsIgnoreCase(antique.getBuyerName())) {
-                getUser(antique.getBuyerName()).withdrawMoney(antique.getPrice());
-            }
-        }
-
-        writeJSON(fileName);
-    }
-
     // FUNCTION TO DEPOSIT MONEY TO BANK BALANCE
     @Override
     public void depositMoney(User user, double money) {
         getUser(user.getName()).depositMoney(money);
+
+        writeJSON(fileName);
+    }
+
+    // FUNCTION TO WITHDRAW MONEY FROM BANK BALANCE
+    @Override
+    public void withdrawMoney(User user, double money) {
+        getUser(user.getName()).withdrawMoney(money);
 
         writeJSON(fileName);
     }
