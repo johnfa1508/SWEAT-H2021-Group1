@@ -146,10 +146,10 @@ public class ProgramController {
         choice = inputScanner.nextInt();
 
         switch (choice) {
-            case 1 -> showAntiques();     // Show antique screen
-            case 2 -> makeAntique(false); // Make new antique
-            case 3 -> showBalance("STORE");    // Show balance
-            case 4 -> loginPanel();       // Log out
+            case 1 -> showAntiques();        // Show antique screen
+            case 2 -> makeAntique(false);    // Make new antique
+            case 3 -> showBalance("STORE"); // Show balance
+            case 4 -> loginPanel();         // Log out
         }
     }
 
