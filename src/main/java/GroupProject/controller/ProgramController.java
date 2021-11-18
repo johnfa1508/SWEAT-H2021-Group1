@@ -46,7 +46,6 @@ public class ProgramController {
                    2. Log in as user
                    3. Log in as store
                    4. Leave
-                   5. Make user (TEST PURPOSES)
                 ========================================
                 """);
 
@@ -57,7 +56,6 @@ public class ProgramController {
             case 2 -> loginUserPanel();  // Go to user-login screen
             case 3 -> loginStorePanel(); // Go to store-screen
             case 4 -> {}                 // Leave
-            case 5 -> makeUser();        // Make new user (TEST PURPOSES)
         }
     }
 
@@ -108,9 +106,12 @@ public class ProgramController {
                 ================= USER =================
                    1. See antiques
                    2. Purchase an antique
-                   3. Sell an antique
-                   4. See bank balance
-                   5. Log out
+                   3. Add antique as favorite
+                   4. Remove antique as favorite
+                   5. Show favorites
+                   6. See bank balance
+                   7. Deposit money
+                   8. Log out
                 ========================================
                 """);
         choice = inputScanner.nextInt();
@@ -118,9 +119,12 @@ public class ProgramController {
         switch (choice) {
             case 1 -> showAntiques();     // Show antique screen
             case 2 -> purchaseAntique();        // Buy an antique
-            case 3 -> makeAntique(false); // Make new antique
-            case 4 -> showBalance("user");      // Show balance
-            case 5 -> loginPanel();             // Log out
+            case 3 -> addFavorite();
+            case 4 -> removeFavorite();
+            case 5 -> showFavorites();
+            case 6 -> showBalance("USER");      // Show balance
+            case 7 -> depositMoney();
+            case 8 -> loginPanel();             // Log out
         }
     }
 
@@ -168,7 +172,10 @@ public class ProgramController {
                    2. Update an antique
                    3. Purchase history
                    4. See all users
-                   5. Log out
+                   5. See all stores
+                   6. Make new store
+                   7. Make new user
+                   8. Log out
                 ========================================
                 """);
         choice = inputScanner.nextInt();
@@ -178,7 +185,10 @@ public class ProgramController {
             case 2 -> updatePanel();     // Go to admin update panel
             case 3 -> purchaseHistory(); // See purchase history
             case 4 -> showUsers();       // Show all users
-            case 5 -> loginPanel();      // Go back
+            case 5 -> showStores();      // Show all stores
+            case 6 -> makeStore();       // Make a new store
+            case 7 -> makeUser();        // Make a new user
+            case 8 -> loginPanel();      // Go back
         }
     }
 
@@ -187,6 +197,7 @@ public class ProgramController {
         // Checks if there are items for sale
         if (antiqueRepository.isEmpty()) {
             System.out.println("*** There are currently no antiques to show. ***");
+
             goBack();
         }
 
@@ -274,6 +285,19 @@ public class ProgramController {
         goBack();
     }
 
+    // FUNCTION TO DEPOSIT MONEY TO USER-BALANCE
+    public void depositMoney() {
+        double money;
+
+        Scanner inputScanner = new Scanner(System.in);
+        System.out.println("\nHow much money would you like to deposit?: ");
+        money = inputScanner.nextDouble();
+
+        userRepository.getUser(currentUser.getName()).depositMoney(money);
+
+        goBack();
+    }
+
     // FUNCTION TO MAKE NEW USER
     public void makeUser() {
         String name;
@@ -289,7 +313,21 @@ public class ProgramController {
         User newUser = new User(name, bankBalance);
         userRepository.addUser(newUser);
 
-        loginPanel();
+        goBack();
+    }
+
+    // FUNCTION TO MAKE NEW STORE
+    public void makeStore() {
+        String name;
+
+        Scanner inputScanner = new Scanner(System.in);
+        System.out.println("\nWrite the name of the new store: ");
+        name = inputScanner.nextLine();
+
+        Store newStore = new Store(name);
+        storeRepository.addStore(newStore);
+
+        goBack();
     }
 
     // PURCHASE AN ANTIQUE FOR SALE
@@ -298,7 +336,7 @@ public class ProgramController {
         if (antiqueRepository.isEmpty()) {
             System.out.println("*** There are currently no items for sale. ***");
 
-            userPanel(currentUser);
+            goBack();
         }
 
         // Show antiques for sale
@@ -316,7 +354,7 @@ public class ProgramController {
 
         // If user wants to cancel, go back to user panel
         if (itemInCart.equalsIgnoreCase("CANCEL")) {
-            userPanel(currentUser);
+            goBack();
         }
 
         // Checks if user is trying to buy an item they're selling
@@ -342,7 +380,79 @@ public class ProgramController {
             }
         }
 
-        userPanel(currentUser);
+        goBack();
+    }
+
+    // FUNCTION TO ADD ANTIQUE TO FAVORITES
+    public void addFavorite() {
+        // Show antiques for sale
+        System.out.println("Antiques that are for sale are: ");
+        ArrayList<String> antiqueNamesArray = antiqueRepository.showAntiqueNames(false);
+
+        for (String antiqueNames : antiqueNamesArray) {
+            System.out.println(antiqueNames);
+        }
+
+        String favoriteItem;
+        Scanner inputScanner = new Scanner(System.in);
+        System.out.println("\nWhich item would you like to add to favorites: ");
+        favoriteItem = inputScanner.nextLine();
+
+        if (antiqueRepository.getAntique(favoriteItem).getFavorites().contains(currentUser.getName())) {
+            System.out.println("*** You have already favorited that item. ***\n");
+        } else {
+            antiqueRepository.addFavorite(antiqueRepository.getAntique(favoriteItem), currentUser);
+        }
+
+        goBack();
+    }
+
+    // FUNCTION TO REMOVE ANTIQUE FROM FAVORITES
+    public void removeFavorite() {
+        // Show antiques favorited
+        HashMap<String, Antique> favorites = antiqueRepository.favoritedByUser(currentUser);
+
+        // Check if user has favorited anything, if not user will be sent back
+        if (favorites.isEmpty()) {
+            System.out.println("*** You have no favorites ***");
+        } else {
+            System.out.println("\n========== ANTIQUES FAVORITED ==========");
+
+            for (Map.Entry<String, Antique> antiqueSet : favorites.entrySet()) {
+                System.out.println(antiqueSet.getKey() + " = " + antiqueSet.getValue());
+            }
+
+            System.out.println("\n========================================");
+
+            String removeFavoriteItem;
+            Scanner inputScanner = new Scanner(System.in);
+            System.out.println("\nWhich item would you like to remove from favorites?: ");
+            removeFavoriteItem = inputScanner.nextLine();
+
+            antiqueRepository.removeFavorite(antiqueRepository.getAntique(removeFavoriteItem), currentUser);
+        }
+
+        goBack();
+    }
+
+    // FUNCTION TO SHOW ALL FAVORITES
+    public void showFavorites() {
+        HashMap<String, Antique> favorites = antiqueRepository.favoritedByUser(currentUser);
+
+        // Check if user has favorited anything, if not user will be sent back
+        if (favorites.isEmpty()) {
+            System.out.println("*** You have no favorites ***");
+        } else {
+            System.out.println("\n========== ANTIQUES FAVORITED ==========");
+
+            for (Map.Entry<String, Antique> antiqueSet : favorites.entrySet()) {
+                System.out.println(antiqueSet.getKey() + " = " + antiqueSet.getValue());
+            }
+
+            System.out.println("\n========================================");
+        }
+
+        goBack();
     }
 
     // FUNCTION TO MAKE ANTIQUE-OBJECT. RECEIVES BOOLEAN TO KNOW IF IT'S FOR REPLACEMENT OR IF IT'S NEW
@@ -362,7 +472,7 @@ public class ProgramController {
 
         // If user wants to cancel, go back to user panel
         if (name.equalsIgnoreCase("CANCEL")) {
-            userPanel(currentUser);
+            goBack();
         }
 
         // Get type of antique, make type-string lowercase for easier sorting/grouping later
@@ -379,7 +489,7 @@ public class ProgramController {
         price = inputScanner.nextDouble();
 
         // Create antique and add to list of antiques for sale
-        Antique newAntique = new Antique(name, type, description, price, currentUser.getName());
+        Antique newAntique = new Antique(name, type, description, price, currentStore.getName());
 
         if (antiqueReplace) {
             return newAntique;
@@ -512,6 +622,21 @@ public class ProgramController {
         }
 
         System.out.println("========================================");
+
+        goBack();
+    }
+
+    // FUNCTION TO SHOW ALL STORES
+    public void showStores() {
+        System.out.println("============== ALL STORES ===============");
+
+        HashMap<String, Store> storeMap = storeRepository.showStores();
+
+        for (Map.Entry<String, Store> storeSet : storeMap.entrySet()) {
+            System.out.println(storeSet.getKey() + " = " + storeSet.getValue());
+        }
+
+        System.out.println("=========================================");
 
         goBack();
     }

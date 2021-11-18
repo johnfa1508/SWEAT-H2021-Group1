@@ -1,7 +1,7 @@
 package GroupProject.repository;
 
 import GroupProject.model.Antique;
-
+import GroupProject.model.User;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -18,4 +18,7 @@ public interface AntiqueRepository {
     HashMap<String, Antique> showSpecificAntique(String antiqueType);
     void editAntique(String antiqueKey, Antique antique);
     void purchaseAntique(Antique antique, String buyerName);
+    void addFavorite(Antique antique, User user);
+    void removeFavorite(Antique antique, User user);
+    HashMap<String, Antique> favoritedByUser(User user);
 }

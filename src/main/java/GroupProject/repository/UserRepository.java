@@ -2,7 +2,6 @@ package GroupProject.repository;
 
 import GroupProject.model.Antique;
 import GroupProject.model.User;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 

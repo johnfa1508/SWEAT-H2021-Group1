@@ -1,41 +1,10 @@
 [ {
-  "name" : "sellToJohn test",
-  "type" : "mirror",
-  "description" : "Test to sell to john-user",
-  "price" : 50.0,
-  "sold" : true,
-  "sellerName" : "userTest1",
-  "buyerName" : "john"
-}, {
-  "name" : "selltester3",
-  "type" : "spoon",
-  "description" : "selltester3",
-  "price" : 500.0,
-  "sold" : true,
-  "sellerName" : "userTest1",
-  "buyerName" : "userTest2"
-}, {
-  "name" : "Antique john buyer",
-  "type" : "fork",
-  "description" : "Test",
-  "price" : 800.0,
-  "sold" : true,
-  "sellerName" : "john",
-  "buyerName" : "userTest2"
-}, {
-  "name" : "selltester2",
-  "type" : "table",
-  "description" : "selltester2",
-  "price" : 250.0,
-  "sold" : true,
-  "sellerName" : "userTest1",
-  "buyerName" : "userTest2"
-}, {
-  "name" : "golden table",
-  "type" : "table",
-  "description" : "table made out of gold",
-  "price" : 500.0,
+  "name" : "test",
+  "type" : "test",
+  "description" : "test",
+  "price" : 25.0,
   "sold" : false,
-  "sellerName" : "john",
-  "buyerName" : null
+  "sellerName" : "burger king",
+  "buyerName" : null,
+  "favorites" : [ "user with no money" ]
 } ]

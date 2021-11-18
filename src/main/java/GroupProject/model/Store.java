@@ -10,9 +10,9 @@ public class Store {
     }
 
     // CONSTRUCTOR
-    public Store(String userName, double bankBalance){
+    public Store(String userName){
         this.name = userName;
-        this.bankBalance = bankBalance;
+        this.bankBalance = 0;
     }
 
     public String getName() {

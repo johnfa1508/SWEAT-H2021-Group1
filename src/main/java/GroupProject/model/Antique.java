@@ -1,5 +1,8 @@
 package GroupProject.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.ArrayList;
+
 public class Antique {
     private String name;
     private String type;
@@ -8,6 +11,7 @@ public class Antique {
     private boolean sold;
     private String sellerName;
     private String buyerName;
+    private ArrayList<String> favorites = new ArrayList<>();
 
     // OVERLOAD
     public Antique() {
@@ -79,6 +83,18 @@ public class Antique {
         this.sold = sold;
     }
 
+    public ArrayList<String> getFavorites() {
+        return new ArrayList<>(favorites);
+    }
+
+    public void addFavorites(String userName) {
+        favorites.add(userName);
+    }
+
+    public void removeFavorites(String userName) {
+        favorites.remove(userName);
+    }
+
     @Override
     public String toString() {
         if (getSold()) {
@@ -90,7 +106,9 @@ public class Antique {
                 Price: %s nok
                 Seller: %s
                 Buyer: %s
-                """, getName(), getType(), getDescription(), getPrice(), getSellerName(), getBuyerName());
+                Favorited by: %s
+                """, getName(), getType(), getDescription(), getPrice(), getSellerName(), getBuyerName(),
+                    getFavorites());
             }
 
         return String.format("""
@@ -100,6 +118,7 @@ public class Antique {
                 Description: %s
                 Price: %s nok
                 Seller: %s
-                """, getName(), getType(), getDescription(), getPrice(), getSellerName());
+                Favorited by: %s
+                """, getName(), getType(), getDescription(), getPrice(), getSellerName(), getFavorites());
     }
 }

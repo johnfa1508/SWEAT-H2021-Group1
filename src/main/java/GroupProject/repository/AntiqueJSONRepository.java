@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import GroupProject.model.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class AntiqueJSONRepository implements AntiqueRepository {
@@ -167,6 +168,20 @@ public class AntiqueJSONRepository implements AntiqueRepository {
         return null;
     }
 
+    // FUNCTION TO RETURN ANTIQUES FAVORITED BY USER
+    @Override
+    public HashMap<String, Antique> favoritedByUser(User user) {
+        HashMap<String, Antique> favoritedAntiquesMap = new HashMap<>();
+
+        for (Map.Entry<String, Antique> antiqueSet : antiqueMap.entrySet()) {
+            if (antiqueSet.getValue().getFavorites().contains(user.getName())) {
+                favoritedAntiquesMap.put(antiqueSet.getKey(), antiqueSet.getValue());
+            }
+        }
+
+        return favoritedAntiquesMap;
+    }
+
     // FUNCTION TO ADD ANTIQUE TO HASHMAP OF ANTIQUES
     @Override
     public void addAntique(Antique newAntique) {
@@ -200,6 +215,22 @@ public class AntiqueJSONRepository implements AntiqueRepository {
         // Sets item-state to sold and adds buyer's name
         antique.setSold(true);
         antique.setBuyerName(buyerName);
+
+        writeJSON(fileName);
+    }
+
+    // FUNCTION TO ADD NAME OF USER TO FAVORITES
+    @Override
+    public void addFavorite(Antique antique, User user) {
+        antique.addFavorites(user.getName());
+
+        writeJSON(fileName);
+    }
+
+    // FUNCTION TO REMOVE NAME OF USER FROM FAVORITES
+    @Override
+    public void removeFavorite(Antique antique, User user) {
+        antique.removeFavorites(user.getName());
 
         writeJSON(fileName);
     }
