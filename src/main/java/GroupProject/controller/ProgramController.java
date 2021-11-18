@@ -61,7 +61,7 @@ public class ProgramController {
 
     // LOG IN AS USER
     public void loginUserPanel() {
-        System.out.println("Which user would you like to log in to?:");
+        System.out.println("Which user would you like to log in to?: ");
         ArrayList<String> userNamesArray = userRepository.showUserNames();
 
         for (String userNames : userNamesArray) {
@@ -77,7 +77,7 @@ public class ProgramController {
 
     // LOG IN AS STORE
     public void loginStorePanel() {
-        System.out.println("Which store would you like to log in to?:");
+        System.out.println("Which store would you like to log in to?: ");
         ArrayList<String> storeNamesArray = storeRepository.showStoreNames();
 
         for (String storeNames : storeNamesArray) {
@@ -225,8 +225,7 @@ public class ProgramController {
         System.out.println("============ ITEMS FOR SALE ============");
 
         // HashMap to store hashmap received from repository
-        HashMap<String, Antique> antiques;
-        antiques = antiqueRepository.showAntiquesForSale();
+        HashMap<String, Antique> antiques = antiqueRepository.showAntiquesForSale();
 
         // Go through hashmap and print out
         for (Map.Entry<String, Antique> antiqueSet : antiques.entrySet()) {
@@ -258,20 +257,20 @@ public class ProgramController {
         // If user wants to cancel, go back to show antiques screen
         if (userInput.equalsIgnoreCase("CANCEL")) {
             showAntiques();
+        } else {
+            System.out.println("\n============ ITEMS FOR SALE ============");
+
+            // Show antiques of that type
+            HashMap<String, Antique> specificAntiqueTypes = antiqueRepository.showSpecificAntique(userInput);
+            for (Map.Entry<String, Antique> antiqueSet : specificAntiqueTypes.entrySet()) {
+                System.out.println(antiqueSet.getKey() + " = " + antiqueSet.getValue());
+            }
+
+            System.out.println("========================================");
+
+            // Go back to antiques-screen
+            showAntiques();
         }
-
-        System.out.println("\n============ ITEMS FOR SALE ============");
-
-        // Show antiques of that type
-        HashMap<String, Antique> specificAntiqueTypes = antiqueRepository.showSpecificAntique(userInput);
-        for (Map.Entry<String, Antique> antiqueSet : specificAntiqueTypes.entrySet()) {
-            System.out.println(antiqueSet.getKey() + " = " + antiqueSet.getValue());
-        }
-
-        System.out.println("========================================");
-
-        // Go back to antiques-screen
-        showAntiques();
     }
 
     // FUNCTION TO SHOW USER-BALANCE
@@ -290,7 +289,7 @@ public class ProgramController {
         double money;
 
         Scanner inputScanner = new Scanner(System.in);
-        System.out.println("\nHow much money would you like to deposit?: ");
+        System.out.println("\nEnter the amount you would like to deposit: ");
         money = inputScanner.nextDouble();
 
         userRepository.depositMoney(currentUser, money);
@@ -330,6 +329,15 @@ public class ProgramController {
         goBack();
     }
 
+    // FUNCTION TO SHOW NAMES OF ANTIQUES FOR SALE
+    public void showAntiqueNames() {
+        ArrayList<String> antiqueNamesArray = antiqueRepository.showAntiqueNames(false);
+
+        for (String antiqueNames : antiqueNamesArray) {
+            System.out.println(antiqueNames);
+        }
+    }
+
     // PURCHASE AN ANTIQUE FOR SALE
     public void purchaseAntique(){
         // Checks if there are items for sale
@@ -341,11 +349,7 @@ public class ProgramController {
 
         // Show antiques for sale
         System.out.println("Antiques that are for sale are: ");
-        ArrayList<String> antiqueNamesArray = antiqueRepository.showAntiqueNames(false);
-
-        for (String antiqueNames : antiqueNamesArray) {
-            System.out.println(antiqueNames);
-        }
+        showAntiqueNames();
 
         String itemInCart;
         Scanner inputScanner = new Scanner(System.in);
@@ -387,11 +391,7 @@ public class ProgramController {
     public void addFavorite() {
         // Show antiques for sale
         System.out.println("Antiques that are for sale are: ");
-        ArrayList<String> antiqueNamesArray = antiqueRepository.showAntiqueNames(false);
-
-        for (String antiqueNames : antiqueNamesArray) {
-            System.out.println(antiqueNames);
-        }
+        showAntiqueNames();
 
         String favoriteItem;
         Scanner inputScanner = new Scanner(System.in);
@@ -570,7 +570,7 @@ public class ProgramController {
         }
 
         System.out.println("Antiques that can be edited: ");
-        antiqueRepository.showAntiqueNames(false);
+        showAntiqueNames();
 
         // Get antique name(key) and store it in antiqueName variable
         String antiqueName;
@@ -581,9 +581,7 @@ public class ProgramController {
         // If user wants to cancel, go back to update panel
         if (antiqueName.equalsIgnoreCase("CANCEL")) {
             updatePanel();
-        }
-
-        if (antiqueRepository.getAntique(antiqueName).getSold()) {
+        } else if (antiqueRepository.getAntique(antiqueName).getSold()){
             System.out.println("That item is already sold!\n");
             updatePanel();
         }
