@@ -463,6 +463,18 @@ public class ProgramController {
         goBack();
     }
 
+    // FUNCTION USED TO GO BACK TO CORRECT PREVIOUS PANEL
+    public void goBack() {
+        if (isUser) {
+            userPanel(currentUser);
+        } else if (isStore) {
+            storePanel(currentStore);
+        } else {
+            adminPanel();
+        }
+    }
+
+    // COMMANDS FOR STORE USERS
     // FUNCTION TO MAKE ANTIQUE-OBJECT. RECEIVES BOOLEAN TO KNOW IF IT'S FOR REPLACEMENT OR IF IT'S NEW
     public Antique makeAntique(boolean antiqueReplace) {
         // Variables used to create Antique object
@@ -511,17 +523,6 @@ public class ProgramController {
 
         goBack();
         return null;
-    }
-
-    // FUNCTION USED TO GO BACK TO CORRECT PREVIOUS PANEL
-    public void goBack() {
-        if (isUser) {
-            userPanel(currentUser);
-        } else if (isStore) {
-            storePanel(currentStore);
-        } else {
-            adminPanel();
-        }
     }
 
     // COMMANDS FOR ADMIN
