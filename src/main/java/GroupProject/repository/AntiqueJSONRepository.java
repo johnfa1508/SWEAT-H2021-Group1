@@ -234,4 +234,10 @@ public class AntiqueJSONRepository implements AntiqueRepository {
 
         writeJSON(fileName);
     }
+
+    // FUNCTION TO CHECK IF ANTIQUE EXISTS ALREADY
+    @Override
+    public boolean antiqueExists(Antique antique) {
+        return antiqueMap.containsKey(antique.getName());
+    }
 }

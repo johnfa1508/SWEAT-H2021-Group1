@@ -1,6 +1,5 @@
 package GroupProject.repository;
 
-import GroupProject.model.Antique;
 import GroupProject.model.User;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,4 +11,5 @@ public interface UserRepository {
     void addUser(User newUser);
     void depositMoney(User user, double money);
     void withdrawMoney(User user, double money);
+    boolean userExists(User user);
 }

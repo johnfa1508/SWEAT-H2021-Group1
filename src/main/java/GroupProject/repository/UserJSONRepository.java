@@ -110,4 +110,10 @@ public class UserJSONRepository implements UserRepository {
 
         writeJSON(fileName);
     }
+
+    // FUNCTION TO CHECK IF USER EXISTS
+    @Override
+    public boolean userExists(User user) {
+        return userMap.containsKey(user.getName());
+    }
 }

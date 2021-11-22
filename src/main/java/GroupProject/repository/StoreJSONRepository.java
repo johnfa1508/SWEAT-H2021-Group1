@@ -109,4 +109,10 @@ public class StoreJSONRepository implements StoreRepository {
 
         writeJSON(fileName);
     }
+
+    // FUNCTION TO CHECK IF STORE EXISTS
+    @Override
+    public boolean storeExists(Store store) {
+        return storeMap.containsKey(store.getName());
+    }
 }

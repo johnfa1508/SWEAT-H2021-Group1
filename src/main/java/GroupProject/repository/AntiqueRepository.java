@@ -21,4 +21,5 @@ public interface AntiqueRepository {
     void addFavorite(Antique antique, User user);
     void removeFavorite(Antique antique, User user);
     HashMap<String, Antique> favoritedByUser(User user);
+    boolean antiqueExists(Antique antique);
 }
