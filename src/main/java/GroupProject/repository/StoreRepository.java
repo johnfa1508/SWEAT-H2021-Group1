@@ -11,5 +11,5 @@ public interface StoreRepository {
     void addStore(Store newStore);
     void depositMoney(Store store, double money);
     void withdrawMoney(Store store, double money);
-    boolean storeExists(Store store);
+    boolean storeExists(String storeName);
 }

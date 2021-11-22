@@ -72,7 +72,13 @@ public class ProgramController {
         Scanner inputScanner = new Scanner(System.in);
         userInput = inputScanner.nextLine();
 
-        userPanel(userRepository.getUser(userInput));
+        // If the user doesn't exist, user will get sent back to login panel
+        if (userRepository.userExists(userInput)) {
+            userPanel(userRepository.getUser(userInput));
+        } else {
+            System.out.println("\n*** That user does not exist. Please try again. ***");
+            loginPanel();
+        }
     }
 
     // LOG IN AS STORE
@@ -88,7 +94,13 @@ public class ProgramController {
         Scanner inputScanner = new Scanner(System.in);
         userInput = inputScanner.nextLine();
 
-        storePanel(storeRepository.getStore(userInput));
+        // If the user doesn't exist, user will get sent back to login panel
+        if (storeRepository.storeExists(userInput)) {
+            storePanel(storeRepository.getStore(userInput));
+        } else {
+            System.out.println("\n*** That store does not exist. Please try again. ***");
+            loginPanel();
+        }
     }
 
     // USER SCREEN. RECEIVES User-OBJECT TO TRACK WHICH USER IS CURRENTLY LOGGED IN
@@ -254,23 +266,26 @@ public class ProgramController {
         System.out.println("\nWhich one would you like to see?: ");
         userInput = inputScanner.nextLine();
 
-        // If user wants to cancel, go back to show antiques screen
-        if (userInput.equalsIgnoreCase("CANCEL")) {
-            showAntiques();
+        if (!antiqueTypes.contains(userInput)) {
+            System.out.println("\n*** That type does not exist. Please try again ***");
         } else {
-            System.out.println("\n============ ITEMS FOR SALE ============");
+            // Program will continue if user doesn't write cancel or CANCEL
+            if (!userInput.equalsIgnoreCase("CANCEL") ||
+                    !userInput.equalsIgnoreCase("cancel")) {
+                System.out.println("\n============ ITEMS FOR SALE ============");
 
-            // Show antiques of that type
-            HashMap<String, Antique> specificAntiqueTypes = antiqueRepository.showSpecificAntique(userInput);
-            for (Map.Entry<String, Antique> antiqueSet : specificAntiqueTypes.entrySet()) {
-                System.out.println(antiqueSet.getKey() + " = " + antiqueSet.getValue());
+                // Show antiques of that type
+                HashMap<String, Antique> specificAntiqueTypes = antiqueRepository.showSpecificAntique(userInput);
+                for (Map.Entry<String, Antique> antiqueSet : specificAntiqueTypes.entrySet()) {
+                    System.out.println(antiqueSet.getKey() + " = " + antiqueSet.getValue());
+                }
+
+                System.out.println("========================================");
             }
-
-            System.out.println("========================================");
-
-            // Go back to antiques-screen
-            showAntiques();
         }
+
+        // Go back to antiques-screen
+        showAntiques();
     }
 
     // FUNCTION TO SHOW USER-BALANCE
@@ -293,38 +308,6 @@ public class ProgramController {
         money = inputScanner.nextDouble();
 
         userRepository.depositMoney(currentUser, money);
-
-        goBack();
-    }
-
-    // FUNCTION TO MAKE NEW USER
-    public void makeUser() {
-        String name;
-        double bankBalance;
-
-        Scanner inputScanner = new Scanner(System.in);
-        System.out.println("\nWrite the name of the new user: ");
-        name = inputScanner.nextLine();
-
-        System.out.println("\nWrite how much there's in the bank balance: ");
-        bankBalance = inputScanner.nextDouble();
-
-        User newUser = new User(name, bankBalance);
-        userRepository.addUser(newUser);
-
-        goBack();
-    }
-
-    // FUNCTION TO MAKE NEW STORE
-    public void makeStore() {
-        String name;
-
-        Scanner inputScanner = new Scanner(System.in);
-        System.out.println("\nWrite the name of the new store: ");
-        name = inputScanner.nextLine();
-
-        Store newStore = new Store(name);
-        storeRepository.addStore(newStore);
 
         goBack();
     }
@@ -356,33 +339,38 @@ public class ProgramController {
         System.out.println("\nWhich item would you like to buy? (CANCEL to cancel): ");
         itemInCart = inputScanner.nextLine();
 
-        // If user wants to cancel, go back to user panel
-        if (itemInCart.equalsIgnoreCase("CANCEL")) {
-            goBack();
-        }
-
-        // If the buyer does not have enough money, program will send the buyer back
-        if (currentUser.getBankBalance() < antiqueRepository.getAntique(itemInCart).getPrice()) {
-            System.out.println("Your bank balance is insufficient. Please try again.\n");
-        } else {
-            // If item is already sold, user will be sent back
-            if (antiqueRepository.getAntique(itemInCart).getSold()) {
-                System.out.println("That item is already sold! Please try again.\n");
+        // If antique exists program will continue
+        if (antiqueRepository.antiqueExists(itemInCart)) {
+            // If the buyer does not have enough money, program will send the buyer back
+            if (currentUser.getBankBalance() < antiqueRepository.getAntique(itemInCart).getPrice()) {
+                System.out.println("Your bank balance is insufficient. Please try again.\n");
             } else {
-                System.out.println("\nAntique was bought successfully.");
+                // If item is already sold, user will be sent back
+                if (antiqueRepository.getAntique(itemInCart).getSold()) {
+                    System.out.println("That item is already sold! Please try again.\n");
+                } else {
+                    System.out.println("\nAntique was bought successfully.");
 
-                // Put antique-object in variable for easier handling
-                Antique antique = antiqueRepository.getAntique(itemInCart);
+                    // FIXME: Make function for transaction
 
-                // Updates the antique(boolean sold) and sends the buyer's name
-                antiqueRepository.purchaseAntique(antique, currentUser);
+                    // Put antique-object in variable for easier handling
+                    Antique antique = antiqueRepository.getAntique(itemInCart);
 
-                // Remove money from buyer's balance
-                userRepository.withdrawMoney(userRepository.getUser(antique.getBuyerName()), antique.getPrice());
+                    // Updates the antique(boolean sold) and sends the buyer's name
+                    antiqueRepository.purchaseAntique(antique, currentUser);
 
-                // Add money to seller's balance
-                storeRepository.depositMoney(storeRepository.getStore(antique.getSellerName()), antique.getPrice());
+                    // Remove money from buyer's balance
+                    userRepository.withdrawMoney(userRepository.getUser(antique.getBuyerName()), antique.getPrice());
+
+                    // Add money to seller's balance
+                    storeRepository.depositMoney(storeRepository.getStore(antique.getSellerName()), antique.getPrice());
+                }
             }
+        } else if (itemInCart.equalsIgnoreCase("CANCEL")){
+            goBack();
+        } else {
+            // If antique written does not exist, user will get sent back
+            System.out.println("\n*** That antique does not exist. Please try again ***");
         }
 
         goBack();
@@ -396,13 +384,23 @@ public class ProgramController {
 
         String favoriteItem;
         Scanner inputScanner = new Scanner(System.in);
-        System.out.println("\nWhich item would you like to add to favorites: ");
+        System.out.println("\nWhich item would you like to add to favorites (CANCEL to cancel): ");
         favoriteItem = inputScanner.nextLine();
 
-        if (antiqueRepository.getAntique(favoriteItem).getFavorites().contains(currentUser.getName())) {
-            System.out.println("*** You have already favorited that item. ***\n");
+        // If antique exists, program will continue
+        if (antiqueRepository.antiqueExists(favoriteItem)) {
+            // If user has already favorited the item, user will get sent back
+            if (antiqueRepository.getAntique(favoriteItem).getFavorites().contains(currentUser.getName())) {
+                System.out.println("*** You have already favorited that item. ***\n");
+            } else {
+                antiqueRepository.addFavorite(antiqueRepository.getAntique(favoriteItem), currentUser);
+            }
+        } else if (favoriteItem.equalsIgnoreCase("CANCEL") ||
+                favoriteItem.equalsIgnoreCase("cancel")) {
+            goBack();
         } else {
-            antiqueRepository.addFavorite(antiqueRepository.getAntique(favoriteItem), currentUser);
+            // If antique doesn't exist, user will get sent back
+            System.out.println("\n*** That antique does not exist. Please try again ***");
         }
 
         goBack();
@@ -427,10 +425,19 @@ public class ProgramController {
 
             String removeFavoriteItem;
             Scanner inputScanner = new Scanner(System.in);
-            System.out.println("\nWhich item would you like to remove from favorites?: ");
+            System.out.println("\nWhich item would you like to remove from favorites? (CANCEL to cancel): ");
             removeFavoriteItem = inputScanner.nextLine();
 
-            antiqueRepository.removeFavorite(antiqueRepository.getAntique(removeFavoriteItem), currentUser);
+            // If antique exists, antique will get removed from favorites
+            if (antiqueRepository.antiqueExists(removeFavoriteItem)) {
+                antiqueRepository.removeFavorite(antiqueRepository.getAntique(removeFavoriteItem), currentUser);
+            } else if (removeFavoriteItem.equalsIgnoreCase("CANCEL") ||
+                    removeFavoriteItem.equalsIgnoreCase("cancel")) {
+                goBack();
+            } else {
+                // If antique does not exist, user will be sent back
+                System.out.println("\n*** That antique does not exist. Please try again ***");
+            }
         }
 
         goBack();
@@ -471,31 +478,35 @@ public class ProgramController {
         System.out.println("\nEnter the name of the item (CANCEL to cancel): ");
         name = inputScanner.nextLine();
 
-        // If user wants to cancel, go back to user panel
-        if (name.equalsIgnoreCase("CANCEL")) {
+        // If antique doesn't exist, program will continue
+        if (!antiqueRepository.antiqueExists(name)) {
+            // Get type of antique, make type-string lowercase for easier sorting/grouping later
+            System.out.println("\nWhat kind of item is it (table, chair, mirror etc.)? ");
+            type = inputScanner.nextLine();
+            type = type.toLowerCase();
+
+            // Get description for antique
+            System.out.println("\nWrite the description for the item here: ");
+            description = inputScanner.nextLine();
+
+            // Get price for antique
+            System.out.println("\nHow much will your item cost?: ");
+            price = inputScanner.nextDouble();
+
+            // Create antique and add to list of antiques for sale
+            Antique newAntique = new Antique(name, type, description, price, currentStore.getName());
+
+            if (antiqueReplace) {
+                return newAntique;
+            } else {
+                antiqueRepository.addAntique(newAntique);
+            }
+        } else if (name.equalsIgnoreCase("CANCEL") || name.equalsIgnoreCase("cancel")) {
+            // If user wants to cancel, go back to user panel
             goBack();
-        }
-
-        // Get type of antique, make type-string lowercase for easier sorting/grouping later
-        System.out.println("\nWhat kind of item is it (table, chair, mirror etc.)? ");
-        type = inputScanner.nextLine();
-        type = type.toLowerCase();
-
-        // Get description for antique
-        System.out.println("\nWrite the description for the item here: ");
-        description = inputScanner.nextLine();
-
-        // Get price for antique
-        System.out.println("\nHow much will your item cost?: ");
-        price = inputScanner.nextDouble();
-
-        // Create antique and add to list of antiques for sale
-        Antique newAntique = new Antique(name, type, description, price, currentStore.getName());
-
-        if (antiqueReplace) {
-            return newAntique;
         } else {
-            antiqueRepository.addAntique(newAntique);
+            // If antique already exists, user will get sent back
+            System.out.println("\n*** That antique already exists. Please try again. ***");
         }
 
         goBack();
@@ -551,13 +562,18 @@ public class ProgramController {
         Scanner inputScanner = new Scanner(System.in);
         antiqueName = inputScanner.nextLine();
 
-        // If user wants to cancel, go back to update panel
-        if (antiqueName.equalsIgnoreCase("CANCEL")) {
+        // If antique exists, program will continue
+        if (antiqueRepository.antiqueExists(antiqueName)) {
+            // Send antiqueName to deleteAntique()-method in repository
+            antiqueRepository.deleteAntique(antiqueName);
+        } else if (antiqueName.equalsIgnoreCase("CANCEL") ||
+                antiqueName.equalsIgnoreCase("cancel")) {
+            // If user wants to cancel, go back to update panel
             updatePanel();
+        } else {
+            // If antique doesn't exist, user will get sent back
+            System.out.println("\n*** That antique does not exist. Please try again. ***");
         }
-
-        // Send antiqueName to deleteAntique()-method in repository
-        antiqueRepository.deleteAntique(antiqueName);
 
         goBack();
     }
@@ -579,19 +595,27 @@ public class ProgramController {
         Scanner inputScanner = new Scanner(System.in);
         antiqueName = inputScanner.nextLine();
 
-        // If user wants to cancel, go back to update panel
-        if (antiqueName.equalsIgnoreCase("CANCEL")) {
+        // If antique exists, program will continue
+        if (antiqueRepository.antiqueExists(antiqueName)) {
+            // If antique is already sold, admin will get sent back
+            if (antiqueRepository.getAntique(antiqueName).getSold()) {
+                System.out.println("That item is already sold!\n");
+                updatePanel();
+            } else {
+                // Make new antique using makeAntique()-function
+                Antique newAntique = makeAntique(true);
+
+                // Replace antique with new antique
+                antiqueRepository.editAntique(antiqueName, newAntique);
+            }
+        } else if (antiqueName.equalsIgnoreCase("CANCEL") ||
+                antiqueName.equalsIgnoreCase("cancel")) {
+            // If user wants to cancel, go back to update panel
             updatePanel();
-        } else if (antiqueRepository.getAntique(antiqueName).getSold()){
-            System.out.println("That item is already sold!\n");
-            updatePanel();
+        } else {
+            // If antique doesn't exist, user will get sent back.
+            System.out.println("\n*** That antique does not exist. Please try again. ***");
         }
-
-        // Make new antique using makeAntique()-function
-        Antique newAntique = makeAntique(true);
-
-        // Replace antique with new antique
-        antiqueRepository.editAntique(antiqueName, newAntique);
 
         goBack();
     }
@@ -636,6 +660,50 @@ public class ProgramController {
         }
 
         System.out.println("=========================================");
+
+        goBack();
+    }
+
+    // FUNCTION TO MAKE NEW USER
+    public void makeUser() {
+        String name;
+        double bankBalance;
+
+        Scanner inputScanner = new Scanner(System.in);
+        System.out.println("\nWrite the name of the new user (CANCEL to cancel): ");
+        name = inputScanner.nextLine();
+
+        if (userRepository.userExists(name)) {
+            System.out.println("\n*** That username already exists. Please try again. ***");
+        } else if (name.equalsIgnoreCase("CANCEL") || name.equalsIgnoreCase("cancel")) {
+            goBack();
+        } else {
+            System.out.println("\nWrite how much there's in the bank balance: ");
+            bankBalance = inputScanner.nextDouble();
+
+            User newUser = new User(name, bankBalance);
+            userRepository.addUser(newUser);
+        }
+
+        goBack();
+    }
+
+    // FUNCTION TO MAKE NEW STORE
+    public void makeStore() {
+        String name;
+
+        Scanner inputScanner = new Scanner(System.in);
+        System.out.println("\nWrite the name of the new store (CANCEL to cancel): ");
+        name = inputScanner.nextLine();
+
+        if (storeRepository.storeExists(name)) {
+            System.out.println("\n*** That store name already exists. Please try again. ***");
+        } else if (name.equalsIgnoreCase("CANCEL") || name.equalsIgnoreCase("cancel")) {
+            goBack();
+        } else {
+            Store newStore = new Store(name);
+            storeRepository.addStore(newStore);
+        }
 
         goBack();
     }

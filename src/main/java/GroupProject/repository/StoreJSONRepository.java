@@ -112,7 +112,7 @@ public class StoreJSONRepository implements StoreRepository {
 
     // FUNCTION TO CHECK IF STORE EXISTS
     @Override
-    public boolean storeExists(Store store) {
-        return storeMap.containsKey(store.getName());
+    public boolean storeExists(String storeName) {
+        return storeMap.containsKey(storeName);
     }
 }

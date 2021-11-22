@@ -237,7 +237,7 @@ public class AntiqueJSONRepository implements AntiqueRepository {
 
     // FUNCTION TO CHECK IF ANTIQUE EXISTS ALREADY
     @Override
-    public boolean antiqueExists(Antique antique) {
-        return antiqueMap.containsKey(antique.getName());
+    public boolean antiqueExists(String antiqueName) {
+        return antiqueMap.containsKey(antiqueName);
     }
 }

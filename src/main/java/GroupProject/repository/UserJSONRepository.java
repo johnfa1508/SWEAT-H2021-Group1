@@ -113,7 +113,7 @@ public class UserJSONRepository implements UserRepository {
 
     // FUNCTION TO CHECK IF USER EXISTS
     @Override
-    public boolean userExists(User user) {
-        return userMap.containsKey(user.getName());
+    public boolean userExists(String userName) {
+        return userMap.containsKey(userName);
     }
 }
