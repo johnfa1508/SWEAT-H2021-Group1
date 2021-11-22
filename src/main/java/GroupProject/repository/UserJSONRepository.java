@@ -1,8 +1,6 @@
 package GroupProject.repository;
 
-import GroupProject.model.Store;
 import GroupProject.model.User;
-import GroupProject.model.Antique;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
