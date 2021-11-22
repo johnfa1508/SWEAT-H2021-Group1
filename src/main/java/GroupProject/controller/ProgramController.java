@@ -117,13 +117,14 @@ public class ProgramController {
                 
                 ================= USER =================
                    1. See antiques
-                   2. Purchase an antique
-                   3. Add antique as favorite
-                   4. Remove antique as favorite
-                   5. Show favorites
-                   6. See bank balance
-                   7. Deposit money
-                   8. Log out
+                   2. Bid on an antique (WIP Currently for purchase)
+                   3. Show active bids (WIP Not working)
+                   4. Add antique as favorite
+                   5. Remove antique as favorite
+                   6. Show favorites
+                   7. See bank balance
+                   8. Deposit money
+                   9. Log out
                 ========================================
                 """);
         choice = inputScanner.nextInt();
@@ -131,12 +132,13 @@ public class ProgramController {
         switch (choice) {
             case 1 -> showAntiques();      // Show antique screen
             case 2 -> purchaseAntique();   // Buy an antique
-            case 3 -> addFavorite();       // Add antique to favorites
-            case 4 -> removeFavorite();    // Remove antique from favorite list
-            case 5 -> showFavorites();     // Show favorited antiques
-            case 6 -> showBalance("USER"); // Show balance
-            case 7 -> depositMoney();      // Deposit money
-            case 8 -> loginPanel();        // Log out
+            case 3 -> {}                   // Show active bids
+            case 4 -> addFavorite();       // Add antique to favorites
+            case 5 -> removeFavorite();    // Remove antique from favorite list
+            case 6 -> showFavorites();     // Show favorited antiques
+            case 7 -> showBalance("USER"); // Show balance
+            case 8 -> depositMoney();      // Deposit money
+            case 9 -> loginPanel();        // Log out
         }
     }
 
@@ -154,9 +156,11 @@ public class ProgramController {
                 
                 ================= STORE =================
                    1. See antiques
-                   2. Sell an antique
-                   3. See bank balance
-                   4. Log out
+                   2. Set antique for sale
+                   3. See active bids (WIP Not working)
+                   4. End bidding on an antique (WIP Not working)
+                   5. See bank balance
+                   6. Log out
                 =========================================
                 """);
         choice = inputScanner.nextInt();
@@ -164,8 +168,10 @@ public class ProgramController {
         switch (choice) {
             case 1 -> showAntiques();       // Show antique screen
             case 2 -> makeAntique(false);   // Make new antique
-            case 3 -> showBalance("STORE"); // Show balance
-            case 4 -> loginPanel();         // Log out
+            case 3 -> {} // See active bids
+            case 4 -> {} // End bidding on an antique
+            case 5 -> showBalance("STORE"); // Show balance
+            case 6 -> loginPanel();         // Log out
         }
     }
 
@@ -323,6 +329,7 @@ public class ProgramController {
 
     // PURCHASE AN ANTIQUE FOR SALE
     public void purchaseAntique(){
+        // TODO: Rename to bid
         // Checks if there are items for sale
         if (antiqueRepository.isEmpty()) {
             System.out.println("*** There are currently no items for sale. ***");
@@ -351,7 +358,7 @@ public class ProgramController {
                 } else {
                     System.out.println("\nAntique was bought successfully.");
 
-                    // FIXME: Make function for transaction
+                    // TODO: Make function for transaction
 
                     // Put antique-object in variable for easier handling
                     Antique antique = antiqueRepository.getAntique(itemInCart);
