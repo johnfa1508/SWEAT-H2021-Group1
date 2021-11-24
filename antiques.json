@@ -41,6 +41,15 @@
   "price" : 2500.0,
   "sold" : false,
   "sellerName" : "mcdonalds",
+  "lastBidder" : "john",
+  "favorites" : [ ]
+}, {
+  "name" : "golden spoon from 1924",
+  "type" : "spoon",
+  "description" : "golden spoon from 1924 used by the queen of England",
+  "price" : 950.0,
+  "sold" : false,
+  "sellerName" : "ikea",
   "lastBidder" : null,
   "favorites" : [ ]
 } ]
