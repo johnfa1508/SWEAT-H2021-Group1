@@ -295,43 +295,6 @@ public class ProgramController {
         showAntiques();
     }
 
-    // FUNCTION TO SHOW USER-BALANCE
-    public void showBalance(String userType) {
-        if (userType.equals("STORE")) {
-            System.out.println("\nYour bank balance is: " + currentStore.getBankBalance() + " nok");
-        } else {
-            System.out.println("\nYour bank balance is " + currentUser.getBankBalance() + " nok");
-        }
-
-        goBack();
-    }
-
-    // FUNCTION TO DEPOSIT MONEY TO USER-BALANCE
-    public void depositMoney() {
-        double money;
-
-        Scanner inputScanner = new Scanner(System.in);
-        System.out.println("\nEnter the amount you would like to deposit: ");
-        money = inputScanner.nextDouble();
-
-        if (money < 0) {
-            System.out.println("\n*** You entered a negative number. ***");
-        } else {
-            userRepository.depositMoney(currentUser, money);
-        }
-
-        goBack();
-    }
-
-    // FUNCTION TO SHOW NAMES OF ANTIQUES FOR SALE
-    public void showAntiqueNames() {
-        ArrayList<String> antiqueNamesArray = antiqueRepository.showAntiqueNames(false);
-
-        for (String antiqueNames : antiqueNamesArray) {
-            System.out.println(antiqueNames);
-        }
-    }
-
     // PURCHASE AN ANTIQUE FOR SALE
     public void bidOnAntique(){
         // Checks if there are items for sale
@@ -388,6 +351,15 @@ public class ProgramController {
         }
 
         goBack();
+    }
+
+    // FUNCTION TO SHOW NAMES OF ANTIQUES FOR SALE
+    public void showAntiqueNames() {
+        ArrayList<String> antiqueNamesArray = antiqueRepository.showAntiqueNames(false);
+
+        for (String antiqueNames : antiqueNamesArray) {
+            System.out.println(antiqueNames);
+        }
     }
 
     // FUNCTION TO SEE ACTIVE BIDS
@@ -499,6 +471,34 @@ public class ProgramController {
             }
 
             System.out.println("\n========================================");
+        }
+
+        goBack();
+    }
+
+    // FUNCTION TO SHOW USER-BALANCE
+    public void showBalance(String userType) {
+        if (userType.equals("STORE")) {
+            System.out.println("\nYour bank balance is: " + currentStore.getBankBalance() + " nok");
+        } else {
+            System.out.println("\nYour bank balance is " + currentUser.getBankBalance() + " nok");
+        }
+
+        goBack();
+    }
+
+    // FUNCTION TO DEPOSIT MONEY TO USER-BALANCE
+    public void depositMoney() {
+        double money;
+
+        Scanner inputScanner = new Scanner(System.in);
+        System.out.println("\nEnter the amount you would like to deposit: ");
+        money = inputScanner.nextDouble();
+
+        if (money < 0) {
+            System.out.println("\n*** You entered a negative number. ***");
+        } else {
+            userRepository.depositMoney(currentUser, money);
         }
 
         goBack();
@@ -751,6 +751,26 @@ public class ProgramController {
         goBack();
     }
 
+    // FUNCTION TO MAKE NEW STORE
+    public void makeStore() {
+        String name;
+
+        Scanner inputScanner = new Scanner(System.in);
+        System.out.println("\nWrite the name of the new store (CANCEL to cancel): ");
+        name = inputScanner.nextLine();
+
+        if (storeRepository.storeExists(name)) {
+            System.out.println("\n*** That store name already exists. Please try again. ***");
+        } else if (name.equalsIgnoreCase("CANCEL") || name.equalsIgnoreCase("cancel")) {
+            goBack();
+        } else {
+            Store newStore = new Store(name);
+            storeRepository.addStore(newStore);
+        }
+
+        goBack();
+    }
+
     // FUNCTION TO MAKE NEW USER
     public void makeUser() {
         String name;
@@ -770,26 +790,6 @@ public class ProgramController {
 
             User newUser = new User(name, bankBalance);
             userRepository.addUser(newUser);
-        }
-
-        goBack();
-    }
-
-    // FUNCTION TO MAKE NEW STORE
-    public void makeStore() {
-        String name;
-
-        Scanner inputScanner = new Scanner(System.in);
-        System.out.println("\nWrite the name of the new store (CANCEL to cancel): ");
-        name = inputScanner.nextLine();
-
-        if (storeRepository.storeExists(name)) {
-            System.out.println("\n*** That store name already exists. Please try again. ***");
-        } else if (name.equalsIgnoreCase("CANCEL") || name.equalsIgnoreCase("cancel")) {
-            goBack();
-        } else {
-            Store newStore = new Store(name);
-            storeRepository.addStore(newStore);
         }
 
         goBack();
