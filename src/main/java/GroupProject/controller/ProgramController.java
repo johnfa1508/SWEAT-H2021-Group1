@@ -131,7 +131,7 @@ public class ProgramController {
             case 2 -> bidOnAntique();      // Bid on an antique
             case 3 -> {seeBids("USER");
                        goBack();
-            }                               // Show active bids
+            }                              // Show active bids
             case 4 -> addFavorite();       // Add antique to favorites
             case 5 -> removeFavorite();    // Remove antique from favorite list
             case 6 -> showFavorites();     // Show favorited antiques
