@@ -9,7 +9,7 @@ public class Antique {
     private double price;
     private boolean sold;
     private String sellerName;
-    private String buyerName;
+    private String lastBidder;
     private ArrayList<String> favorites = new ArrayList<>();
 
     // OVERLOAD
@@ -66,12 +66,12 @@ public class Antique {
         this.sellerName = sellerName;
     }
 
-    public String getBuyerName() {
-        return buyerName;
+    public String getLastBidder() {
+        return lastBidder;
     }
 
-    public void setBuyerName(String buyerName) {
-        this.buyerName = buyerName;
+    public void setLastBidder(String lastBidder) {
+        this.lastBidder = lastBidder;
     }
 
     public boolean getSold() {
@@ -104,9 +104,9 @@ public class Antique {
                 Description: %s
                 Price: %s nok
                 Seller: %s
-                Buyer: %s
+                Last bidder: %s
                 Favorited by: %s
-                """, getName(), getType(), getDescription(), getPrice(), getSellerName(), getBuyerName(),
+                """, getName(), getType(), getDescription(), getPrice(), getSellerName(), getLastBidder(),
                     getFavorites());
             }
 
@@ -117,7 +117,9 @@ public class Antique {
                 Description: %s
                 Price: %s nok
                 Seller: %s
+                Last bidder: %s
                 Favorited by: %s
-                """, getName(), getType(), getDescription(), getPrice(), getSellerName(), getFavorites());
+                """, getName(), getType(), getDescription(), getPrice(), getSellerName(), getLastBidder(),
+                     getFavorites());
     }
 }

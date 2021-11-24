@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
+import GroupProject.model.Store;
 import GroupProject.model.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -211,10 +213,9 @@ public class AntiqueJSONRepository implements AntiqueRepository {
 
     // FUNCTION TO PURCHASE AN ANTIQUE
     @Override
-    public void purchaseAntique(Antique antique, User user) {
-        // Sets item-state to sold and adds buyer's name
+    public void purchaseAntique(Antique antique) {
+        // Sets item-state to sold
         antique.setSold(true);
-        antique.setBuyerName(user.getName());
 
         writeJSON(fileName);
     }
@@ -239,5 +240,45 @@ public class AntiqueJSONRepository implements AntiqueRepository {
     @Override
     public boolean antiqueExists(String antiqueName) {
         return antiqueMap.containsKey(antiqueName);
+    }
+
+    // FUNCTION TO SET LAST BIDDER
+    @Override
+    public void writeLastBidder(Antique antique, User user) {
+        antique.setLastBidder(user.getName());
+
+        writeJSON(fileName);
+    }
+
+    // FUNCTION THAT RETURNS STORE'S ACTIVE BIDS
+    @Override
+    public HashMap<String, Antique> storeBids(Store store) {
+        HashMap<String, Antique> storeBidsMap = new HashMap<>();
+
+        for (Map.Entry<String, Antique> antiqueSet : antiqueMap.entrySet()) {
+            // If antique is sold by the store name and last bidder exists
+            if (Objects.equals(antiqueSet.getValue().getSellerName(),
+                    store.getName()) && antiqueSet.getValue().getLastBidder() != null) {
+                storeBidsMap.put(antiqueSet.getKey(), antiqueSet.getValue());
+            }
+        }
+
+        return storeBidsMap;
+    }
+
+    // FUNCTION THAT RETURNS USER'S ACTIVE BIDS
+    @Override
+    public HashMap<String, Antique> userBids(User user) {
+        HashMap<String, Antique> userBidsMap = new HashMap<>();
+
+        for (Map.Entry<String, Antique> antiqueSet : antiqueMap.entrySet()) {
+            // If antique is sold by the store name and last bidder exists
+            if (Objects.equals(antiqueSet.getValue().getLastBidder(),
+                    user.getName()) && antiqueSet.getValue().getLastBidder() != null) {
+                userBidsMap.put(antiqueSet.getKey(), antiqueSet.getValue());
+            }
+        }
+
+        return userBidsMap;
     }
 }

@@ -6,10 +6,7 @@ import GroupProject.model.User;
 import GroupProject.repository.AntiqueRepository;
 import GroupProject.repository.StoreRepository;
 import GroupProject.repository.UserRepository;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class ProgramController {
     // REPOSITORIES
@@ -117,8 +114,8 @@ public class ProgramController {
                 
                 ================= USER =================
                    1. See antiques
-                   2. Bid on an antique (WIP Currently for purchase)
-                   3. Show active bids (WIP Not working)
+                   2. Bid on an antique
+                   3. Show active bids
                    4. Add antique as favorite
                    5. Remove antique as favorite
                    6. Show favorites
@@ -131,8 +128,10 @@ public class ProgramController {
 
         switch (choice) {
             case 1 -> showAntiques();      // Show antique screen
-            case 2 -> purchaseAntique();   // Buy an antique
-            case 3 -> {}                   // Show active bids
+            case 2 -> bidOnAntique();      // Bid on an antique
+            case 3 -> {seeBids("USER");
+                       goBack();
+            }                // Show active bids
             case 4 -> addFavorite();       // Add antique to favorites
             case 5 -> removeFavorite();    // Remove antique from favorite list
             case 6 -> showFavorites();     // Show favorited antiques
@@ -157,8 +156,8 @@ public class ProgramController {
                 ================= STORE =================
                    1. See antiques
                    2. Set antique for sale
-                   3. See active bids (WIP Not working)
-                   4. End bidding on an antique (WIP Not working)
+                   3. See active bids
+                   4. End bidding on an antique
                    5. See bank balance
                    6. Log out
                 =========================================
@@ -168,8 +167,10 @@ public class ProgramController {
         switch (choice) {
             case 1 -> showAntiques();       // Show antique screen
             case 2 -> makeAntique(false);   // Make new antique
-            case 3 -> {} // See active bids
-            case 4 -> {} // End bidding on an antique
+            case 3 -> { seeBids("STORE");
+                        goBack();
+            }                 // See active bids
+            case 4 -> endBidding();         // End bidding on an antique
             case 5 -> showBalance("STORE"); // Show balance
             case 6 -> loginPanel();         // Log out
         }
@@ -307,13 +308,18 @@ public class ProgramController {
 
     // FUNCTION TO DEPOSIT MONEY TO USER-BALANCE
     public void depositMoney() {
+        // FIXME: Check if it's under 0
         double money;
 
         Scanner inputScanner = new Scanner(System.in);
         System.out.println("\nEnter the amount you would like to deposit: ");
         money = inputScanner.nextDouble();
 
-        userRepository.depositMoney(currentUser, money);
+        if (money < 0) {
+            System.out.println("\n*** You entered a negative number. ***");
+        } else {
+            userRepository.depositMoney(currentUser, money);
+        }
 
         goBack();
     }
@@ -328,8 +334,7 @@ public class ProgramController {
     }
 
     // PURCHASE AN ANTIQUE FOR SALE
-    public void purchaseAntique(){
-        // TODO: Rename to bid
+    public void bidOnAntique(){
         // Checks if there are items for sale
         if (antiqueRepository.isEmpty()) {
             System.out.println("*** There are currently no items for sale. ***");
@@ -343,37 +348,40 @@ public class ProgramController {
 
         String itemInCart;
         Scanner inputScanner = new Scanner(System.in);
-        System.out.println("\nWhich item would you like to buy? (CANCEL to cancel): ");
+        System.out.println("\nWhich item would you like to bid on? (CANCEL to cancel): ");
         itemInCart = inputScanner.nextLine();
 
-        // If antique exists program will continue
+        // Put antique-object in variable for easier handling
+        Antique antique = antiqueRepository.getAntique(itemInCart);
+
+        // If antique exists, program will continue
         if (antiqueRepository.antiqueExists(itemInCart)) {
-            // If the buyer does not have enough money, program will send the buyer back
-            if (currentUser.getBankBalance() < antiqueRepository.getAntique(itemInCart).getPrice()) {
-                System.out.println("Your bank balance is insufficient. Please try again.\n");
+            // If the bidder does not have enough money, program will send the bidder back
+            if (currentUser.getBankBalance() < antique.getPrice()) {
+                System.out.println("\n*** Your bank balance is insufficient. Please try again.\n");
             } else {
                 // If item is already sold, user will be sent back
-                if (antiqueRepository.getAntique(itemInCart).getSold()) {
-                    System.out.println("That item is already sold! Please try again.\n");
+                if (antique.getSold()) {
+                    System.out.println("\n*** That item is already sold! Please try again. ***\n");
                 } else {
-                    System.out.println("\nAntique was bought successfully.");
+                    System.out.println("\nBidding success.\n");
 
-                    // TODO: Make function for transaction
+                    // If the antique has a last bidder, and it's not the current user; do this
+                    if (antique.getLastBidder() != null &&
+                            !Objects.equals(antique.getLastBidder(), currentUser.getName())) {
+                        // Last bidder will get money back
+                        userRepository.getUser(antique.getLastBidder()).depositMoney(antique.getPrice());
+                    }
 
-                    // Put antique-object in variable for easier handling
-                    Antique antique = antiqueRepository.getAntique(itemInCart);
+                    // Current user's balance will get deducted
+                    userRepository.withdrawMoney(currentUser, antique.getPrice());
 
-                    // Updates the antique(boolean sold) and sends the buyer's name
-                    antiqueRepository.purchaseAntique(antique, currentUser);
-
-                    // Remove money from buyer's balance
-                    userRepository.withdrawMoney(userRepository.getUser(antique.getBuyerName()), antique.getPrice());
-
-                    // Add money to seller's balance
-                    storeRepository.depositMoney(storeRepository.getStore(antique.getSellerName()), antique.getPrice());
+                    // Set current user as last bidder
+                    antiqueRepository.writeLastBidder(antique, currentUser);
                 }
             }
-        } else if (itemInCart.equalsIgnoreCase("CANCEL")){
+        } else if (itemInCart.equalsIgnoreCase("CANCEL")) {
+            // If user wants to cancel, go back
             goBack();
         } else {
             // If antique written does not exist, user will get sent back
@@ -381,6 +389,29 @@ public class ProgramController {
         }
 
         goBack();
+    }
+
+    // FUNCTION TO SEE ACTIVE BIDS
+    public void seeBids(String userType) {
+        HashMap<String,Antique> bidMap;
+
+        if (userType.equalsIgnoreCase("STORE")) {
+            bidMap = antiqueRepository.storeBids(currentStore);
+        } else {
+            bidMap = antiqueRepository.userBids(currentUser);
+        }
+
+        if (bidMap.isEmpty()) {
+            System.out.println("*** There are no active bids ***");
+        } else {
+            System.out.println("\n============= ACTIVE BIDS =============");
+
+            for (Map.Entry<String, Antique> antiqueSet : bidMap.entrySet()) {
+                System.out.println(antiqueSet.getKey() + " = " + antiqueSet.getValue());
+            }
+
+            System.out.println("\n=======================================");
+        }
     }
 
     // FUNCTION TO ADD ANTIQUE TO FAVORITES
@@ -530,6 +561,47 @@ public class ProgramController {
 
         goBack();
         return null;
+    }
+
+    // FUNCTION FOR STORE TO END BIDDING ON AN ANTIQUE
+    public void endBidding() {
+        // Show active bids
+        seeBids("STORE");
+
+        String antiqueName;
+        System.out.println("\nWrite the name of the antique you would like to end (CANCEL to go back): ");
+        Scanner inputScanner = new Scanner(System.in);
+        antiqueName = inputScanner.nextLine();
+
+        // Store antique-object for easier handling
+        Antique antique = antiqueRepository.getAntique(antiqueName);
+
+        // If antique exists, program will continue
+        if (antiqueRepository.antiqueExists(antiqueName)) {
+            if (antique.getLastBidder() == null) {
+                System.out.println("\n*** That antique does not have a bidder ***");
+            } else {
+                moneyTransaction(antique, userRepository.getUser(antique.getLastBidder()));
+            }
+        } else if (antiqueName.equalsIgnoreCase("CANCEL") ||
+                antiqueName.equalsIgnoreCase("cancel")) {
+            // If store wants to cancel, go back to store panel
+            goBack();
+        } else {
+            // If antique doesn't exist, store will get sent back
+            System.out.println("\n*** That antique does not exist. Please try again. ***");
+        }
+
+        goBack();
+    }
+
+    // FUNCTION TO HANDLE TRANSACTION BETWEEN STORE AND USER
+    public void moneyTransaction(Antique antique, User user) {
+        // Updates the antique(boolean sold)
+        antiqueRepository.purchaseAntique(antique);
+
+        // Add money to store's balance
+        storeRepository.depositMoney(storeRepository.getStore(antique.getSellerName()), antique.getPrice());
     }
 
     // COMMANDS FOR ADMIN

@@ -1,10 +1,46 @@
 [ {
-  "name" : "test",
-  "type" : "test",
-  "description" : "test",
+  "name" : "burger",
+  "type" : "burger",
+  "description" : "burger",
   "price" : 25.0,
+  "sold" : true,
+  "sellerName" : "burger king",
+  "lastBidder" : "userTest2",
+  "favorites" : [ ]
+}, {
+  "name" : "chair from 1534",
+  "type" : "chair",
+  "description" : "very cool chair from 1534",
+  "price" : 500.0,
   "sold" : false,
   "sellerName" : "burger king",
-  "buyerName" : null,
-  "favorites" : [ "user with no money" ]
+  "lastBidder" : null,
+  "favorites" : [ ]
+}, {
+  "name" : "fork from 1823",
+  "type" : "fork",
+  "description" : "very cool fork from 1823",
+  "price" : 750.0,
+  "sold" : false,
+  "sellerName" : "ikea",
+  "lastBidder" : null,
+  "favorites" : [ ]
+}, {
+  "name" : "spoon from 1192",
+  "type" : "spoon",
+  "description" : "very cool spoon from 1192",
+  "price" : 125.0,
+  "sold" : false,
+  "sellerName" : "ikea",
+  "lastBidder" : null,
+  "favorites" : [ ]
+}, {
+  "name" : "table from 1900",
+  "type" : "table",
+  "description" : "very cool table from 1900",
+  "price" : 2500.0,
+  "sold" : false,
+  "sellerName" : "mcdonalds",
+  "lastBidder" : null,
+  "favorites" : [ ]
 } ]
