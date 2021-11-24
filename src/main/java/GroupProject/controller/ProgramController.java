@@ -169,7 +169,7 @@ public class ProgramController {
             case 2 -> makeAntique(false);   // Make new antique
             case 3 -> { seeBids("STORE");
                         goBack();
-            }                 // See active bids
+            }                               // See active bids
             case 4 -> endBidding();         // End bidding on an antique
             case 5 -> showBalance("STORE"); // Show balance
             case 6 -> loginPanel();         // Log out
