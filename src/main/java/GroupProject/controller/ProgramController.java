@@ -308,7 +308,6 @@ public class ProgramController {
 
     // FUNCTION TO DEPOSIT MONEY TO USER-BALANCE
     public void depositMoney() {
-        // FIXME: Check if it's under 0
         double money;
 
         Scanner inputScanner = new Scanner(System.in);
