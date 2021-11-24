@@ -32,7 +32,7 @@
   "price" : 125.0,
   "sold" : false,
   "sellerName" : "ikea",
-  "lastBidder" : null,
+  "lastBidder" : "userTest2",
   "favorites" : [ ]
 }, {
   "name" : "table from 1900",

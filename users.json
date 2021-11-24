@@ -3,7 +3,7 @@
   "bankBalance" : 0.0
 }, {
   "name" : "john",
-  "bankBalance" : 100000
+  "bankBalance" : 100000.0
 }, {
   "name" : "userTest2",
   "bankBalance" : 100000.0

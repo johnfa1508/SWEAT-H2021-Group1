@@ -394,15 +394,19 @@ public class ProgramController {
     public void seeBids(String userType) {
         HashMap<String,Antique> bidMap;
 
+        // Checks which usertype is asking for the bids
         if (userType.equalsIgnoreCase("STORE")) {
             bidMap = antiqueRepository.storeBids(currentStore);
         } else {
             bidMap = antiqueRepository.userBids(currentUser);
         }
 
+        // If the map is empty, send user back
         if (bidMap.isEmpty()) {
             System.out.println("*** There are no active bids ***");
+            goBack();
         } else {
+            // Print out bids
             System.out.println("\n============= ACTIVE BIDS =============");
 
             for (Map.Entry<String, Antique> antiqueSet : bidMap.entrySet()) {
