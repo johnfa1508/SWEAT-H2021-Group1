@@ -564,8 +564,6 @@ public class ProgramController {
 
     // FUNCTION FOR STORE TO END BIDDING ON AN ANTIQUE
     public void endBidding() {
-
-        // FIXME: Store can end bidding if it's their product?
         // Show active bids
         seeBids("STORE");
 
@@ -581,7 +579,11 @@ public class ProgramController {
         if (antiqueRepository.antiqueExists(antiqueName)) {
             if (antique.getLastBidder() == null) {
                 System.out.println("\n*** That antique does not have a bidder ***");
-            } else {
+            } else if (!Objects.equals(antique.getSellerName(), currentStore.getName())) {
+                System.out.println("\n*** That antique is not sold by you ***");
+            }
+
+            else {
                 moneyTransaction(antique, userRepository.getUser(antique.getLastBidder()));
             }
         } else if (antiqueName.equalsIgnoreCase("CANCEL") ||
