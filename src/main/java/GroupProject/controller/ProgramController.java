@@ -260,7 +260,7 @@ public class ProgramController {
     // CHOOSE ANTIQUE-TYPE SCREEN
     public void showSpecificAntique() {
         // Show types of antiques for sale
-        System.out.println("The types of antiques for sale are: ");
+        System.out.println("\nThe types of antiques for sale are: ");
         ArrayList<String> antiqueTypes = antiqueRepository.showAntiqueTypes();
 
         for (String antiqueType : antiqueTypes) {
