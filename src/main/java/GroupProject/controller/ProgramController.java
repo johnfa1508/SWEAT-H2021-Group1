@@ -181,11 +181,12 @@ public class ProgramController {
                 
                 ================= STORE =================
                    1. See antiques
-                   2. Set antique for sale
-                   3. See active bids
-                   4. End bidding on an antique
-                   5. See bank balance
-                   6. Log out
+                   2. Set antique for bidding
+                   3. Set antique for sale (NOT WORKING)
+                   4. See active bids
+                   5. End bidding on an antique
+                   6. See bank balance
+                   7. Log out
                 =========================================
                 """);
         choice = inputScanner.nextInt();
@@ -193,12 +194,13 @@ public class ProgramController {
         switch (choice) {
             case 1 -> showAntiques();       // Show antique screen
             case 2 -> makeAntique(false);   // Make new antique
-            case 3 -> { seeBids("STORE");
+            case 3 -> {}
+            case 4 -> { seeBids("STORE");
                         goBack();
             }                               // See active bids
-            case 4 -> endBidding();         // End bidding on an antique
-            case 5 -> showBalance("STORE"); // Show balance
-            case 6 -> loginPanel();         // Log out
+            case 5 -> endBidding();         // End bidding on an antique
+            case 6 -> showBalance("STORE"); // Show balance
+            case 7 -> loginPanel();         // Log out
         }
     }
 
