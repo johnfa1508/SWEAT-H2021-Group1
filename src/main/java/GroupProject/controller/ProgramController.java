@@ -141,29 +141,31 @@ public class ProgramController {
                 ================= USER =================
                    1. See antiques
                    2. Bid on an antique
-                   3. Show active bids
-                   4. Add antique as favorite
-                   5. Remove antique as favorite
-                   6. Show favorites
-                   7. See bank balance
-                   8. Deposit money
-                   9. Log out
+                   3. Purchase an antique (NOT WORKING)
+                   4. Show active bids
+                   5. Add antique as favorite
+                   6. Remove antique as favorite
+                   7. Show favorites
+                   8. See bank balance
+                   9. Deposit money
+                   10. Log out
                 ========================================
                 """);
         choice = inputScanner.nextInt();
 
         switch (choice) {
-            case 1 -> showAntiques();      // Show antique screen
-            case 2 -> bidOnAntique();      // Bid on an antique
-            case 3 -> {seeBids("USER");
+            case 1 -> showAntiques();       // Show antique screen
+            case 2 -> bidOnAntique();       // Bid on an antique
+            case 3 -> {}
+            case 4 -> {seeBids("USER");
                        goBack();
-            }                              // Show active bids
-            case 4 -> addFavorite();       // Add antique to favorites
-            case 5 -> removeFavorite();    // Remove antique from favorite list
-            case 6 -> showFavorites();     // Show favorited antiques
-            case 7 -> showBalance("USER"); // Show balance
-            case 8 -> depositMoney();      // Deposit money
-            case 9 -> loginPanel();        // Log out
+            }                               // Show active bids
+            case 5 -> addFavorite();        // Add antique to favorites
+            case 6 -> removeFavorite();     // Remove antique from favorite list
+            case 7 -> showFavorites();      // Show favorited antiques
+            case 8 -> showBalance("USER");  // Show balance
+            case 9 -> depositMoney();       // Deposit money
+            case 10 -> loginPanel();        // Log out
         }
     }
 
