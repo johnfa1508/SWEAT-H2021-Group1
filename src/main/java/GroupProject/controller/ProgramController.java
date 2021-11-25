@@ -42,7 +42,8 @@ public class ProgramController {
                    1. Log in as admin
                    2. Log in as user
                    3. Log in as store
-                   4. Leave
+                   4. Make new user
+                   5. Leave
                 ========================================
                 """);
 
@@ -52,7 +53,8 @@ public class ProgramController {
             case 1 -> adminPanel();      // Go to admin-screen
             case 2 -> loginUserPanel();  // Go to user-login screen
             case 3 -> loginStorePanel(); // Go to store-screen
-            case 4 -> {}                 // Leave
+            case 4 -> makeUser();        // Make a new user
+            case 5 -> {}                 // Leave
         }
     }
 
@@ -98,6 +100,30 @@ public class ProgramController {
             System.out.println("\n*** That store does not exist. Please try again. ***");
             loginPanel();
         }
+    }
+
+    // FUNCTION TO MAKE NEW USER
+    public void makeUser() {
+        String name;
+        double bankBalance;
+
+        Scanner inputScanner = new Scanner(System.in);
+        System.out.println("\nWrite the name of the new user (CANCEL to cancel): ");
+        name = inputScanner.nextLine();
+
+        if (userRepository.userExists(name)) {
+            System.out.println("\n*** That username already exists. Please try again. ***");
+        } else if (name.equalsIgnoreCase("CANCEL") || name.equalsIgnoreCase("cancel")) {
+            goBack();
+        } else {
+            System.out.println("\nWrite how much there's in the bank balance: ");
+            bankBalance = inputScanner.nextDouble();
+
+            User newUser = new User(name, bankBalance);
+            userRepository.addUser(newUser);
+        }
+
+        goBack();
     }
 
     // USER SCREEN. RECEIVES User-OBJECT TO TRACK WHICH USER IS CURRENTLY LOGGED IN
@@ -193,8 +219,7 @@ public class ProgramController {
                    4. See all users
                    5. See all stores
                    6. Make new store
-                   7. Make new user
-                   8. Log out
+                   7. Log out
                 ========================================
                 """);
         choice = inputScanner.nextInt();
@@ -206,8 +231,7 @@ public class ProgramController {
             case 4 -> showUsers();       // Show all users
             case 5 -> showStores();      // Show all stores
             case 6 -> makeStore();       // Make a new store
-            case 7 -> makeUser();        // Make a new user
-            case 8 -> loginPanel();      // Go back
+            case 7 -> loginPanel();      // Go back
         }
     }
 
@@ -766,30 +790,6 @@ public class ProgramController {
         } else {
             Store newStore = new Store(name);
             storeRepository.addStore(newStore);
-        }
-
-        goBack();
-    }
-
-    // FUNCTION TO MAKE NEW USER
-    public void makeUser() {
-        String name;
-        double bankBalance;
-
-        Scanner inputScanner = new Scanner(System.in);
-        System.out.println("\nWrite the name of the new user (CANCEL to cancel): ");
-        name = inputScanner.nextLine();
-
-        if (userRepository.userExists(name)) {
-            System.out.println("\n*** That username already exists. Please try again. ***");
-        } else if (name.equalsIgnoreCase("CANCEL") || name.equalsIgnoreCase("cancel")) {
-            goBack();
-        } else {
-            System.out.println("\nWrite how much there's in the bank balance: ");
-            bankBalance = inputScanner.nextDouble();
-
-            User newUser = new User(name, bankBalance);
-            userRepository.addUser(newUser);
         }
 
         goBack();
