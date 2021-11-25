@@ -616,7 +616,7 @@ public class ProgramController {
             }
 
             else {
-                moneyTransaction(antique, userRepository.getUser(antique.getLastBidder()));
+                moneyTransaction(antique);
             }
         } else if (antiqueName.equalsIgnoreCase("CANCEL") ||
                 antiqueName.equalsIgnoreCase("cancel")) {
@@ -631,7 +631,7 @@ public class ProgramController {
     }
 
     // FUNCTION TO HANDLE TRANSACTION BETWEEN STORE AND USER
-    public void moneyTransaction(Antique antique, User user) {
+    public void moneyTransaction(Antique antique) {
         // Updates the antique(boolean sold)
         antiqueRepository.purchaseAntique(antique);
 
