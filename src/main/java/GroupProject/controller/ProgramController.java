@@ -326,13 +326,6 @@ public class ProgramController {
 
     // PURCHASE AN ANTIQUE FOR SALE
     public void bidOnAntique(){
-        // Checks if there are any items in the repository
-        if (antiqueRepository.isEmpty()) {
-            System.out.println("*** There are currently no items for sale. ***");
-
-            goBack();
-        }
-
         // Show antiques in auction
         System.out.println("Antiques that are in auction are: ");
         showAntiqueNames("AUCTION");
@@ -402,13 +395,6 @@ public class ProgramController {
 
     // FUNCTION TO PURCHASE ANTIQUE
     public void purchaseAntique() {
-        // Checks if there are any items in the repository
-        if (antiqueRepository.isEmpty()) {
-            System.out.println("*** There are currently no items for sale. ***");
-
-            goBack();
-        }
-
         // Show antiques for sale
         System.out.println("Antiques that are for sale are: ");
         showAntiqueNames("SALE");
@@ -460,8 +446,15 @@ public class ProgramController {
     public void showAntiqueNames(String sellType) {
         ArrayList<String> antiqueNamesArray = antiqueRepository.showAntiqueNames(false, sellType);
 
-        for (String antiqueNames : antiqueNamesArray) {
-            System.out.println(antiqueNames);
+        // If the return list is empty, tell user
+        if (antiqueNamesArray.isEmpty()) {
+            System.out.println("\n*** There are currently no items for sale. ***\n");
+
+            goBack();
+        } else {
+            for (String antiqueNames : antiqueNamesArray) {
+                System.out.println(antiqueNames);
+            }
         }
     }
 
