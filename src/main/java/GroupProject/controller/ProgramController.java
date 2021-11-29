@@ -351,8 +351,6 @@ public class ProgramController {
                     if (antique.getSellType().equalsIgnoreCase("SALE")) {
                         System.out.println("\n*** That item is for sale, not auction! Please try again. ***\n");
                     } else {
-                        System.out.println("\nBidding success.\n");
-
                         // If the antique has a last bidder, and it's not the current user; do this
                         if (antique.getLastBidder() != null &&
                                 !Objects.equals(antique.getLastBidder(), currentUser.getName())) {
@@ -361,7 +359,7 @@ public class ProgramController {
                         }
 
                         double bidAmount;
-                        System.out.println("\n How much would you like to bid?: ");
+                        System.out.printf("\nHow much would you like to bid? (Current price: %s): ", antique.getPrice());
                         bidAmount = inputScanner.nextDouble();
 
                         // If the bid amount is more than the current user's bank balance, program will send the bidder back

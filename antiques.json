@@ -47,7 +47,7 @@
   "type" : "spoon",
   "description" : "very cool spoon from 1192",
   "price" : 125.0,
-  "sold" : false,
+  "sold" : true,
   "sellerName" : "ikea",
   "lastBidder" : "userTest2",
   "favorites" : [ ],
