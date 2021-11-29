@@ -11,6 +11,8 @@ public class Antique {
     private String sellerName;
     private String lastBidder;
     private ArrayList<String> favorites = new ArrayList<>();
+    private String sellType;
+    private String buyer;
 
     // OVERLOAD
     public Antique() {
@@ -18,12 +20,13 @@ public class Antique {
     }
 
     // CONSTRUCTOR
-    public Antique(String name, String type, String description, double price, String sellerName) {
+    public Antique(String name, String type, String description, double price, String sellerName, String sellType) {
         this.name = name;
         this.type = type;
         this.description = description;
         this.price = price;
         this.sellerName = sellerName;
+        this.sellType = sellType;
     }
 
     public String getName() {
@@ -94,9 +97,25 @@ public class Antique {
         favorites.remove(userName);
     }
 
+    public String getSellType() {
+        return sellType;
+    }
+
+    public void setSellType(String sellType) {
+        this.sellType = sellType;
+    }
+
+    public String getBuyer() {
+        return buyer;
+    }
+
+    public void setBuyer(String buyer) {
+        this.buyer = buyer;
+    }
+
     @Override
     public String toString() {
-        if (getSold()) {
+        if (getSellType().equalsIgnoreCase("AUCTION")) {
             return String.format("""
                 
                 Name: %s
@@ -106,20 +125,22 @@ public class Antique {
                 Seller: %s
                 Last bidder: %s
                 Favorited by: %s
+                Selling type: %s
                 """, getName(), getType(), getDescription(), getPrice(), getSellerName(), getLastBidder(),
-                    getFavorites());
-            }
-
-        return String.format("""
+                    getFavorites(), getSellType());
+        } else {
+            return String.format("""
                 
                 Name: %s
                 Type: %s
                 Description: %s
                 Price: %s nok
                 Seller: %s
-                Last bidder: %s
+                Buyer: %s
                 Favorited by: %s
-                """, getName(), getType(), getDescription(), getPrice(), getSellerName(), getLastBidder(),
-                     getFavorites());
+                Selling type: %s
+                """, getName(), getType(), getDescription(), getPrice(), getSellerName(), getBuyer(),
+                    getFavorites(), getSellType());
+        }
     }
 }

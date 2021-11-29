@@ -141,7 +141,7 @@ public class ProgramController {
                 ================= USER =================
                    1. See antiques
                    2. Bid on an antique
-                   3. Purchase an antique (NOT WORKING)
+                   3. Purchase an antique
                    4. Show active bids
                    5. Add antique as favorite
                    6. Remove antique as favorite
@@ -156,7 +156,7 @@ public class ProgramController {
         switch (choice) {
             case 1 -> showAntiques();       // Show antique screen
             case 2 -> bidOnAntique();       // Bid on an antique
-            case 3 -> {}
+            case 3 -> purchaseAntique();    // Purchase an antique
             case 4 -> {seeBids("USER");
                        goBack();
             }                               // Show active bids
@@ -193,10 +193,11 @@ public class ProgramController {
                 """);
         choice = inputScanner.nextInt();
 
+        // FIXME: COMMENT
         switch (choice) {
             case 1 -> showAntiques();       // Show antique screen
-            case 2 -> makeAntique(false);   // Make new antique
-            case 3 -> {}
+            case 2 -> makeAntique(false, "AUCTION");   // Make new antique
+            case 3 -> makeAntique(false, "SALE");
             case 4 -> { seeBids("STORE");
                         goBack();
             }                               // See active bids
@@ -269,7 +270,7 @@ public class ProgramController {
 
     // SHOW ANTIQUES FOR SALE
     public void showAntiquesForSale() {
-        System.out.println("============ ITEMS FOR SALE ============");
+        System.out.println("============ AVAILABLE ITEMS ============");
 
         // HashMap to store hashmap received from repository
         HashMap<String, Antique> antiques = antiqueRepository.showAntiquesForSale();
@@ -279,7 +280,7 @@ public class ProgramController {
             System.out.println(antiqueSet.getKey() + " = " + antiqueSet.getValue());
         }
 
-        System.out.println("========================================");
+        System.out.println("=========================================");
 
         // Go back to show antiques screen
         showAntiques();
@@ -307,7 +308,7 @@ public class ProgramController {
             // Program will continue if user doesn't write cancel or CANCEL
             if (!userInput.equalsIgnoreCase("CANCEL") ||
                     !userInput.equalsIgnoreCase("cancel")) {
-                System.out.println("\n============ ITEMS FOR SALE ============");
+                System.out.println("\n============ AVAILABLE ITEMS ============");
 
                 // Show antiques of that type
                 HashMap<String, Antique> specificAntiqueTypes = antiqueRepository.showSpecificAntique(userInput);
@@ -315,7 +316,7 @@ public class ProgramController {
                     System.out.println(antiqueSet.getKey() + " = " + antiqueSet.getValue());
                 }
 
-                System.out.println("========================================");
+                System.out.println("=========================================");
             }
         }
 
@@ -325,16 +326,16 @@ public class ProgramController {
 
     // PURCHASE AN ANTIQUE FOR SALE
     public void bidOnAntique(){
-        // Checks if there are items for sale
+        // Checks if there are any items in the repository
         if (antiqueRepository.isEmpty()) {
             System.out.println("*** There are currently no items for sale. ***");
 
             goBack();
         }
 
-        // Show antiques for sale
-        System.out.println("Antiques that are for sale are: ");
-        showAntiqueNames();
+        // Show antiques in auction
+        System.out.println("Antiques that are in auction are: ");
+        showAntiqueNames("AUCTION");
 
         String itemInCart;
         Scanner inputScanner = new Scanner(System.in);
@@ -354,20 +355,38 @@ public class ProgramController {
                 if (antique.getSold()) {
                     System.out.println("\n*** That item is already sold! Please try again. ***\n");
                 } else {
-                    System.out.println("\nBidding success.\n");
+                    if (antique.getSellType().equalsIgnoreCase("SALE")) {
+                        System.out.println("\n*** That item is for sale, not auction! Please try again. ***\n");
+                    } else {
+                        System.out.println("\nBidding success.\n");
 
-                    // If the antique has a last bidder, and it's not the current user; do this
-                    if (antique.getLastBidder() != null &&
-                            !Objects.equals(antique.getLastBidder(), currentUser.getName())) {
-                        // Last bidder will get money back
-                        userRepository.getUser(antique.getLastBidder()).depositMoney(antique.getPrice());
+                        // If the antique has a last bidder, and it's not the current user; do this
+                        if (antique.getLastBidder() != null &&
+                                !Objects.equals(antique.getLastBidder(), currentUser.getName())) {
+                            // Last bidder will get money back
+                            userRepository.getUser(antique.getLastBidder()).depositMoney(antique.getPrice());
+                        }
+
+                        double bidAmount;
+                        System.out.println("\n How much would you like to bid?: ");
+                        bidAmount = inputScanner.nextDouble();
+
+                        // If the bid amount is more than the current user's bank balance, program will send the bidder back
+                        if (bidAmount > currentUser.getBankBalance()) {
+                            System.out.println("\n*** Your bank balance is insufficient. Please try again. ***\n");
+                        } else if (bidAmount < antique.getPrice()) {
+                            // If the bidder bids less than what the current price is, program will send the bidder back
+                            System.out.println("\n*** You have to bid higher than previous price. Please try again. ***\n");
+                        } else {
+                            System.out.println("\nBidding success.\n");
+
+                            // Current user's balance will get deducted
+                            userRepository.withdrawMoney(currentUser, bidAmount);
+
+                            // Set current user as last bidder
+                            antiqueRepository.writeLastBidder(antique, currentUser);
+                        }
                     }
-
-                    // Current user's balance will get deducted
-                    userRepository.withdrawMoney(currentUser, antique.getPrice());
-
-                    // Set current user as last bidder
-                    antiqueRepository.writeLastBidder(antique, currentUser);
                 }
             }
         } else if (itemInCart.equalsIgnoreCase("CANCEL")) {
@@ -381,9 +400,65 @@ public class ProgramController {
         goBack();
     }
 
+    // FUNCTION TO PURCHASE ANTIQUE
+    public void purchaseAntique() {
+        // Checks if there are any items in the repository
+        if (antiqueRepository.isEmpty()) {
+            System.out.println("*** There are currently no items for sale. ***");
+
+            goBack();
+        }
+
+        // Show antiques for sale
+        System.out.println("Antiques that are for sale are: ");
+        showAntiqueNames("SALE");
+
+        String itemInCart;
+        Scanner inputScanner = new Scanner(System.in);
+        System.out.println("\nWhich item would you like to buy? (CANCEL to cancel): ");
+        itemInCart = inputScanner.nextLine();
+
+        // Put antique-object in variable for easier handling
+        Antique antique = antiqueRepository.getAntique(itemInCart);
+
+        // If antique exists, program will continue
+        if (antiqueRepository.antiqueExists(itemInCart)) {
+            // If the bidder does not have enough money, program will send the bidder back
+            if (currentUser.getBankBalance() < antique.getPrice()) {
+                System.out.println("\n*** Your bank balance is insufficient. Please try again. ***\n");
+            } else if (antique.getSold()) {
+                // If item is already sold, user will be sent back
+                System.out.println("\n*** That item is already sold! Please try again. ***\n");
+            } else if (itemInCart.equalsIgnoreCase("CANCEL")) {
+                // If user wants to cancel, go back
+                goBack();
+            } else if (antique.getSellType().equalsIgnoreCase("AUCTION")) {
+                System.out.println("\n*** That item is for auction! Please try again. ***\n");
+            } else {
+                System.out.println("\n*** Item bought successfully. ***\n");
+
+                // Set current user as buyer
+                antiqueRepository.setBuyer(antique, currentUser);
+
+                // Deduct money from user's balance
+                userRepository.withdrawMoney(currentUser, antique.getPrice());
+
+                // Give money to store
+                moneyTransaction(antique);
+            }
+
+            goBack();
+        } else {
+            // If antique written does not exist, user will get sent back
+            System.out.println("\n*** That antique does not exist. Please try again ***");
+        }
+
+        goBack();
+}
+
     // FUNCTION TO SHOW NAMES OF ANTIQUES FOR SALE
-    public void showAntiqueNames() {
-        ArrayList<String> antiqueNamesArray = antiqueRepository.showAntiqueNames(false);
+    public void showAntiqueNames(String sellType) {
+        ArrayList<String> antiqueNamesArray = antiqueRepository.showAntiqueNames(false, sellType);
 
         for (String antiqueNames : antiqueNamesArray) {
             System.out.println(antiqueNames);
@@ -421,7 +496,7 @@ public class ProgramController {
     public void addFavorite() {
         // Show antiques for sale
         System.out.println("Antiques that are for sale are: ");
-        showAntiqueNames();
+        showAntiqueNames("ALL");
 
         String favoriteItem;
         Scanner inputScanner = new Scanner(System.in);
@@ -545,7 +620,7 @@ public class ProgramController {
 
     // COMMANDS FOR STORE USERS
     // FUNCTION TO MAKE ANTIQUE-OBJECT. RECEIVES BOOLEAN TO KNOW IF IT'S FOR REPLACEMENT OR IF IT'S NEW
-    public Antique makeAntique(boolean antiqueReplace) {
+    public Antique makeAntique(boolean antiqueReplace, String sellType) {
         // Variables used to create Antique object
         String name;
         String type;
@@ -575,7 +650,7 @@ public class ProgramController {
             price = inputScanner.nextDouble();
 
             // Create antique and add to list of antiques for sale
-            Antique newAntique = new Antique(name, type, description, price, currentStore.getName());
+            Antique newAntique = new Antique(name, type, description, price, currentStore.getName(), sellType);
 
             if (antiqueReplace) {
                 return newAntique;
@@ -630,7 +705,7 @@ public class ProgramController {
         goBack();
     }
 
-    // FUNCTION TO HANDLE TRANSACTION BETWEEN STORE AND USER
+    // FUNCTION TO HANDLE TRANSACTION FOR STORE
     public void moneyTransaction(Antique antique) {
         // Updates the antique(boolean sold)
         antiqueRepository.purchaseAntique(antique);
@@ -665,7 +740,7 @@ public class ProgramController {
     public void deleteAntique() {
         // Show antique names
         System.out.println("Antiques that can be deleted: ");
-        ArrayList<String> antiqueNamesArray = antiqueRepository.showAntiqueNames(true);
+        ArrayList<String> antiqueNamesArray = antiqueRepository.showAntiqueNames(true, "ALL");
 
         for (String antiqueNames : antiqueNamesArray) {
             System.out.println(antiqueNames);
@@ -702,7 +777,7 @@ public class ProgramController {
         }
 
         System.out.println("Antiques that can be edited: ");
-        showAntiqueNames();
+        showAntiqueNames("ALL");
 
         // Get antique name(key) and store it in antiqueName variable
         String antiqueName;
@@ -717,11 +792,19 @@ public class ProgramController {
                 System.out.println("That item is already sold!\n");
                 updatePanel();
             } else {
-                // Make new antique using makeAntique()-function
-                Antique newAntique = makeAntique(true);
+                if (antiqueRepository.getAntique(antiqueName).getSellType().equalsIgnoreCase("AUCTION")) {
+                    // Make new antique in auction using makeAntique()-function
+                    Antique newAntique = makeAntique(true, "AUCTION");
 
-                // Replace antique with new antique
-                antiqueRepository.editAntique(antiqueName, newAntique);
+                    // Replace antique with new antique
+                    antiqueRepository.editAntique(antiqueName, newAntique);
+                } else {
+                    // Make new antique for sale using makeAntique()-function
+                    Antique newAntique = makeAntique(true, "SALE");
+
+                    // Replace antique with new antique
+                    antiqueRepository.editAntique(antiqueName, newAntique);
+                }
             }
         } else if (antiqueName.equalsIgnoreCase("CANCEL") ||
                 antiqueName.equalsIgnoreCase("cancel")) {

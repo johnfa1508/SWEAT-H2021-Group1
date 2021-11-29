@@ -1,4 +1,15 @@
 [ {
+  "name" : "mirror",
+  "type" : "mirror",
+  "description" : "mirror from 1523",
+  "price" : 250.0,
+  "sold" : true,
+  "sellerName" : "ikea",
+  "lastBidder" : null,
+  "favorites" : [ ],
+  "sellType" : "SALE",
+  "buyer" : "john"
+}, {
   "name" : "burger",
   "type" : "burger",
   "description" : "burger",
@@ -6,7 +17,9 @@
   "sold" : true,
   "sellerName" : "burger king",
   "lastBidder" : "userTest2",
-  "favorites" : [ ]
+  "favorites" : [ ],
+  "sellType" : "AUCTION",
+  "buyer" : null
 }, {
   "name" : "chair from 1534",
   "type" : "chair",
@@ -15,7 +28,9 @@
   "sold" : false,
   "sellerName" : "burger king",
   "lastBidder" : null,
-  "favorites" : [ ]
+  "favorites" : [ ],
+  "sellType" : "AUCTION",
+  "buyer" : null
 }, {
   "name" : "fork from 1823",
   "type" : "fork",
@@ -24,7 +39,9 @@
   "sold" : false,
   "sellerName" : "ikea",
   "lastBidder" : null,
-  "favorites" : [ ]
+  "favorites" : [ ],
+  "sellType" : "AUCTION",
+  "buyer" : null
 }, {
   "name" : "spoon from 1192",
   "type" : "spoon",
@@ -33,7 +50,9 @@
   "sold" : false,
   "sellerName" : "ikea",
   "lastBidder" : "userTest2",
-  "favorites" : [ ]
+  "favorites" : [ ],
+  "sellType" : "AUCTION",
+  "buyer" : null
 }, {
   "name" : "table from 1900",
   "type" : "table",
@@ -42,7 +61,9 @@
   "sold" : false,
   "sellerName" : "mcdonalds",
   "lastBidder" : "john",
-  "favorites" : [ ]
+  "favorites" : [ ],
+  "sellType" : "AUCTION",
+  "buyer" : null
 }, {
   "name" : "golden spoon from 1924",
   "type" : "spoon",
@@ -51,5 +72,7 @@
   "sold" : false,
   "sellerName" : "ikea",
   "lastBidder" : null,
-  "favorites" : [ ]
+  "favorites" : [ ],
+  "sellType" : "AUCTION",
+  "buyer" : null
 } ]

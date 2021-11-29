@@ -109,7 +109,7 @@ public class AntiqueJSONRepository implements AntiqueRepository {
 
     // FUNCTION TO SHOW ANTIQUE NAMES. RECEIVES BOOLEAN TO CHOOSE SHOW ALL OR NOT
     @Override
-    public ArrayList<String> showAntiqueNames(boolean showAll) {
+    public ArrayList<String> showAntiqueNames(boolean showAll, String sellType) {
         // Arraylist to store names of antiques
         ArrayList<String> antiqueNamesArray = new ArrayList<>();
 
@@ -120,7 +120,13 @@ public class AntiqueJSONRepository implements AntiqueRepository {
                 antiqueNamesArray.add(antiqueSet.getValue().getName());
             } else {
                 if (!antiqueSet.getValue().getSold()) {
-                    antiqueNamesArray.add(antiqueSet.getValue().getName());
+                    // If antique sellType is equals to sellType in parameter, add to return list
+                    if (antiqueSet.getValue().getSellType().equalsIgnoreCase(sellType)) {
+                        antiqueNamesArray.add(antiqueSet.getValue().getName());
+                    } else if (sellType.equalsIgnoreCase("ALL")) {
+                        // Show all names
+                        antiqueNamesArray.add(antiqueSet.getValue().getName());
+                    }
                 }
             }
         }
@@ -246,6 +252,14 @@ public class AntiqueJSONRepository implements AntiqueRepository {
     @Override
     public void writeLastBidder(Antique antique, User user) {
         antique.setLastBidder(user.getName());
+
+        writeJSON(fileName);
+    }
+
+    // FUNCTION TO SET BUYER
+    @Override
+    public void setBuyer(Antique antique, User user) {
+        antique.setBuyer(user.getName());
 
         writeJSON(fileName);
     }

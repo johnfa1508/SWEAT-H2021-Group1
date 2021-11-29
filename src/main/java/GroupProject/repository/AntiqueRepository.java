@@ -15,7 +15,7 @@ public interface AntiqueRepository {
     HashMap<String, Antique> showPurchaseHistory();
     void addAntique(Antique antique);
     void deleteAntique(String antiqueKey);
-    ArrayList<String> showAntiqueNames(boolean showAll);
+    ArrayList<String> showAntiqueNames(boolean showAll, String sellType);
     HashMap<String, Antique> showSpecificAntique(String antiqueType);
     void editAntique(String antiqueKey, Antique antique);
     void purchaseAntique(Antique antique);
@@ -23,6 +23,7 @@ public interface AntiqueRepository {
     void removeFavorite(Antique antique, User user);
     HashMap<String, Antique> favoritedByUser(User user);
     boolean antiqueExists(String antiqueName);
+    void setBuyer(Antique antique, User user);
     HashMap<String, Antique> storeBids(Store store);
     void writeLastBidder(Antique antique, User user);
     HashMap<String, Antique> userBids(User user);
