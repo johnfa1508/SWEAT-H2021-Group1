@@ -236,19 +236,19 @@ public class ProgramController {
 
         switch (choice) {
             case 1:
-                showAntiques(); // Show antique screen
+                showAntiques();    // Show antique screen
             case 2:
-                updatePanel();  // Go to admin update panel
+                updatePanel();     // Go to admin update panel
             case 3:
-                purchaseHistory();  // See purchase history
+                purchaseHistory(); // See purchase history
             case 4:
-                showUsers();    // Show all users
+                showUsers();       // Show all users
             case 5:
-                showStores();   // Show all stores
+                showStores();      // Show all stores
             case 6:
-                makeStore();    // Make a new store
+                makeStore();       // Make a new store
             case 7:
-                loginPanel();   // Go back
+                loginPanel();      // Go back
         }
     }
 
@@ -272,11 +272,11 @@ public class ProgramController {
 
         switch (choice) {
             case 1:
-                showAntiquesForSale();  // Show all antiques if there's antiques for sale
+                showAntiquesForSale(); // Show all antiques if there's antiques for sale
             case 2:
-                showSpecificAntique();  // Show specific antique type
+                showSpecificAntique(); // Show specific antique type
             case 3:
-                goBack();   // Go back
+                goBack();              // Go back
         }
     }
 
@@ -739,11 +739,11 @@ public class ProgramController {
 
         switch (choice) {
             case 1:
-                deleteAntique();    // Delete an antique
+                deleteAntique(); // Delete an antique
             case 2:
-                editAntique();  // Edit an antique
+                editAntique();   // Edit an antique
             case 3:
-                goBack();   // Go back to previous panel
+                goBack();        // Go back to previous panel
         }
     }
 
