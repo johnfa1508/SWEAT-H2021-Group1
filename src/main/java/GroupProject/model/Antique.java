@@ -116,31 +116,27 @@ public class Antique {
     @Override
     public String toString() {
         if (getSellType().equalsIgnoreCase("AUCTION")) {
-            return String.format("""
-                
-                Name: %s
-                Type: %s
-                Description: %s
-                Price: %s nok
-                Seller: %s
-                Last bidder: %s
-                Favorited by: %s
-                Selling type: %s
-                """, getName(), getType(), getDescription(), getPrice(), getSellerName(), getLastBidder(),
-                    getFavorites(), getSellType());
+            return String.format("\n" +
+                    "\nName: %s" +
+                    "\nType: %s" +
+                    "\nDescription: %s" +
+                    "\nPrice: %s" +
+                    "\nSeller: %s" +
+                    "\nLast bidder: %s" +
+                    "\nFavorited by: %s" +
+                    "\nSelling type: %s", getName(), getType(), getDescription(), getPrice(), getSellerName(),
+                    getLastBidder(), getFavorites(), getSellType());
         } else {
-            return String.format("""
-                
-                Name: %s
-                Type: %s
-                Description: %s
-                Price: %s nok
-                Seller: %s
-                Buyer: %s
-                Favorited by: %s
-                Selling type: %s
-                """, getName(), getType(), getDescription(), getPrice(), getSellerName(), getBuyer(),
-                    getFavorites(), getSellType());
+            return String.format("\n" +
+                            "\nName: %s" +
+                            "\nType: %s" +
+                            "\nDescription: %s" +
+                            "\nPrice: %s" +
+                            "\nSeller: %s" +
+                            "\nBuyer: %s" +
+                            "\nFavorited by: %s" +
+                            "\nSelling type: %s", getName(), getType(), getDescription(), getPrice(), getSellerName(),
+                    getBuyer(), getFavorites(), getSellType());
         }
     }
 }

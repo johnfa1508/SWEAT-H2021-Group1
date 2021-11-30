@@ -36,16 +36,13 @@ public class ProgramController {
         int choice;
         Scanner inputScanner = new Scanner(System.in);
 
-        System.out.println("""
-                
-                ================== LOGIN ===============
-                   1. Log in as admin
-                   2. Log in as user
-                   3. Log in as store
-                   4. Make new user
-                   5. Leave
-                ========================================
-                """);
+        System.out.println("\n\n================== LOGIN ===============" +
+                "\n1. Log in as admin" +
+                "\n2. Log in as user" +
+                "\n3. Log in as store" +
+                "\n4. Make new user" +
+                "\n5. Leave" +
+                "\n========================================");
 
         choice = inputScanner.nextInt();
 
@@ -136,21 +133,18 @@ public class ProgramController {
 
         int choice;
         Scanner inputScanner = new Scanner(System.in);
-        System.out.println("""
-                
-                ================= USER =================
-                   1. See antiques
-                   2. Bid on an antique
-                   3. Purchase an antique
-                   4. Show active bids
-                   5. Add antique as favorite
-                   6. Remove antique as favorite
-                   7. Show favorites
-                   8. See bank balance
-                   9. Deposit money
-                   10. Log out
-                ========================================
-                """);
+        System.out.println("\n\n================= USER =================" +
+                "\n1. See antiques" +
+                "\n2. Bid on an antique" +
+                "\n3. Purchase an antique" +
+                "\n4. Show active bids" +
+                "\n5. Add antique as favorite" +
+                "\n6. Remove antique as favorite" +
+                "\n7. Show favorites" +
+                "\n8. See bank balance" +
+                "\n9. Deposit money" +
+                "\n10. Log out" +
+                "\n========================================");
         choice = inputScanner.nextInt();
 
         switch (choice) {
@@ -179,18 +173,14 @@ public class ProgramController {
 
         int choice;
         Scanner inputScanner = new Scanner(System.in);
-        System.out.println("""
-                
-                ================= STORE =================
-                   1. See antiques
-                   2. Set antique for bidding
-                   3. Set antique for sale
-                   4. See active bids
-                   5. End bidding on an antique
-                   6. See bank balance
-                   7. Log out
-                =========================================
-                """);
+        System.out.println("\n\n================= STORE =================" +
+                "\n1. See antiques" +
+                "\n2. Set antique for bidding" +
+                "\n3. Set antique for sale" +
+                "\n4. See active bids" +
+                "\n5. End bidding on an antique" +
+                "\n6. See bank balance" +
+                "\n7. Log out");
         choice = inputScanner.nextInt();
 
         switch (choice) {
@@ -214,18 +204,14 @@ public class ProgramController {
 
         int choice;
         Scanner inputScanner = new Scanner(System.in);
-        System.out.println("""
-                
-                ================ ADMIN =================
-                   1. See antiques
-                   2. Update an antique
-                   3. Purchase history
-                   4. See all users
-                   5. See all stores
-                   6. Make new store
-                   7. Log out
-                ========================================
-                """);
+        System.out.println("\n\n================ ADMIN =================" +
+                "\n1. See antiques" +
+                "\n2. Update an antique" +
+                "\n3. Purchase history" +
+                "\n4. See all users" +
+                "\n5. See all stores" +
+                "\n6. Make new store" +
+                "\n7. Log out");
         choice = inputScanner.nextInt();
 
         switch (choice) {
@@ -250,14 +236,11 @@ public class ProgramController {
 
         int choice;
         Scanner inputScanner = new Scanner(System.in);
-        System.out.println("""
-                
-                =============== ANTIQUES ===============
-                   1. See all antiques for sale
-                   2. See specific types
-                   3. Go back
-                ========================================
-                """);
+        System.out.println("\n\n=============== ANTIQUES ===============" +
+                "\n1. See all antiques for sale" +
+                "\n2. See specific types" +
+                "\n3. Go back" +
+                "\n========================================");
         choice = inputScanner.nextInt();
 
         switch (choice) {
@@ -718,14 +701,10 @@ public class ProgramController {
     public void updatePanel() {
         int choice;
         Scanner inputScanner = new Scanner(System.in);
-        System.out.println("""
-                
-                ============ ADMIN - UPDATE ============
-                   1. Delete an antique
-                   2. Edit an antique
-                   3. Go back
-                ========================================
-                """);
+        System.out.println("\n\n============ ADMIN - UPDATE ============" +
+                "\n1. Delete an antique" +
+                "\n2. Edit an antique" +
+                "\n3. Go back");
         choice = inputScanner.nextInt();
 
         switch (choice) {

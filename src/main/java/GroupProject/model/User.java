@@ -43,7 +43,8 @@ public class User {
 
     @Override
     public String toString() {
-        return String.format("\n\nName: %s\n" +
-                "Bank balance: %s nok", getName(), getBankBalance());
+        return String.format("\n" +
+                "\nName: %s" +
+                "\nBank balance: %s nok", getName(), getBankBalance());
     }
 }
