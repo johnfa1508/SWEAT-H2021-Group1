@@ -10,13 +10,13 @@ GroupProject/repository/UserRepository.java
  GroupProject.repository.UserRepository
 GroupProject/model/Store.java
  GroupProject.model.Store
-GroupProject/repository/AntiqueJSONRepository.java
- GroupProject.repository.AntiqueJSONRepository
 GroupProject/model/Antique.java
  GroupProject.model.Antique
-GroupProject/repository/AntiqueRepository.java
- GroupProject.repository.AntiqueRepository
+GroupProject/repository/AntiqueJSONRepository.java
+ GroupProject.repository.AntiqueJSONRepository
 GroupProject/Main.java
  GroupProject.Main
+GroupProject/repository/AntiqueRepository.java
+ GroupProject.repository.AntiqueRepository
 GroupProject/controller/ProgramController.java
  GroupProject.controller.ProgramController
