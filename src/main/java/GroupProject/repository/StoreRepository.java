@@ -9,6 +9,7 @@ public interface StoreRepository {
     HashMap<String, Store> showStores();
     ArrayList<String> showStoreNames();
     void addStore(Store newStore);
+    void removeStore(Store store);
     void depositMoney(Store store, double money);
     void withdrawMoney(Store store, double money);
     boolean storeExists(String storeName);

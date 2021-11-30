@@ -1,0 +1,4 @@
+// THIS JAVA FILE CONTAINS TESTS WHICH INVOLVES STORE-OBJECTS
+
+public class Store_Tests {
+}

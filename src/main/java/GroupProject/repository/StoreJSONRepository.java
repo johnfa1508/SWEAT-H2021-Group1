@@ -60,6 +60,15 @@ public class StoreJSONRepository implements StoreRepository {
         writeJSON(fileName);
     }
 
+    // FUNCTION TO REMOVE STORE FROM HASHMAP OF STORES
+    @Override
+    public void removeStore(Store store) {
+        // Remove element from hashmap using key
+        storeMap.remove(store.getName());
+
+        writeJSON(fileName);
+    }
+
     // FUNCTION TO GET SPECIFIC STORE
     @Override
     public Store getStore(String storeKey) {
