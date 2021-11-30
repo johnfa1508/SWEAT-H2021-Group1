@@ -169,9 +169,9 @@ public class ProgramController {
             case 7:
                 showFavorites();    // Show favorited antiques
             case 8:
-                showBalance("USER");    // Show balance
+                showBalance("USER"); // Show balance
             case 9:
-                depositMoney(); // Deposit money
+                depositMoney();      // Deposit money
             case 10:
                 loginPanel();   // Log out
         }
