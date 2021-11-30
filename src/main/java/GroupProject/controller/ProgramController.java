@@ -47,11 +47,16 @@ public class ProgramController {
         choice = inputScanner.nextInt();
 
         switch (choice) {
-            case 1 -> adminPanel();      // Go to admin-screen
-            case 2 -> loginUserPanel();  // Go to user-login screen
-            case 3 -> loginStorePanel(); // Go to store-screen
-            case 4 -> makeUser();        // Make a new user
-            case 5 -> {}                 // Leave
+            case 1:
+                adminPanel();      // Go to admin-screen
+            case 2:
+                loginUserPanel();  // Go to user-login screen
+            case 3:
+                loginStorePanel(); // Go to store-screen
+            case 4:
+                makeUser();        // Make a new user
+            case 5:
+                break;             // Leave
         }
     }
 
@@ -148,18 +153,27 @@ public class ProgramController {
         choice = inputScanner.nextInt();
 
         switch (choice) {
-            case 1 -> showAntiques();       // Show antique screen
-            case 2 -> bidOnAntique();       // Bid on an antique
-            case 3 -> purchaseAntique();    // Purchase an antique
-            case 4 -> {seeBids("USER");
-                       goBack();
-            }                               // Show active bids
-            case 5 -> addFavorite();        // Add antique to favorites
-            case 6 -> removeFavorite();     // Remove antique from favorite list
-            case 7 -> showFavorites();      // Show favorited antiques
-            case 8 -> showBalance("USER");  // Show balance
-            case 9 -> depositMoney();       // Deposit money
-            case 10 -> loginPanel();        // Log out
+            case 1:
+                showAntiques();            // Show antique screen
+            case 2:
+                bidOnAntique();            // Bid on an antique
+            case 3:
+                purchaseAntique();      // Purchase an antique
+            case 4:
+                seeBids("USER");
+                goBack();               // Show active bids
+            case 5:
+                addFavorite();  // Add antique to favorites
+            case 6:
+                removeFavorite();   // Remove antique from favorite list
+            case 7:
+                showFavorites();    // Show favorited antiques
+            case 8:
+                showBalance("USER");    // Show balance
+            case 9:
+                depositMoney(); // Deposit money
+            case 10:
+                loginPanel();   // Log out
         }
     }
 
@@ -184,15 +198,21 @@ public class ProgramController {
         choice = inputScanner.nextInt();
 
         switch (choice) {
-            case 1 -> showAntiques();                 // Show antique screen
-            case 2 -> makeAntique(false, "AUCTION");  // Make new antique
-            case 3 -> makeAntique(false, "SALE");
-            case 4 -> { seeBids("STORE");
-                        goBack();
-            }                                         // See active bids
-            case 5 -> endBidding();                   // End bidding on an antique
-            case 6 -> showBalance("STORE");           // Show balance
-            case 7 -> loginPanel();                   // Log out
+            case 1:
+                showAntiques(); // Show antique screen
+            case 2:
+                makeAntique(false, "AUCTION");  // Make new antique for auction
+            case 3:
+                makeAntique(false, "SALE");     // Make new antique for sale
+            case 4:
+                seeBids("STORE");
+                goBack();   // See active bids
+            case 5:
+                endBidding();   // End bidding on an antique
+            case 6:
+                showBalance("STORE");   // Show balance
+            case 7:
+                loginPanel();   // Log out
         }
     }
 
@@ -215,13 +235,20 @@ public class ProgramController {
         choice = inputScanner.nextInt();
 
         switch (choice) {
-            case 1 -> showAntiques();    // Show antique screen
-            case 2 -> updatePanel();     // Go to admin update panel
-            case 3 -> purchaseHistory(); // See purchase history
-            case 4 -> showUsers();       // Show all users
-            case 5 -> showStores();      // Show all stores
-            case 6 -> makeStore();       // Make a new store
-            case 7 -> loginPanel();      // Go back
+            case 1:
+                showAntiques(); // Show antique screen
+            case 2:
+                updatePanel();  // Go to admin update panel
+            case 3:
+                purchaseHistory();  // See purchase history
+            case 4:
+                showUsers();    // Show all users
+            case 5:
+                showStores();   // Show all stores
+            case 6:
+                makeStore();    // Make a new store
+            case 7:
+                loginPanel();   // Go back
         }
     }
 
@@ -244,9 +271,12 @@ public class ProgramController {
         choice = inputScanner.nextInt();
 
         switch (choice) {
-            case 1 -> showAntiquesForSale(); // Show all antiques if there's antiques for sale
-            case 2 -> showSpecificAntique(); // Show specific antique type
-            case 3 -> goBack();              // Go back
+            case 1:
+                showAntiquesForSale();  // Show all antiques if there's antiques for sale
+            case 2:
+                showSpecificAntique();  // Show specific antique type
+            case 3:
+                goBack();   // Go back
         }
     }
 
@@ -708,9 +738,12 @@ public class ProgramController {
         choice = inputScanner.nextInt();
 
         switch (choice) {
-            case 1 -> deleteAntique(); // Delete an antique
-            case 2 -> editAntique();   // Edit an antique
-            case 3 -> goBack();        // Go back to previous panel
+            case 1:
+                deleteAntique();    // Delete an antique
+            case 2:
+                editAntique();  // Edit an antique
+            case 3:
+                goBack();   // Go back to previous panel
         }
     }
 
