@@ -208,11 +208,11 @@ public class ProgramController {
                 seeBids("STORE");
                 goBack();                      // See active bids
             case 5:
-                endBidding();                   // End bidding on an antique
+                endBidding();                  // End bidding on an antique
             case 6:
-                showBalance("STORE");   // Show balance
+                showBalance("STORE");          // Show balance
             case 7:
-                loginPanel();                   // Log out
+                loginPanel();                  // Log out
         }
     }
 
