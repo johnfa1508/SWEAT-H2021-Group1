@@ -31,9 +31,14 @@ public class Store {
         this.bankBalance = bankBalance;
     }
 
-    // FUNCTION TO DEPOSIT TO BANK BALANCE
-    public void depositMoney(double money){
+    // FUNCTION TO DEPOSIT MONEY
+    public void depositMoney(double money) {
         this.bankBalance += money;
+    }
+
+    // FUNCTION TO WITHDRAW MONEY
+    public void withdrawMoney(double money) {
+        this.bankBalance -= money;
     }
 
     @Override

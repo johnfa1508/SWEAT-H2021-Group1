@@ -113,7 +113,7 @@ public class StoreJSONRepository implements StoreRepository {
     // FUNCTION TO WITHDRAW MONEY FROM BANK BALANCE
     @Override
     public void withdrawMoney(Store store, double money) {
-        getStore(store.getName()).depositMoney(money);
+        getStore(store.getName()).withdrawMoney(money);
 
         writeJSON(fileName);
     }

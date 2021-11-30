@@ -1,6 +1,6 @@
 User_Tests.java
  User_Tests
-Antique_Tests.java
- Antique_Tests
 Store_Tests.java
  Store_Tests
+Antique_Tests.java
+ Antique_Tests
