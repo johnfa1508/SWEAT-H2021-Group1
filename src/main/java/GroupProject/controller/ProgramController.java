@@ -199,20 +199,20 @@ public class ProgramController {
 
         switch (choice) {
             case 1:
-                showAntiques(); // Show antique screen
+                showAntiques();                // Show antique screen
             case 2:
                 makeAntique(false, "AUCTION"); // Make new antique for auction
             case 3:
                 makeAntique(false, "SALE");    // Make new antique for sale
             case 4:
                 seeBids("STORE");
-                goBack();   // See active bids
+                goBack();                      // See active bids
             case 5:
-                endBidding();   // End bidding on an antique
+                endBidding();                   // End bidding on an antique
             case 6:
                 showBalance("STORE");   // Show balance
             case 7:
-                loginPanel();   // Log out
+                loginPanel();                   // Log out
         }
     }
 
