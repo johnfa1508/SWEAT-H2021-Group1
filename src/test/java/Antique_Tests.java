@@ -200,4 +200,25 @@ public class Antique_Tests {
 //
 //        Assertions.assertTrue(antiqueRepository.antiqueExists(replaceAntique.getName()));
 //    }
+
+    // TEST IF writeSeller() UPDATES ANTIQUE'S SELLER
+    @Test
+    public void writeSeller_updates_antique_seller_name() {
+        antiqueRepository.addAntique(newAntique);
+        String newName = "ikea2";
+        antiqueRepository.writeSeller(newAntique, newName);
+
+        Assertions.assertTrue(antiqueRepository.getAntique(newAntique.getName()).
+                getSellerName().equalsIgnoreCase(newName));
+    }
+
+    // TEST IF writeNewPrice() UPDATES ANTIQUE'S PRICE
+    @Test
+    public void writeNewPrice_updates_antique_price() {
+        antiqueRepository.addAntique(newAntique);
+        double newPrice = 250;
+        antiqueRepository.writeNewPrice(newAntique, newPrice);
+
+        Assertions.assertEquals(newPrice, antiqueRepository.getAntique(newAntique.getName()).getPrice());
+    }
 }
