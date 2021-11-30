@@ -14,13 +14,13 @@ public class New_User_Test {
         Assertions.assertTrue(userRepository.userExists(newUser.getName()));
     }
 
-    // TEST IF NEW USER IS USER REPOSITORY
+    // TEST IF NEW USER GETS RETURNED WHEN USING getUser(String userKey)-FUNCTION IN UserJSONRepository
     @Test
-    public void Test_If_New_User_Is_In_User_Repository() {
+    public void User_Gets_Returned_From_getUser_Function() {
         UserRepository userRepository = new UserJSONRepository("users.json");
         User newUser = new User("userTest", 100);
         userRepository.addUser(newUser);
 
-        Assertions.assertTrue(userRepository.userExists(newUser.getName()));
+        Assertions.assertNotNull(userRepository.getUser(newUser.getName()));
     }
 }

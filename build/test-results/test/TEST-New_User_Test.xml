@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="New_User_Test" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-11-30T15:09:57" hostname="DESKTOP-3K5UHUD" time="0.136">
+<testsuite name="New_User_Test" tests="2" skipped="0" failures="0" errors="0" timestamp="2021-11-30T15:16:29" hostname="DESKTOP-3K5UHUD" time="0.14">
   <properties/>
-  <testcase name="Test_If_New_User_Is_In_User_Repository()" classname="New_User_Test" time="0.136"/>
+  <testcase name="New_User_Exists()" classname="New_User_Test" time="0.137"/>
+  <testcase name="User_Gets_Returned_From_getUser_Function()" classname="New_User_Test" time="0.003"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
