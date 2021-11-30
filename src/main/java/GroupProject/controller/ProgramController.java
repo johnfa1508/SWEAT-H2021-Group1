@@ -154,26 +154,26 @@ public class ProgramController {
 
         switch (choice) {
             case 1:
-                showAntiques();            // Show antique screen
+                showAntiques();      // Show antique screen
             case 2:
-                bidOnAntique();            // Bid on an antique
+                bidOnAntique();      // Bid on an antique
             case 3:
-                purchaseAntique();      // Purchase an antique
+                purchaseAntique();   // Purchase an antique
             case 4:
                 seeBids("USER");
                 goBack();               // Show active bids
             case 5:
-                addFavorite();  // Add antique to favorites
+                addFavorite();       // Add antique to favorites
             case 6:
-                removeFavorite();   // Remove antique from favorite list
+                removeFavorite();    // Remove antique from favorite list
             case 7:
-                showFavorites();    // Show favorited antiques
+                showFavorites();     // Show favorited antiques
             case 8:
                 showBalance("USER"); // Show balance
             case 9:
                 depositMoney();      // Deposit money
             case 10:
-                loginPanel();   // Log out
+                loginPanel();       // Log out
         }
     }
 
