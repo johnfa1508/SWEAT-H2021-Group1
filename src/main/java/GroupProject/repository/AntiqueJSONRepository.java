@@ -258,8 +258,16 @@ public class AntiqueJSONRepository implements AntiqueRepository {
 
     // FUNCTION TO SET BUYER
     @Override
-    public void setBuyer(Antique antique, User user) {
+    public void writeBuyer(Antique antique, User user) {
         antique.setBuyer(user.getName());
+
+        writeJSON(fileName);
+    }
+
+    // FUNCTION TO UPDATE ANTIQUE PRICE
+    @Override
+    public void writeNewPrice(Antique antique, double money) {
+        antique.setPrice(money);
 
         writeJSON(fileName);
     }

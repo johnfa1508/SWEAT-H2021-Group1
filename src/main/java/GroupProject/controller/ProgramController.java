@@ -370,6 +370,9 @@ public class ProgramController {
                         } else {
                             System.out.println("\nBidding success.\n");
 
+                            // Update antique's price
+                            antiqueRepository.writeNewPrice(antique, bidAmount);
+
                             // Current user's balance will get deducted
                             userRepository.withdrawMoney(currentUser, bidAmount);
 
@@ -421,7 +424,7 @@ public class ProgramController {
                 System.out.println("\n*** Item bought successfully. ***\n");
 
                 // Set current user as buyer
-                antiqueRepository.setBuyer(antique, currentUser);
+                antiqueRepository.writeBuyer(antique, currentUser);
 
                 // Deduct money from user's balance
                 userRepository.withdrawMoney(currentUser, antique.getPrice());

@@ -23,8 +23,9 @@ public interface AntiqueRepository {
     void removeFavorite(Antique antique, User user);
     HashMap<String, Antique> favoritedByUser(User user);
     boolean antiqueExists(String antiqueName);
-    void setBuyer(Antique antique, User user);
+    void writeBuyer(Antique antique, User user);
     HashMap<String, Antique> storeBids(Store store);
     void writeLastBidder(Antique antique, User user);
+    void writeNewPrice(Antique antique, double money);
     HashMap<String, Antique> userBids(User user);
 }
