@@ -1,2 +1,2 @@
-New_User_Test.java
- New_User_Test
+User_Tests.java
+ User_Tests

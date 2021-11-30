@@ -117,25 +117,25 @@ public class Antique {
     public String toString() {
         if (getSellType().equalsIgnoreCase("AUCTION")) {
             return String.format("\n" +
-                    "\nName: %s" +
+                    "Name: %s" +
                     "\nType: %s" +
                     "\nDescription: %s" +
                     "\nPrice: %s" +
                     "\nSeller: %s" +
                     "\nLast bidder: %s" +
                     "\nFavorited by: %s" +
-                    "\nSelling type: %s", getName(), getType(), getDescription(), getPrice(), getSellerName(),
+                    "\nSelling type: %s\n", getName(), getType(), getDescription(), getPrice(), getSellerName(),
                     getLastBidder(), getFavorites(), getSellType());
         } else {
             return String.format("\n" +
-                            "\nName: %s" +
+                            "Name: %s" +
                             "\nType: %s" +
                             "\nDescription: %s" +
                             "\nPrice: %s" +
                             "\nSeller: %s" +
                             "\nBuyer: %s" +
                             "\nFavorited by: %s" +
-                            "\nSelling type: %s", getName(), getType(), getDescription(), getPrice(), getSellerName(),
+                            "\nSelling type: %s\n", getName(), getType(), getDescription(), getPrice(), getSellerName(),
                     getBuyer(), getFavorites(), getSellType());
         }
     }

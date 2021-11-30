@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="New_User_Test" tests="2" skipped="0" failures="0" errors="0" timestamp="2021-11-30T16:13:56" hostname="DESKTOP-3K5UHUD" time="0.136">
-  <properties/>
-  <testcase name="New_User_Exists()" classname="New_User_Test" time="0.133"/>
-  <testcase name="User_Gets_Returned_From_getUser_Function()" classname="New_User_Test" time="0.002"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

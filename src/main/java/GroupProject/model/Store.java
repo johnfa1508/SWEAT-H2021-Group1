@@ -39,7 +39,7 @@ public class Store {
     @Override
     public String toString() {
         return String.format("\n" +
-                "\nName: %s" +
-                "\nBank balance: %s nok", getName(), getBankBalance());
+                "Name: %s" +
+                "\nBank balance: %s nok\n", getName(), getBankBalance());
     }
 }

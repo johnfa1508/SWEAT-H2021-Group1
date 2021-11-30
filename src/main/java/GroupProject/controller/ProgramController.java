@@ -194,7 +194,8 @@ public class ProgramController {
                 "\n4. See active bids" +
                 "\n5. End bidding on an antique" +
                 "\n6. See bank balance" +
-                "\n7. Log out");
+                "\n7. Log out" +
+                "\n=========================================");
         choice = inputScanner.nextInt();
 
         switch (choice) {
@@ -231,7 +232,8 @@ public class ProgramController {
                 "\n4. See all users" +
                 "\n5. See all stores" +
                 "\n6. Make new store" +
-                "\n7. Log out");
+                "\n7. Log out" +
+                "\n========================================");
         choice = inputScanner.nextInt();
 
         switch (choice) {
