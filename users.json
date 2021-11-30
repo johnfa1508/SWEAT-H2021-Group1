@@ -1,7 +1,4 @@
 [ {
-  "name" : "userTest",
-  "bankBalance" : 100.0
-}, {
   "name" : "user with no money",
   "bankBalance" : 0.0
 }, {
