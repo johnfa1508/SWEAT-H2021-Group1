@@ -6,6 +6,16 @@ import GroupProject.repository.*;
 public class New_User_Test {
     // TEST IF NEW USER IS USER REPOSITORY
     @Test
+    public void New_User_Exists() {
+        UserRepository userRepository = new UserJSONRepository("users.json");
+        User newUser = new User("userTest", 100);
+        userRepository.addUser(newUser);
+
+        Assertions.assertTrue(userRepository.userExists(newUser.getName()));
+    }
+
+    // TEST IF NEW USER IS USER REPOSITORY
+    @Test
     public void Test_If_New_User_Is_In_User_Repository() {
         UserRepository userRepository = new UserJSONRepository("users.json");
         User newUser = new User("userTest", 100);
