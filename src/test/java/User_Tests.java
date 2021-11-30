@@ -14,7 +14,7 @@ public class User_Tests {
 
     // TEST IF userExists()-FUNCTION RETURNS TRUE IF USER EXISTS
     @Test
-    public void Return_true_if_user_exists() {
+    public void userExists_returns_true_if_user_exists() {
         userRepository.addUser(newUser);
 
         Assertions.assertTrue(userRepository.userExists(newUser.getName()));
@@ -22,21 +22,21 @@ public class User_Tests {
 
     // TEST IF userExists()-FUNCTION RETURNS FALSE IF USER DOES NOT EXIST
     @Test
-    public void Return_false_if_user_does_not_exists() {
+    public void userExists_returns_false_if_user_does_not_exists() {
         userRepository.removeUser(newUser);
 
         Assertions.assertFalse(userRepository.userExists(newUser.getName()));
     }
 
-    // TEST IF NEW USER GETS RETURNED WHEN USING getUser(String userKey)-FUNCTION IN UserJSONRepository
+    // TEST IF getUser() RETURNS USER
     @Test
-    public void User_gets_returned_from_getUser_function() {
+    public void getUser_returns_user_if_user_exists() {
         userRepository.addUser(newUser);
 
         Assertions.assertNotNull(userRepository.getUser(newUser.getName()));
     }
 
-    // TESTS IF PROGRAM RETURNS NOTHING IF USER-REPOSITORY IS EMPTY
+    // TEST IF showUsers()-FUNCTION RETURNS NOTHING IF USER-REPOSITORY IS EMPTY
     @Test
     public void Return_empty_userMap_if_user_repository_is_empty() {
         userRepository.removeUser(newUser);
@@ -44,29 +44,29 @@ public class User_Tests {
         Assertions.assertTrue(userRepository.showUsers().isEmpty());
     }
 
-    // TESTS IF PROGRAM RETURNS VALUES IF USER-REPOSITORY IS NOT EMPTY
+    // TEST IF showerUsers() RETURNS VALUES IF USER-REPOSITORY IS NOT EMPTY
     @Test
-    public void Return_values_if_user_repository_is_not_empty() {
+    public void showUsers_returns_values_if_user_repository_is_not_empty() {
         Assertions.assertNotNull(userRepository.showUsers());
     }
 
-    // TESTS IF PROGRAM RETURNS NOTHING IF USER-REPOSITORY IS EMPTY
+    // TEST IF showUserNames() RETURNS NOTHING IF USER-REPOSITORY IS EMPTY
     @Test
-    public void Return_empty_userNameMap_if_user_repository_is_empty() {
+    public void showUserNames_returns_empty_userNameMap_if_user_repository_is_empty() {
         userRepository.removeUser(newUser);
 
         Assertions.assertTrue(userRepository.showUserNames().isEmpty());
     }
 
-    // TESTS IF PROGRAM RETURNS USERNAMES IF USER-REPOSITORY IS NOT EMPTY
+    // TEST IF showUserNames() RETURNS USERNAMES IF USER-REPOSITORY IS NOT EMPTY
     @Test
-    public void Return_usernames_if_user_repository_is_not_empty() {
+    public void showUserNames_returns_usernames_if_user_repository_is_not_empty() {
         Assertions.assertNotNull(userRepository.showUserNames());
     }
 
-    // TESTS IF USER GETS MONEY AFTER DEPOSITING TO BALANCE
+    // TEST IF depositMoney() ADDS MONEY FROM USER'S BALANCE
     @Test
-    public void Deposit_money_to_user_balance() {
+    public void depositMoney_adds_money_to_user_balance() {
         userRepository.addUser(newUser);
 
         double oldMoney = newUser.getBankBalance();
@@ -76,9 +76,9 @@ public class User_Tests {
         Assertions.assertTrue(oldMoney < newMoney);
     }
 
-    // TESTS IF USER LOSES MONEY AFTER WITHDRAWING FROM BALANCE
+    // TEST IF withdrawMoney() TAKES MONEY FROM USER'S BALANCE
     @Test
-    public void Withdraw_money_from_user_balance() {
+    public void withdrawMoney_takes_money_from_user_balance() {
         userRepository.addUser(newUser);
 
         double oldMoney = newUser.getBankBalance();
