@@ -1,1 +1,4 @@
-[ ]
+[ {
+  "name" : "userTest",
+  "bankBalance" : 100.0
+} ]
