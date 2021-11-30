@@ -9,6 +9,7 @@ public interface UserRepository {
     HashMap<String, User> showUsers();
     ArrayList<String> showUserNames();
     void addUser(User newUser);
+    void removeUser(User user);
     void depositMoney(User user, double money);
     void withdrawMoney(User user, double money);
     boolean userExists(String userName);

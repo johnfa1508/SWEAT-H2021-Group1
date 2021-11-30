@@ -3,17 +3,13 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import GroupProject.repository.*;
 
+import java.util.HashMap;
+
 public class User_Tests {
     // Use usersTest.json as test-file
     UserRepository userRepository = new UserJSONRepository("usersTest.json");
     // Make new user for testing
     User newUser = new User("userTest", 100);
-
-    // TESTS IF PROGRAM RETURNS NULL IF USER-REPOSITORY IS EMPTY
-    @Test
-    public void Return_Null_If_User_Repository_Is_Empty() {
-        Assertions.assertNull(userRepository.showUsers());
-    }
 
     // TEST IF NEW USER EXISTS IN REPOSITORY AFTER MAKING NEW USER AND ADDING IT
     @Test
@@ -29,6 +25,14 @@ public class User_Tests {
         userRepository.addUser(newUser);
 
         Assertions.assertNotNull(userRepository.getUser(newUser.getName()));
+    }
+
+    // TESTS IF PROGRAM RETURNS NULL IF USER-REPOSITORY IS EMPTY
+    @Test
+    public void Return_Null_If_User_Repository_Is_Empty() {
+        userRepository.removeUser(newUser);
+
+        Assertions.assertTrue(userRepository.showUsers().isEmpty());
     }
 
     // TESTS IF PROGRAM RETURNS VALUES IF USER-REPOSITORY IS NOT EMPTY

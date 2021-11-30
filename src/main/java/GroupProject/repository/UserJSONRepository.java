@@ -60,6 +60,15 @@ public class UserJSONRepository implements UserRepository {
         writeJSON(fileName);
     }
 
+    // FUNCTION TO REMOVE USER FROM HASHMAP OF USERS
+    @Override
+    public void removeUser(User newUser) {
+        // Add new element to hashmap with key:value pair
+        userMap.remove(newUser.getName());
+
+        writeJSON(fileName);
+    }
+
     // FUNCTION TO GET SPECIFIC USER
     @Override
     public User getUser(String userKey) {
