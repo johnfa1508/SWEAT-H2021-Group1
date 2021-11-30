@@ -213,6 +213,8 @@ public class AntiqueJSONRepository implements AntiqueRepository {
     public void editAntique(String antiqueKey, Antique antique) {
         // Replace values inside the antiqueKey with new antique
         antiqueMap.replace(antiqueKey, antique);
+        antiqueMap.remove(antiqueKey);
+        antiqueMap.put(antique.getName(), antique);
 
         writeJSON(fileName);
     }
@@ -260,6 +262,14 @@ public class AntiqueJSONRepository implements AntiqueRepository {
     @Override
     public void writeBuyer(Antique antique, User user) {
         antique.setBuyer(user.getName());
+
+        writeJSON(fileName);
+    }
+
+    // FUNCTION TO SET SELLER
+    @Override
+    public void writeSeller(Antique antique, String sellerName) {
+        antique.setSellerName(sellerName);
 
         writeJSON(fileName);
     }

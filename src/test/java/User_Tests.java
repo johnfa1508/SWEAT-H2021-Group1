@@ -1,3 +1,5 @@
+// THIS JAVA FILE CONTAINS TESTS WHICH INVOLVES USER-OBJECTS
+
 import GroupProject.model.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -6,6 +8,7 @@ import GroupProject.repository.*;
 public class User_Tests {
     // Use usersTest.json as test-file
     UserRepository userRepository = new UserJSONRepository("usersTest.json");
+
     // Make new user for testing
     User newUser = new User("userTest", 100);
 
@@ -59,5 +62,29 @@ public class User_Tests {
     @Test
     public void Return_usernames_if_user_repository_is_not_empty() {
         Assertions.assertNotNull(userRepository.showUserNames());
+    }
+
+    // TESTS IF USER GETS MONEY AFTER DEPOSITING TO BALANCE
+    @Test
+    public void Deposit_money_to_user_balance() {
+        userRepository.addUser(newUser);
+
+        double oldMoney = newUser.getBankBalance();
+        userRepository.depositMoney(newUser, 100);
+        double newMoney = newUser.getBankBalance();
+
+        Assertions.assertTrue(oldMoney < newMoney);
+    }
+
+    // TESTS IF USER LOSES MONEY AFTER WITHDRAWING FROM BALANCE
+    @Test
+    public void Withdraw_money_from_user_balance() {
+        userRepository.addUser(newUser);
+
+        double oldMoney = newUser.getBankBalance();
+        userRepository.withdrawMoney(newUser, 100);
+        double newMoney = newUser.getBankBalance();
+
+        Assertions.assertTrue(oldMoney > newMoney);
     }
 }

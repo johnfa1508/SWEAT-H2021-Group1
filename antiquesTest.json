@@ -1,0 +1,23 @@
+[ {
+  "name" : "antiqueTest2",
+  "type" : "chair",
+  "description" : "chairDescription",
+  "price" : 150.0,
+  "sold" : false,
+  "sellerName" : "ikea",
+  "lastBidder" : null,
+  "favorites" : [ ],
+  "sellType" : "AUCTION",
+  "buyer" : null
+}, {
+  "name" : "antiqueTest",
+  "type" : "table",
+  "description" : "tableDescription",
+  "price" : 200.0,
+  "sold" : false,
+  "sellerName" : "ikea",
+  "lastBidder" : null,
+  "favorites" : [ ],
+  "sellType" : "SALE",
+  "buyer" : null
+} ]

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Antique_Tests" tests="19" skipped="0" failures="0" errors="0" timestamp="2021-11-30T19:27:01" hostname="DESKTOP-3K5UHUD" time="0.059">
+  <properties/>
+  <testcase name="getAntique_returns_antique()" classname="Antique_Tests" time="0.01"/>
+  <testcase name="showSpecificAntique_returns_specific_type_of_antique()" classname="Antique_Tests" time="0.001"/>
+  <testcase name="isEmpty_returns_true_if_there_are_no_antiques()" classname="Antique_Tests" time="0.002"/>
+  <testcase name="addAntique_adds_antique_to_hashmap_of_antiques()" classname="Antique_Tests" time="0.001"/>
+  <testcase name="showAntiqueTypes_does_not_return_list_if_items_are_not_for_sale()" classname="Antique_Tests" time="0.001"/>
+  <testcase name="antiqueExists_returns_false_if_antique_does_not_exist()" classname="Antique_Tests" time="0.001"/>
+  <testcase name="showAntiqueNames_returns_all_antiques_including_sold_antiques_if_true_is_sent_through_first_parameter()" classname="Antique_Tests" time="0.003"/>
+  <testcase name="showAntiqueNames_does_not_return_antiques_for_auction_if_SALE_is_sent_through_parameter()" classname="Antique_Tests" time="0.0"/>
+  <testcase name="showAntiqueNames_returns_items_for_sale()" classname="Antique_Tests" time="0.001"/>
+  <testcase name="isEmpty_returns_false_if_there_are_antiques()" classname="Antique_Tests" time="0.001"/>
+  <testcase name="showSpecificAntique_does_not_return_another_type()" classname="Antique_Tests" time="0.001"/>
+  <testcase name="deleteAntique_removes_antique_from_hashmap_of_antiques()" classname="Antique_Tests" time="0.001"/>
+  <testcase name="showPurchaseHistory_returns_not_sold_antiques()" classname="Antique_Tests" time="0.001"/>
+  <testcase name="antiqueExists_returns_true_if_antique_exists()" classname="Antique_Tests" time="0.0"/>
+  <testcase name="showAntiquesForSale_does_not_return_antique_if_it_is_sold()" classname="Antique_Tests" time="0.001"/>
+  <testcase name="showPurchaseHistory_returns_sold_antiques()" classname="Antique_Tests" time="0.0"/>
+  <testcase name="getAntique_returns_null_if_antique_does_not_exist()" classname="Antique_Tests" time="0.001"/>
+  <testcase name="showAntiqueTypes_returns_list_if_items_are_for_sale()" classname="Antique_Tests" time="0.001"/>
+  <testcase name="showAntiquesForSale_returns_antique_if_it_is_not_sold()" classname="Antique_Tests" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -640,6 +640,7 @@ public class ProgramController {
         String type;
         String description;
         double price;
+        String sellerName;
 
         // Create scanner object to get inputs
         Scanner inputScanner = new Scanner(System.in);
@@ -663,8 +664,15 @@ public class ProgramController {
             System.out.println("\nHow much will your item cost?: ");
             price = inputScanner.nextDouble();
 
+            // Seller name
+            if (antiqueReplace) {
+                sellerName = null;
+            } else {
+                sellerName = currentStore.getName();
+            }
+
             // Create antique and add to list of antiques for sale
-            Antique newAntique = new Antique(name, type, description, price, currentStore.getName(), sellType);
+            Antique newAntique = new Antique(name, type, description, price, sellerName, sellType);
 
             if (antiqueReplace) {
                 return newAntique;
@@ -736,7 +744,8 @@ public class ProgramController {
         System.out.println("\n\n============ ADMIN - UPDATE ============" +
                 "\n1. Delete an antique" +
                 "\n2. Edit an antique" +
-                "\n3. Go back");
+                "\n3. Go back" +
+                "\n========================================");
         choice = inputScanner.nextInt();
 
         switch (choice) {
@@ -806,14 +815,26 @@ public class ProgramController {
                 updatePanel();
             } else {
                 if (antiqueRepository.getAntique(antiqueName).getSellType().equalsIgnoreCase("AUCTION")) {
+                    // Put store name in variable
+                    String sellerName = antiqueRepository.getAntique(antiqueName).getSellerName();
+
                     // Make new antique in auction using makeAntique()-function
                     Antique newAntique = makeAntique(true, "AUCTION");
+
+                    // Set seller name as store name we stored
+                    antiqueRepository.writeSeller(antiqueRepository.getAntique(antiqueName), sellerName);
 
                     // Replace antique with new antique
                     antiqueRepository.editAntique(antiqueName, newAntique);
                 } else {
+                    // Put store name in variable
+                    String sellerName = antiqueRepository.getAntique(antiqueName).getSellerName();
+
                     // Make new antique for sale using makeAntique()-function
                     Antique newAntique = makeAntique(true, "SALE");
+
+                    // Set seller name as store name we stored
+                    antiqueRepository.writeSeller(antiqueRepository.getAntique(antiqueName), sellerName);
 
                     // Replace antique with new antique
                     antiqueRepository.editAntique(antiqueName, newAntique);

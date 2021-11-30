@@ -32,12 +32,12 @@
   "sellType" : "AUCTION",
   "buyer" : null
 }, {
-  "name" : "fork from 1823",
+  "name" : "fork from 1824",
   "type" : "fork",
-  "description" : "very cool fork from 1823",
+  "description" : "very cool fork from 1824",
   "price" : 750.0,
   "sold" : false,
-  "sellerName" : "ikea",
+  "sellerName" : null,
   "lastBidder" : null,
   "favorites" : [ ],
   "sellType" : "AUCTION",
