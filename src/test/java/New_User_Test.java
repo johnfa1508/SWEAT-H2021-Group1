@@ -3,14 +3,14 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import GroupProject.repository.*;
 
-import java.io.*;
-
-public class Login_Test {
+public class New_User_Test {
     // TEST LOG IN AS ADMIN
     @Test
-    public void Logged_in_as_admin() {
+    public void Test_If_New_User_Is_In_User_Repository() {
         UserRepository userRepository = new UserJSONRepository("users.json");
+        User newUser = new User("userTest", 100);
+        userRepository.addUser(newUser);
 
-        Assertions.assertTrue(userRepository.userExists("john"));
+        Assertions.assertTrue(userRepository.userExists(newUser.getName()));
     }
 }
