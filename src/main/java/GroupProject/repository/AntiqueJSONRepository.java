@@ -278,9 +278,10 @@ public class AntiqueJSONRepository implements AntiqueRepository {
         HashMap<String, Antique> storeBidsMap = new HashMap<>();
 
         for (Map.Entry<String, Antique> antiqueSet : antiqueMap.entrySet()) {
-            // If antique is sold by the store name and last bidder exists
+            // If antique is sold by the store name and last bidder exists, and it's not sold; add to return map.
             if (Objects.equals(antiqueSet.getValue().getSellerName(),
-                    store.getName()) && antiqueSet.getValue().getLastBidder() != null) {
+                    store.getName()) && antiqueSet.getValue().getLastBidder() != null &&
+                    !antiqueSet.getValue().getSold()) {
                 storeBidsMap.put(antiqueSet.getKey(), antiqueSet.getValue());
             }
         }
@@ -294,9 +295,10 @@ public class AntiqueJSONRepository implements AntiqueRepository {
         HashMap<String, Antique> userBidsMap = new HashMap<>();
 
         for (Map.Entry<String, Antique> antiqueSet : antiqueMap.entrySet()) {
-            // If antique is sold by the store name and last bidder exists
+            // If antique's last bidder is user's name, last bidder exists, and it's not sold; add to return map.
             if (Objects.equals(antiqueSet.getValue().getLastBidder(),
-                    user.getName()) && antiqueSet.getValue().getLastBidder() != null) {
+                    user.getName()) && antiqueSet.getValue().getLastBidder() != null &&
+                    !antiqueSet.getValue().getSold()) {
                 userBidsMap.put(antiqueSet.getKey(), antiqueSet.getValue());
             }
         }

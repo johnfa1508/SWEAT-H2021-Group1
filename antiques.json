@@ -25,10 +25,10 @@
   "type" : "chair",
   "description" : "very cool chair from 1534",
   "price" : 550.0,
-  "sold" : false,
+  "sold" : true,
   "sellerName" : "burger king",
   "lastBidder" : "john",
-  "favorites" : [ ],
+  "favorites" : [ "john" ],
   "sellType" : "AUCTION",
   "buyer" : null
 }, {
