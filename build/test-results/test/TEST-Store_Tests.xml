@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Store_Tests" tests="11" skipped="0" failures="0" errors="0" timestamp="2021-11-30T20:50:53" hostname="DESKTOP-3K5UHUD" time="0.061">
+<testsuite name="Store_Tests" tests="11" skipped="0" failures="0" errors="0" timestamp="2021-11-30T22:11:09" hostname="DESKTOP-3K5UHUD" time="0.015">
   <properties/>
-  <testcase name="getStore_returns_store_if_it_exists()" classname="Store_Tests" time="0.021"/>
-  <testcase name="showStoreNames_returns_names_of_stores_that_exist()" classname="Store_Tests" time="0.001"/>
-  <testcase name="depositMoney_adds_money_to_store_balance()" classname="Store_Tests" time="0.002"/>
-  <testcase name="showStores_returns_empty_list_if_stores_do_not_exist()" classname="Store_Tests" time="0.001"/>
-  <testcase name="removeStore_removes_store_from_hashmap_of_stores()" classname="Store_Tests" time="0.002"/>
+  <testcase name="getStore_returns_store_if_it_exists()" classname="Store_Tests" time="0.001"/>
+  <testcase name="showStoreNames_returns_names_of_stores_that_exist()" classname="Store_Tests" time="0.0"/>
+  <testcase name="depositMoney_adds_money_to_store_balance()" classname="Store_Tests" time="0.001"/>
+  <testcase name="showStores_returns_empty_list_if_stores_do_not_exist()" classname="Store_Tests" time="0.0"/>
+  <testcase name="removeStore_removes_store_from_hashmap_of_stores()" classname="Store_Tests" time="0.0"/>
   <testcase name="storeExists_returns_false_if_user_does_not_exist()" classname="Store_Tests" time="0.001"/>
   <testcase name="addStore_adds_store_to_hashmap_of_stores()" classname="Store_Tests" time="0.001"/>
-  <testcase name="showStores_returns_stores_if_stores_exists()" classname="Store_Tests" time="0.001"/>
+  <testcase name="showStores_returns_stores_if_stores_exists()" classname="Store_Tests" time="0.0"/>
   <testcase name="storeExists_returns_true_if_user_exists()" classname="Store_Tests" time="0.001"/>
-  <testcase name="getStore_returns_null_if_it_does_not_exist()" classname="Store_Tests" time="0.001"/>
-  <testcase name="withdrawMoney_takes_money_from_store_balance()" classname="Store_Tests" time="0.002"/>
+  <testcase name="getStore_returns_null_if_it_does_not_exist()" classname="Store_Tests" time="0.0"/>
+  <testcase name="withdrawMoney_takes_money_from_store_balance()" classname="Store_Tests" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

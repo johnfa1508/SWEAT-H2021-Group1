@@ -3,17 +3,17 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <meta http-equiv="x-ua-compatible" content="IE=edge"/>
-<title>Test results - Class Store_Tests</title>
+<title>Test results - Class Antique_and_User_Tests</title>
 <link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
 <link href="../css/style.css" rel="stylesheet" type="text/css"/>
 <script src="../js/report.js" type="text/javascript"></script>
 </head>
 <body>
 <div id="content">
-<h1>Class Store_Tests</h1>
+<h1>Class Antique_and_User_Tests</h1>
 <div class="breadcrumbs">
 <a href="../index.html">all</a> &gt; 
-<a href="../packages/default-package.html">default-package</a> &gt; Store_Tests</div>
+<a href="../packages/default-package.html">default-package</a> &gt; Antique_and_User_Tests</div>
 <div id="summary">
 <table>
 <tr>
@@ -23,7 +23,7 @@
 <tr>
 <td>
 <div class="infoBox" id="tests">
-<div class="counter">11</div>
+<div class="counter">8</div>
 <p>tests</p>
 </div>
 </td>
@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.006s</div>
+<div class="counter">0.013s</div>
 <p>duration</p>
 </div>
 </td>
@@ -75,57 +75,42 @@
 </tr>
 </thead>
 <tr>
-<td class="success">addStore_adds_store_to_hashmap_of_stores()</td>
+<td class="success">addFavorite_adds_user_to_antique_list_of_favorites()</td>
 <td class="success">0.001s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
-<td class="success">depositMoney_adds_money_to_store_balance()</td>
+<td class="success">favoritedByUser_does_not_return_antique_not_favorited_by_user()</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">favoritedByUser_returns_map_of_antiques_favorited_by_user()</td>
 <td class="success">0.001s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
-<td class="success">getStore_returns_null_if_it_does_not_exist()</td>
-<td class="success">0s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">getStore_returns_store_if_it_exists()</td>
+<td class="success">removeFavorite_removes_user_from_antique_favorites()</td>
 <td class="success">0.001s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
-<td class="success">removeStore_removes_store_from_hashmap_of_stores()</td>
-<td class="success">0s</td>
+<td class="success">userBids_does_not_return_antique_user_has_not_bid_on()</td>
+<td class="success">0.003s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
-<td class="success">showStoreNames_returns_names_of_stores_that_exist()</td>
-<td class="success">0s</td>
+<td class="success">userBids_returns_map_of_antiques_user_has_bid_on()</td>
+<td class="success">0.002s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
-<td class="success">showStores_returns_empty_list_if_stores_do_not_exist()</td>
-<td class="success">0s</td>
+<td class="success">writeBuyer_writes_user_as_buyer()</td>
+<td class="success">0.002s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
-<td class="success">showStores_returns_stores_if_stores_exists()</td>
-<td class="success">0s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">storeExists_returns_false_if_user_does_not_exist()</td>
-<td class="success">0.001s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">storeExists_returns_true_if_user_exists()</td>
-<td class="success">0.001s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">withdrawMoney_takes_money_from_store_balance()</td>
+<td class="success">writeLastBidder_writes_user_as_last_bidder()</td>
 <td class="success">0.001s</td>
 <td class="success">passed</td>
 </tr>

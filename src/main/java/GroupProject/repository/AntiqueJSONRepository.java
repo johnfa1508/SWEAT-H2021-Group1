@@ -177,7 +177,6 @@ public class AntiqueJSONRepository implements AntiqueRepository {
     }
 
     // FUNCTION TO RETURN ANTIQUES FAVORITED BY USER
-    // TODO: Write test
     @Override
     public HashMap<String, Antique> favoritedByUser(User user) {
         HashMap<String, Antique> favoritedAntiquesMap = new HashMap<>();
@@ -230,7 +229,6 @@ public class AntiqueJSONRepository implements AntiqueRepository {
     }
 
     // FUNCTION TO ADD NAME OF USER TO FAVORITES
-    // TODO: Write test
     @Override
     public void addFavorite(Antique antique, User user) {
         antique.addFavorites(user.getName());
@@ -239,7 +237,6 @@ public class AntiqueJSONRepository implements AntiqueRepository {
     }
 
     // FUNCTION TO REMOVE NAME OF USER FROM FAVORITES
-    // TODO: Write test
     @Override
     public void removeFavorite(Antique antique, User user) {
         antique.removeFavorites(user.getName());
@@ -254,7 +251,6 @@ public class AntiqueJSONRepository implements AntiqueRepository {
     }
 
     // FUNCTION TO SET LAST BIDDER
-    // TODO: Write test
     @Override
     public void writeLastBidder(Antique antique, User user) {
         antique.setLastBidder(user.getName());
@@ -263,7 +259,6 @@ public class AntiqueJSONRepository implements AntiqueRepository {
     }
 
     // FUNCTION TO SET BUYER
-    // TODO: Write test
     @Override
     public void writeBuyer(Antique antique, User user) {
         antique.setBuyer(user.getName());
@@ -288,7 +283,6 @@ public class AntiqueJSONRepository implements AntiqueRepository {
     }
 
     // FUNCTION THAT RETURNS STORE'S ACTIVE BIDS
-    // TODO: Write test
     @Override
     public HashMap<String, Antique> storeBids(Store store) {
         HashMap<String, Antique> storeBidsMap = new HashMap<>();
@@ -306,7 +300,6 @@ public class AntiqueJSONRepository implements AntiqueRepository {
     }
 
     // FUNCTION THAT RETURNS USER'S ACTIVE BIDS
-    // TODO: Write test
     @Override
     public HashMap<String, Antique> userBids(User user) {
         HashMap<String, Antique> userBidsMap = new HashMap<>();

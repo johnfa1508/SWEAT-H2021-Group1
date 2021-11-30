@@ -187,18 +187,23 @@ public class Antique_Tests {
     }
 
     // TEST IF editAntique() REPLACES ANTIQUE FROM MAP OF ANTIQUES
-    // FIXME: this
-//    @Test
-//    public void editAntique_replaces_antique_from_hashmap_of_antiques() {
-//        antiqueRepository.addAntique(newAntique);
-//
-//        Antique replaceAntique = new Antique("antiqueTest1", "table",
-//                "tableDescription", 200, "ikea", "SALE");
-//
-//        antiqueRepository.editAntique(newAntique.getName(), replaceAntique);
-//
-//        Assertions.assertTrue(antiqueRepository.antiqueExists(replaceAntique.getName()));
-//    }
+    @Test
+    public void editAntique_replaces_antique_from_hashmap_of_antiques() {
+        antiqueRepository.addAntique(newAntique);
+
+        // Store old antique for later use
+        Antique oldAntique = newAntique;
+
+        Antique replaceAntique = new Antique("antiqueTest1", "table",
+                "tableDescription", 200, "ikea", "SALE");
+
+        antiqueRepository.editAntique(newAntique.getName(), replaceAntique);
+
+        Assertions.assertTrue(antiqueRepository.antiqueExists(replaceAntique.getName()));
+
+        // Replace the new antique with the old antique
+        antiqueRepository.editAntique(replaceAntique.getName(), oldAntique);
+    }
 
     // TEST IF writeSeller() UPDATES ANTIQUE'S SELLER
     @Test

@@ -2,5 +2,9 @@ User_Tests.java
  User_Tests
 Store_Tests.java
  Store_Tests
+Antique_and_User_Tests.java
+ Antique_and_User_Tests
+Antique_and_Store_Tests.java
+ Antique_and_Store_Tests
 Antique_Tests.java
  Antique_Tests
