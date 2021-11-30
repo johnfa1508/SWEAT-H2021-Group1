@@ -161,7 +161,7 @@ public class ProgramController {
                 purchaseAntique();   // Purchase an antique
             case 4:
                 seeBids("USER");
-                goBack();               // Show active bids
+                goBack();            // Show active bids
             case 5:
                 addFavorite();       // Add antique to favorites
             case 6:
@@ -173,7 +173,7 @@ public class ProgramController {
             case 9:
                 depositMoney();      // Deposit money
             case 10:
-                loginPanel();       // Log out
+                loginPanel();        // Log out
         }
     }
 
@@ -201,9 +201,9 @@ public class ProgramController {
             case 1:
                 showAntiques(); // Show antique screen
             case 2:
-                makeAntique(false, "AUCTION");  // Make new antique for auction
+                makeAntique(false, "AUCTION"); // Make new antique for auction
             case 3:
-                makeAntique(false, "SALE");     // Make new antique for sale
+                makeAntique(false, "SALE");    // Make new antique for sale
             case 4:
                 seeBids("STORE");
                 goBack();   // See active bids
