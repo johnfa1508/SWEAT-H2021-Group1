@@ -1,5 +1,5 @@
-GroupProject/controller/ProgramController.java
- GroupProject.controller.ProgramController
+GroupProject/repository/AntiqueJSONRepository.java
+ GroupProject.repository.AntiqueJSONRepository
 GroupProject/model/User.java
  GroupProject.model.User
 GroupProject/model/Antique.java
@@ -16,7 +16,7 @@ GroupProject/repository/StoreRepository.java
  GroupProject.repository.StoreRepository
 GroupProject/model/Store.java
  GroupProject.model.Store
-GroupProject/repository/AntiqueJSONRepository.java
- GroupProject.repository.AntiqueJSONRepository
 GroupProject/Main.java
  GroupProject.Main
+GroupProject/controller/ProgramController.java
+ GroupProject.controller.ProgramController
