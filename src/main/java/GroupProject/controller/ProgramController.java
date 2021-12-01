@@ -427,7 +427,8 @@ public class ProgramController {
                     }
                 }
             }
-        } else if (itemInCart.equalsIgnoreCase("CANCEL")) {
+        } else if (itemInCart.equalsIgnoreCase("CANCEL") ||
+                itemInCart.equalsIgnoreCase("cancel")) {
             // If user wants to cancel, go back
             goBack();
         } else {
@@ -460,7 +461,8 @@ public class ProgramController {
             } else if (antique.getSold()) {
                 // If item is already sold, user will be sent back
                 System.out.println("\n*** That item is already sold! Please try again. ***\n");
-            } else if (itemInCart.equalsIgnoreCase("CANCEL")) {
+            } else if (itemInCart.equalsIgnoreCase("CANCEL") ||
+                    itemInCart.equalsIgnoreCase("cancel")) {
                 // If user wants to cancel, go back
                 goBack();
             } else if (antique.getSellType().equalsIgnoreCase("AUCTION")) {
@@ -813,7 +815,7 @@ public class ProgramController {
 
         // If antique exists, program will continue
         if (antiqueRepository.antiqueExists(antiqueName)) {
-            // Send antiqueName to deleteAntique()-method in repository
+            // Remove antique from repository
             antiqueRepository.deleteAntique(antiqueName);
         } else if (antiqueName.equalsIgnoreCase("CANCEL") ||
                 antiqueName.equalsIgnoreCase("cancel")) {
@@ -963,11 +965,14 @@ public class ProgramController {
         System.out.println("\nWrite the name of the new store (CANCEL to cancel): ");
         name = inputScanner.nextLine();
 
+        // If store name already exists, user will get sent back
         if (storeRepository.storeExists(name)) {
             System.out.println("\n*** That store name already exists. Please try again. ***");
         } else if (name.equalsIgnoreCase("CANCEL") || name.equalsIgnoreCase("cancel")) {
+            // If user cancels, user will get sent back
             goBack();
         } else {
+            // Make new store and add to repository
             Store newStore = new Store(name);
             storeRepository.addStore(newStore);
         }
