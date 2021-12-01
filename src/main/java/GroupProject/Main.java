@@ -12,7 +12,6 @@ public class Main {
         ProgramController programController = new ProgramController(antiqueRepository, userRepository, storeRepository);
 
         // Go to login-screen
-//        programController.loginPanel();
-        programController.updatePanel();
+        programController.loginPanel();
     }
 }
