@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Antique_and_Store_Tests" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-11-30T22:57:18" hostname="DESKTOP-3K5UHUD" time="0.012">
+  <properties/>
+  <testcase name="writeLastBidder_writes_user_as_last_bidder()" classname="Antique_and_Store_Tests" time="0.012"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="User_Tests" tests="9" skipped="0" failures="0" errors="0" timestamp="2021-11-30T22:11:09" hostname="DESKTOP-3K5UHUD" time="0.012">
+<testsuite name="User_Tests" tests="9" skipped="0" failures="0" errors="0" timestamp="2021-11-30T22:57:18" hostname="DESKTOP-3K5UHUD" time="0.013">
   <properties/>
   <testcase name="showUserNames_returns_usernames_if_user_repository_is_not_empty()" classname="User_Tests" time="0.0"/>
-  <testcase name="userExists_returns_false_if_user_does_not_exists()" classname="User_Tests" time="0.0"/>
-  <testcase name="showUserNames_returns_empty_userNameMap_if_user_repository_is_empty()" classname="User_Tests" time="0.0"/>
+  <testcase name="userExists_returns_false_if_user_does_not_exists()" classname="User_Tests" time="0.001"/>
+  <testcase name="showUserNames_returns_empty_userNameMap_if_user_repository_is_empty()" classname="User_Tests" time="0.001"/>
   <testcase name="depositMoney_adds_money_to_user_balance()" classname="User_Tests" time="0.0"/>
   <testcase name="userExists_returns_true_if_user_exists()" classname="User_Tests" time="0.001"/>
   <testcase name="showUsers_returns_values_if_user_repository_is_not_empty()" classname="User_Tests" time="0.0"/>

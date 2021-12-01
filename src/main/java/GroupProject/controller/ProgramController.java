@@ -63,21 +63,31 @@ public class ProgramController {
     // LOG IN AS USER
     public void loginUserPanel() {
         System.out.println("Which user would you like to log in to?: ");
+
+        // Receive usernames from repository
         ArrayList<String> userNamesArray = userRepository.showUserNames();
 
-        for (String userNames : userNamesArray) {
-            System.out.println(userNames);
+        // If username list is empty, send user back
+        if (userNamesArray.isEmpty()) {
+            System.out.println("\n*** There are currently no users registered. Please try again. ***\n");
+        } else {
+            // If list contains values, print out
+            for (String userNames : userNamesArray) {
+                System.out.println(userNames);
+            }
         }
 
         String userInput;
         Scanner inputScanner = new Scanner(System.in);
         userInput = inputScanner.nextLine();
 
-        // If the user doesn't exist, user will get sent back to login panel
+        // If the user exists, user will get sent to user panel logged in as desired user
         if (userRepository.userExists(userInput)) {
             userPanel(userRepository.getUser(userInput));
         } else {
+            // If user doesn't exist, user will get sent back to login panel
             System.out.println("\n*** That user does not exist. Please try again. ***");
+
             loginPanel();
         }
     }
@@ -87,25 +97,34 @@ public class ProgramController {
         System.out.println("Which store would you like to log in to?: ");
         ArrayList<String> storeNamesArray = storeRepository.showStoreNames();
 
-        for (String storeNames : storeNamesArray) {
-            System.out.println(storeNames);
+        // If store list is empty, send user back
+        if (storeNamesArray.isEmpty()) {
+            System.out.println("\n*** There are currently no stores registered. Please try again. ***\n");
+        } else {
+            // If list contains values, print out
+            for (String storeNames : storeNamesArray) {
+                System.out.println(storeNames);
+            }
         }
 
         String userInput;
         Scanner inputScanner = new Scanner(System.in);
         userInput = inputScanner.nextLine();
 
-        // If the user doesn't exist, user will get sent back to login panel
+        // If store exists, user will get sent to store panel logged in as desired store
         if (storeRepository.storeExists(userInput)) {
             storePanel(storeRepository.getStore(userInput));
         } else {
+            // If store doesn't exist, user will get sent back to login panel
             System.out.println("\n*** That store does not exist. Please try again. ***");
+
             loginPanel();
         }
     }
 
     // FUNCTION TO MAKE NEW USER
     public void makeUser() {
+        // Variables to store values used for constructor
         String name;
         double bankBalance;
 
@@ -113,14 +132,18 @@ public class ProgramController {
         System.out.println("\nWrite the name of the new user (CANCEL to cancel): ");
         name = inputScanner.nextLine();
 
+        // If username already exists, user will get sent back
         if (userRepository.userExists(name)) {
             System.out.println("\n*** That username already exists. Please try again. ***");
         } else if (name.equalsIgnoreCase("CANCEL") || name.equalsIgnoreCase("cancel")) {
+            // If user wants to cancel, user will get sent back
             goBack();
         } else {
+            // If username is unique program will continue
             System.out.println("\nWrite how much there's in the bank balance: ");
             bankBalance = inputScanner.nextDouble();
 
+            // Make new user and add it to repository
             User newUser = new User(name, bankBalance);
             userRepository.addUser(newUser);
         }
@@ -258,7 +281,7 @@ public class ProgramController {
     public void showAntiques() {
         // Checks if there are items for sale
         if (antiqueRepository.isEmpty()) {
-            System.out.println("*** There are currently no antiques to show. ***");
+            System.out.println("\n*** There are currently no antiques to show. ***\n");
 
             goBack();
         }
@@ -316,22 +339,23 @@ public class ProgramController {
         System.out.println("\nWhich one would you like to see?: ");
         userInput = inputScanner.nextLine();
 
+        // If antique-type written does not exist, user will get sent back
         if (!antiqueTypes.contains(userInput)) {
             System.out.println("\n*** That type does not exist. Please try again ***");
+        } else if (userInput.equalsIgnoreCase("CANCEL") ||
+                userInput.equalsIgnoreCase("cancel")) {
+            // If user wants to cancel, user will get sent back
+            showAntiques();
         } else {
-            // Program will continue if user doesn't write cancel or CANCEL
-            if (!userInput.equalsIgnoreCase("CANCEL") ||
-                    !userInput.equalsIgnoreCase("cancel")) {
-                System.out.println("\n============ AVAILABLE ITEMS ============");
+            System.out.println("\n============ AVAILABLE ITEMS ============");
 
-                // Show antiques of that type
-                HashMap<String, Antique> specificAntiqueTypes = antiqueRepository.showSpecificAntique(userInput);
-                for (Map.Entry<String, Antique> antiqueSet : specificAntiqueTypes.entrySet()) {
-                    System.out.println(antiqueSet.getKey() + " = " + antiqueSet.getValue());
-                }
-
-                System.out.println("=========================================");
+            // Show antiques of that type
+            HashMap<String, Antique> specificAntiqueTypes = antiqueRepository.showSpecificAntique(userInput);
+            for (Map.Entry<String, Antique> antiqueSet : specificAntiqueTypes.entrySet()) {
+                System.out.println(antiqueSet.getKey() + " = " + antiqueSet.getValue());
             }
+
+            System.out.println("=========================================");
         }
 
         // Go back to antiques-screen
@@ -354,7 +378,7 @@ public class ProgramController {
 
         // If antique exists, program will continue
         if (antiqueRepository.antiqueExists(itemInCart)) {
-            // If the bidder does not have enough money, program will send the bidder back
+            // If the bidder does not have enough money, program will send the user back
             if (currentUser.getBankBalance() < antique.getPrice()) {
                 System.out.println("\n*** Your bank balance is insufficient. Please try again.\n");
             } else {
@@ -467,12 +491,13 @@ public class ProgramController {
     public void showAntiqueNames(String sellType) {
         ArrayList<String> antiqueNamesArray = antiqueRepository.showAntiqueNames(false, sellType);
 
-        // If the return list is empty, tell user
+        // If the return list is empty, send user back
         if (antiqueNamesArray.isEmpty()) {
             System.out.println("\n*** There are currently no items for sale. ***\n");
 
             goBack();
         } else {
+            // Print out antique names
             for (String antiqueNames : antiqueNamesArray) {
                 System.out.println(antiqueNames);
             }
@@ -485,14 +510,17 @@ public class ProgramController {
 
         // Checks which usertype is asking for the bids
         if (userType.equalsIgnoreCase("STORE")) {
+            // Return active bids that the store is selling
             bidMap = antiqueRepository.storeBids(currentStore);
         } else {
+            // Return active bids that the user has bid on
             bidMap = antiqueRepository.userBids(currentUser);
         }
 
         // If the map is empty, send user back
         if (bidMap.isEmpty()) {
             System.out.println("*** There are no active bids ***");
+
             goBack();
         } else {
             // Print out bids
@@ -523,10 +551,12 @@ public class ProgramController {
             if (antiqueRepository.getAntique(favoriteItem).getFavorites().contains(currentUser.getName())) {
                 System.out.println("*** You have already favorited that item. ***\n");
             } else {
+                // Add antique to user's favorites
                 antiqueRepository.addFavorite(antiqueRepository.getAntique(favoriteItem), currentUser);
             }
         } else if (favoriteItem.equalsIgnoreCase("CANCEL") ||
                 favoriteItem.equalsIgnoreCase("cancel")) {
+            // Send user back if user cancels
             goBack();
         } else {
             // If antique doesn't exist, user will get sent back
@@ -545,6 +575,7 @@ public class ProgramController {
         if (favorites.isEmpty()) {
             System.out.println("*** You have no favorites ***");
         } else {
+            // Print out antiques user has favorited
             System.out.println("\n========== ANTIQUES FAVORITED ==========");
 
             for (Map.Entry<String, Antique> antiqueSet : favorites.entrySet()) {
@@ -581,6 +612,7 @@ public class ProgramController {
         if (favorites.isEmpty()) {
             System.out.println("*** You have no favorites ***");
         } else {
+            // Print out favorites
             System.out.println("\n========== ANTIQUES FAVORITED ==========");
 
             for (Map.Entry<String, Antique> antiqueSet : favorites.entrySet()) {
@@ -595,9 +627,11 @@ public class ProgramController {
 
     // FUNCTION TO SHOW USER-BALANCE
     public void showBalance(String userType) {
+        // If function receives STORE in parameter, it will print out current store's balance
         if (userType.equals("STORE")) {
             System.out.println("\nYour bank balance is: " + currentStore.getBankBalance() + " nok");
         } else {
+            // If function receives USER in parameter, it will print out current user's balance
             System.out.println("\nYour bank balance is " + currentUser.getBankBalance() + " nok");
         }
 
@@ -612,9 +646,11 @@ public class ProgramController {
         System.out.println("\nEnter the amount you would like to deposit: ");
         money = inputScanner.nextDouble();
 
+        // If user tries to deposit a negative number, user will get sent back
         if (money < 0) {
             System.out.println("\n*** You entered a negative number. ***");
         } else {
+            // Add money to user's balance
             userRepository.depositMoney(currentUser, money);
         }
 
@@ -675,6 +711,7 @@ public class ProgramController {
             Antique newAntique = new Antique(name, type, description, price, sellerName, sellType);
 
             if (antiqueReplace) {
+                antiqueRepository.addAntique(newAntique);
                 return newAntique;
             } else {
                 antiqueRepository.addAntique(newAntique);
@@ -761,7 +798,7 @@ public class ProgramController {
     // FUNCTION TO DELETE ANTIQUE
     public void deleteAntique() {
         // Show antique names
-        System.out.println("Antiques that can be deleted: ");
+        System.out.println("\nAntiques that can be deleted: ");
         ArrayList<String> antiqueNamesArray = antiqueRepository.showAntiqueNames(true, "ALL");
 
         for (String antiqueNames : antiqueNamesArray) {
@@ -794,11 +831,11 @@ public class ProgramController {
     public void editAntique() {
         // Checks if there are items for sale
         if (antiqueRepository.isEmpty()) {
-            System.out.println("*** There are no items that can be edited. ***\n");
+            System.out.println("\n*** There are no items that can be edited. ***\n");
             updatePanel();
         }
 
-        System.out.println("Antiques that can be edited: ");
+        System.out.println("\nAntiques that can be edited: ");
         showAntiqueNames("ALL");
 
         // Get antique name(key) and store it in antiqueName variable
@@ -812,8 +849,10 @@ public class ProgramController {
             // If antique is already sold, admin will get sent back
             if (antiqueRepository.getAntique(antiqueName).getSold()) {
                 System.out.println("That item is already sold!\n");
+
                 updatePanel();
             } else {
+                // If antique was for auction
                 if (antiqueRepository.getAntique(antiqueName).getSellType().equalsIgnoreCase("AUCTION")) {
                     // Put store name in variable
                     String sellerName = antiqueRepository.getAntique(antiqueName).getSellerName();
@@ -822,11 +861,13 @@ public class ProgramController {
                     Antique newAntique = makeAntique(true, "AUCTION");
 
                     // Set seller name as store name we stored
-                    antiqueRepository.writeSeller(antiqueRepository.getAntique(antiqueName), sellerName);
+                    antiqueRepository.writeSeller(antiqueRepository.getAntique(newAntique.getName()), sellerName);
 
                     // Replace antique with new antique
                     antiqueRepository.editAntique(antiqueName, newAntique);
                 } else {
+                    // If antique was for sale
+
                     // Put store name in variable
                     String sellerName = antiqueRepository.getAntique(antiqueName).getSellerName();
 
@@ -834,7 +875,7 @@ public class ProgramController {
                     Antique newAntique = makeAntique(true, "SALE");
 
                     // Set seller name as store name we stored
-                    antiqueRepository.writeSeller(antiqueRepository.getAntique(antiqueName), sellerName);
+                    antiqueRepository.writeSeller(antiqueRepository.getAntique(newAntique.getName()), sellerName);
 
                     // Replace antique with new antique
                     antiqueRepository.editAntique(antiqueName, newAntique);
@@ -854,44 +895,62 @@ public class ProgramController {
 
     // FUNCTION TO VIEW PURCHASE HISTORY
     public void purchaseHistory() {
-        System.out.println("\n================ HISTORY ================");
         HashMap<String, Antique> purchaseHistory = antiqueRepository.showPurchaseHistory();
 
-        for (Map.Entry<String, Antique> antiqueSet : purchaseHistory.entrySet()) {
-            System.out.println(antiqueSet.getKey() + " = " + antiqueSet.getValue());
+        // If return map is empty, send user back
+        if (purchaseHistory.isEmpty()) {
+            System.out.println("\n*** There is no history to show. ***\n");
+        } else {
+            System.out.println("\n================ HISTORY ================");
+
+            for (Map.Entry<String, Antique> antiqueSet : purchaseHistory.entrySet()) {
+                System.out.println(antiqueSet.getKey() + " = " + antiqueSet.getValue());
+            }
+
+            System.out.println("=========================================");
         }
 
-        System.out.println("=========================================");
+
 
         goBack();
     }
 
     // FUNCTION TO SHOW ALL USERS
     public void showUsers() {
-        System.out.println("============== ALL USERS ===============");
-
         HashMap<String, User> userMap = userRepository.showUsers();
 
-        for (Map.Entry<String, User> userSet : userMap.entrySet()) {
-            System.out.println(userSet.getKey() + " = " + userSet.getValue());
-        }
+        // If return map is empty, send user back
+        if (userMap.isEmpty()) {
+            System.out.println("\n*** There are no users to show. ***\n");
+        } else {
+            System.out.println("============== ALL USERS ===============");
 
-        System.out.println("========================================");
+            for (Map.Entry<String, User> userSet : userMap.entrySet()) {
+                System.out.println(userSet.getKey() + " = " + userSet.getValue());
+            }
+
+            System.out.println("========================================");
+        }
 
         goBack();
     }
 
     // FUNCTION TO SHOW ALL STORES
     public void showStores() {
-        System.out.println("============== ALL STORES ===============");
-
         HashMap<String, Store> storeMap = storeRepository.showStores();
 
-        for (Map.Entry<String, Store> storeSet : storeMap.entrySet()) {
-            System.out.println(storeSet.getKey() + " = " + storeSet.getValue());
-        }
+        // If return map is empty, send user back
+        if (storeMap.isEmpty()) {
+            System.out.println("\n*** There are no stores to show. ***\n");
+        } else {
+            System.out.println("============== ALL STORES ===============");
 
-        System.out.println("=========================================");
+            for (Map.Entry<String, Store> storeSet : storeMap.entrySet()) {
+                System.out.println(storeSet.getKey() + " = " + storeSet.getValue());
+            }
+
+            System.out.println("=========================================");
+        }
 
         goBack();
     }

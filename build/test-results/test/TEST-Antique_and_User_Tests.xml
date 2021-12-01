@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Antique_and_User_Tests" tests="8" skipped="0" failures="0" errors="0" timestamp="2021-11-30T22:11:09" hostname="DESKTOP-3K5UHUD" time="0.034">
+<testsuite name="Antique_and_User_Tests" tests="8" skipped="0" failures="0" errors="0" timestamp="2021-11-30T22:57:18" hostname="DESKTOP-3K5UHUD" time="0.036">
   <properties/>
   <testcase name="userBids_does_not_return_antique_user_has_not_bid_on()" classname="Antique_and_User_Tests" time="0.003"/>
-  <testcase name="writeLastBidder_writes_user_as_last_bidder()" classname="Antique_and_User_Tests" time="0.001"/>
-  <testcase name="writeBuyer_writes_user_as_buyer()" classname="Antique_and_User_Tests" time="0.002"/>
+  <testcase name="writeLastBidder_writes_user_as_last_bidder()" classname="Antique_and_User_Tests" time="0.002"/>
+  <testcase name="writeBuyer_writes_user_as_buyer()" classname="Antique_and_User_Tests" time="0.001"/>
   <testcase name="favoritedByUser_returns_map_of_antiques_favorited_by_user()" classname="Antique_and_User_Tests" time="0.001"/>
   <testcase name="favoritedByUser_does_not_return_antique_not_favorited_by_user()" classname="Antique_and_User_Tests" time="0.002"/>
-  <testcase name="userBids_returns_map_of_antiques_user_has_bid_on()" classname="Antique_and_User_Tests" time="0.002"/>
+  <testcase name="userBids_returns_map_of_antiques_user_has_bid_on()" classname="Antique_and_User_Tests" time="0.001"/>
   <testcase name="removeFavorite_removes_user_from_antique_favorites()" classname="Antique_and_User_Tests" time="0.001"/>
   <testcase name="addFavorite_adds_user_to_antique_list_of_favorites()" classname="Antique_and_User_Tests" time="0.001"/>
   <system-out><![CDATA[]]></system-out>

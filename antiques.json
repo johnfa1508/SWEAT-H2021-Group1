@@ -32,6 +32,17 @@
   "sellType" : "AUCTION",
   "buyer" : null
 }, {
+  "name" : "old burger new new",
+  "type" : "burger",
+  "description" : "old burger new new from mcdonalds",
+  "price" : 250.0,
+  "sold" : false,
+  "sellerName" : "mcdonalds",
+  "lastBidder" : null,
+  "favorites" : [ ],
+  "sellType" : "SALE",
+  "buyer" : null
+}, {
   "name" : "fork from 1824",
   "type" : "fork",
   "description" : "very cool fork from 1824",
@@ -71,6 +82,17 @@
   "price" : 950.0,
   "sold" : false,
   "sellerName" : "ikea",
+  "lastBidder" : null,
+  "favorites" : [ ],
+  "sellType" : "AUCTION",
+  "buyer" : null
+}, {
+  "name" : "old burger old",
+  "type" : "burger",
+  "description" : "old burger old from mcdonalds",
+  "price" : 250.0,
+  "sold" : false,
+  "sellerName" : "mcdonalds",
   "lastBidder" : null,
   "favorites" : [ ],
   "sellType" : "AUCTION",
