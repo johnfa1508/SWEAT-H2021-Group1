@@ -1,10 +1,13 @@
 [ {
-  "name" : "burger king",
-  "bankBalance" : 575.0
-}, {
-  "name" : "mcdonalds",
+  "name" : "Courtland Treasures",
   "bankBalance" : 0.0
 }, {
-  "name" : "ikea",
-  "bankBalance" : 500.0
+  "name" : "Baker Peter",
+  "bankBalance" : 0.0
+}, {
+  "name" : "John's furniture",
+  "bankBalance" : 0.0
+}, {
+  "name" : "Relic's Relics",
+  "bankBalance" : 0.0
 } ]

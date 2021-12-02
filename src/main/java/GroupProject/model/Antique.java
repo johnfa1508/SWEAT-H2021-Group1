@@ -115,28 +115,55 @@ public class Antique {
 
     @Override
     public String toString() {
+        // If antique is for auction, print this
         if (getSellType().equalsIgnoreCase("AUCTION")) {
-            return String.format("\n" +
-                    "Name: %s" +
-                    "\nType: %s" +
-                    "\nDescription: %s" +
-                    "\nPrice: %s" +
-                    "\nSeller: %s" +
-                    "\nLast bidder: %s" +
-                    "\nFavorited by: %s" +
-                    "\nSelling type: %s\n", getName(), getType(), getDescription(), getPrice(), getSellerName(),
-                    getLastBidder(), getFavorites(), getSellType());
+            // If antique has a last bidder, print this
+            if (getLastBidder() != null) {
+                return String.format("\n" +
+                                "Name: %s" +
+                                "\nType: %s" +
+                                "\nDescription: %s" +
+                                "\nPrice: %s" +
+                                "\nSeller: %s" +
+                                "\nLast bidder: %s" +
+                                "\nFavorited by: %s" +
+                                "\nSelling type: %s\n", getName(), getType(), getDescription(), getPrice(),
+                                                    getSellerName(), getLastBidder(), getFavorites(), getSellType());
+            } else {
+                return String.format("\n" +
+                                "Name: %s" +
+                                "\nType: %s" +
+                                "\nDescription: %s" +
+                                "\nPrice: %s" +
+                                "\nSeller: %s" +
+                                "\nFavorited by: %s" +
+                                "\nSelling type: %s\n", getName(), getType(), getDescription(), getPrice(),
+                                                        getSellerName(), getFavorites(), getSellType());
+            }
         } else {
-            return String.format("\n" +
-                            "Name: %s" +
-                            "\nType: %s" +
-                            "\nDescription: %s" +
-                            "\nPrice: %s" +
-                            "\nSeller: %s" +
-                            "\nBuyer: %s" +
-                            "\nFavorited by: %s" +
-                            "\nSelling type: %s\n", getName(), getType(), getDescription(), getPrice(), getSellerName(),
-                    getBuyer(), getFavorites(), getSellType());
+            // If item is sold, print this
+            if (getSold()) {
+                return String.format("\n" +
+                                "Name: %s" +
+                                "\nType: %s" +
+                                "\nDescription: %s" +
+                                "\nPrice: %s" +
+                                "\nSeller: %s" +
+                                "\nBuyer: %s" +
+                                "\nFavorited by: %s" +
+                                "\nSelling type: %s\n", getName(), getType(), getDescription(), getPrice(),
+                                                         getSellerName(), getBuyer(), getFavorites(), getSellType());
+            } else {
+                return String.format("\n" +
+                                "Name: %s" +
+                                "\nType: %s" +
+                                "\nDescription: %s" +
+                                "\nPrice: %s" +
+                                "\nSeller: %s" +
+                                "\nFavorited by: %s" +
+                                "\nSelling type: %s\n", getName(), getType(), getDescription(), getPrice(),
+                                                         getSellerName(), getFavorites(), getSellType());
+            }
         }
     }
 }
