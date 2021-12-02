@@ -702,20 +702,23 @@ public class ProgramController {
             System.out.println("\nHow much will your item cost?: ");
             price = inputScanner.nextDouble();
 
-            // Seller name
+            // If antique is for replacement, set sellerName as null
             if (antiqueReplace) {
                 sellerName = null;
             } else {
+                // If antique is a new antique, set sellerName as current store
                 sellerName = currentStore.getName();
             }
 
             // Create antique and add to list of antiques for sale
             Antique newAntique = new Antique(name, type, description, price, sellerName, sellType);
 
+            // If antique is for replacement, add antique to repository and return object
             if (antiqueReplace) {
                 antiqueRepository.addAntique(newAntique);
                 return newAntique;
             } else {
+                // If antique is a new antique, add to repository
                 antiqueRepository.addAntique(newAntique);
             }
         } else if (name.equalsIgnoreCase("CANCEL") || name.equalsIgnoreCase("cancel")) {
