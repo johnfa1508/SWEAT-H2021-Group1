@@ -62,7 +62,7 @@ public class ProgramController {
 
     // LOG IN AS USER
     public void loginUserPanel() {
-        System.out.println("Which user would you like to log in to?: ");
+        System.out.println("\nWhich user would you like to log in to?: ");
 
         // Receive usernames from repository
         ArrayList<String> userNamesArray = userRepository.showUserNames();
@@ -94,7 +94,7 @@ public class ProgramController {
 
     // LOG IN AS STORE
     public void loginStorePanel() {
-        System.out.println("Which store would you like to log in to?: ");
+        System.out.println("\nWhich store would you like to log in to?: ");
         ArrayList<String> storeNamesArray = storeRepository.showStoreNames();
 
         // If store list is empty, send user back
@@ -212,7 +212,7 @@ public class ProgramController {
         Scanner inputScanner = new Scanner(System.in);
         System.out.println("\n\n================= STORE =================" +
                 "\n1. See antiques" +
-                "\n2. Set antique for bidding" +
+                "\n2. Set antique for auction" +
                 "\n3. Set antique for sale" +
                 "\n4. See active bids" +
                 "\n5. End bidding on an antique" +
@@ -434,7 +434,7 @@ public class ProgramController {
             // If the bidder bids less than what the current price is, program will send the bidder back
             System.out.println("\n*** You have to bid higher than previous price. Please try again. ***\n");
         } else {
-            System.out.println("\nBidding success.\n");
+            System.out.println("\n*** Bidding success. ***\n");
 
             // Update antique's price
             antiqueRepository.writeNewPrice(antique, bidAmount);
@@ -450,7 +450,7 @@ public class ProgramController {
     // FUNCTION TO PURCHASE ANTIQUE
     public void purchaseAntique() {
         // Show antiques for sale
-        System.out.println("Antiques that are for sale are: ");
+        System.out.println("\nAntiques that are for sale are: ");
         showAntiqueNames("SALE");
 
         String itemInCart;
@@ -529,7 +529,7 @@ public class ProgramController {
 
         // If the map is empty, send user back
         if (bidMap.isEmpty()) {
-            System.out.println("*** There are no active bids ***");
+            System.out.println("\n*** There are no active bids ***");
 
             goBack();
         } else {
@@ -547,7 +547,7 @@ public class ProgramController {
     // FUNCTION TO ADD ANTIQUE TO FAVORITES
     public void addFavorite() {
         // Show antiques for sale
-        System.out.println("Antiques that are for sale are: ");
+        System.out.println("\nAntiques that are for sale are: ");
         showAntiqueNames("ALL");
 
         String favoriteItem;
@@ -559,7 +559,10 @@ public class ProgramController {
         if (antiqueRepository.antiqueExists(favoriteItem)) {
             // If user has already favorited the item, user will get sent back
             if (antiqueRepository.getAntique(favoriteItem).getFavorites().contains(currentUser.getName())) {
-                System.out.println("*** You have already favorited that item. ***\n");
+                System.out.println("\n*** You have already favorited that item. ***\n");
+            } else if (antiqueRepository.getAntique(favoriteItem).getSold()) {
+                // If item is sold already, user will get sent back
+                System.out.println("\n*** That item is already sold. ***");
             } else {
                 // Add antique to user's favorites
                 antiqueRepository.addFavorite(antiqueRepository.getAntique(favoriteItem), currentUser);
