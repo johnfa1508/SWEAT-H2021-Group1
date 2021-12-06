@@ -390,45 +390,25 @@ public class ProgramController {
                     if (antique.getSellType().equalsIgnoreCase("SALE")) {
                         System.out.println("\n*** That item is for sale, not auction! Please try again. ***\n");
                     } else {
-                        // If user tries to bid again after bidding last time, user will be sent back
-                        if (antique.getLastBidder().equalsIgnoreCase(currentUser.getName())) {
-                            System.out.println("\n*** You have already set a bid on that item! ***\n");
-                        } else {
-                            // If the antique has a last bidder, and it's not the current user; do this
-                            if (antique.getLastBidder() != null &&
-                                    !Objects.equals(antique.getLastBidder(), currentUser.getName())) {
-                                // Last bidder will get money back
+                        // If antique has a last bidder
+                        if (antique.getLastBidder() != null) {
+                            // If user tries to bid again after bidding last time, user will be sent back
+                            if (antique.getLastBidder().equalsIgnoreCase(currentUser.getName())) {
+                                System.out.println("\n*** You have already set a bid on that item! ***\n");
+                            } else if (!Objects.equals(antique.getLastBidder(), currentUser.getName())) {
+                                // If the last bidder is not the current user, last bidder will get money back
                                 userRepository.getUser(antique.getLastBidder()).depositMoney(antique.getPrice());
+
+                                bidProcess(antique);
                             }
-
-                            double bidAmount;
-                            System.out.printf("\nHow much would you like to bid? (Current price: %s): ", antique.getPrice());
-                            bidAmount = inputScanner.nextDouble();
-
-                            // If the bid amount is more than the current user's bank balance, program will send the bidder back
-                            if (bidAmount > currentUser.getBankBalance()) {
-                                System.out.println("\n*** Your bank balance is insufficient. Please try again. ***\n");
-                            } else if (bidAmount < antique.getPrice()) {
-                                // If the bidder bids less than what the current price is, program will send the bidder back
-                                System.out.println("\n*** You have to bid higher than previous price. Please try again. ***\n");
-                            } else {
-                                System.out.println("\nBidding success.\n");
-
-                                // Update antique's price
-                                antiqueRepository.writeNewPrice(antique, bidAmount);
-
-                                // Current user's balance will get deducted
-                                userRepository.withdrawMoney(currentUser, bidAmount);
-
-                                // Set current user as last bidder
-                                antiqueRepository.writeLastBidder(antique, currentUser);
-                            }
+                        } else {
+                            bidProcess(antique);
                         }
                     }
                 }
             }
         } else if (itemInCart.equalsIgnoreCase("CANCEL") ||
-                itemInCart.equalsIgnoreCase("cancel")) {
+            itemInCart.equalsIgnoreCase("cancel")) {
             // If user wants to cancel, go back
             goBack();
         } else {
@@ -437,6 +417,34 @@ public class ProgramController {
         }
 
         goBack();
+    }
+
+    // FUNCTION TO HANDLE BID PROCESS
+    public void bidProcess(Antique antique) {
+        Scanner inputScanner = new Scanner(System.in);
+
+        double bidAmount;
+        System.out.printf("\nHow much would you like to bid? (Current price: %s): ", antique.getPrice());
+        bidAmount = inputScanner.nextDouble();
+
+        // If the bid amount is more than the current user's bank balance, program will send the bidder back
+        if (bidAmount > currentUser.getBankBalance()) {
+            System.out.println("\n*** Your bank balance is insufficient. Please try again. ***\n");
+        } else if (bidAmount < antique.getPrice()) {
+            // If the bidder bids less than what the current price is, program will send the bidder back
+            System.out.println("\n*** You have to bid higher than previous price. Please try again. ***\n");
+        } else {
+            System.out.println("\nBidding success.\n");
+
+            // Update antique's price
+            antiqueRepository.writeNewPrice(antique, bidAmount);
+
+            // Current user's balance will get deducted
+            userRepository.withdrawMoney(currentUser, bidAmount);
+
+            // Set current user as last bidder
+            antiqueRepository.writeLastBidder(antique, currentUser);
+        }
     }
 
     // FUNCTION TO PURCHASE ANTIQUE
